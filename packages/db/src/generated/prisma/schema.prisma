@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Provider {
+  github
+  email
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String?
+  password     String? // null for GitHub users
+  avatarUrl    String?
+  provider     Provider // 'github' or 'manual'
+  createdAt    DateTime       @default(now())
+  standups     Standup[]
+  teams        TeamMember[]
+  StatusUpdate StatusUpdate[]
+}
+
+model Team {
+  id           String         @id @default(cuid())
+  name         String
+  createdAt    DateTime       @default(now())
+  members      TeamMember[]
+  standups     Standup[]
+  StatusUpdate StatusUpdate[]
+}
+
+model TeamMember {
+  id     String @id @default(cuid())
+  role   String // owner, admin, member
+  userId String
+  teamId String
+  user   User   @relation(fields: [userId], references: [id])
+  team   Team   @relation(fields: [teamId], references: [id])
+}
+
+model Standup {
+  id        String   @id @default(cuid())
+  date      DateTime
+  userId    String
+  teamId    String
+  yesterday String
+  today     String
+  blockers  String
+  user      User     @relation(fields: [userId], references: [id])
+  team      Team     @relation(fields: [teamId], references: [id])
+}
+
+model StatusUpdate {
+  id        String   @id @default(cuid())
+  userId    String
+  teamId    String
+  status    String // coding, meeting, afk, etc
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  team      Team     @relation(fields: [teamId], references: [id])
+}
