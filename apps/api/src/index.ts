@@ -6,7 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import manualRoutes from "./routes/manual.routes.ts";
 import dashboardRoutes from "./routes/dashboard.routes.ts";
-
+import teamRoutes from "./routes/team.routes.ts";
 dotenv.config();
 const app = express();
 
@@ -25,6 +25,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/standups', standupRoutes);
 app.use('/api/auth/manual', manualRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/teams', teamRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

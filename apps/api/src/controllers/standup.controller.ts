@@ -10,10 +10,7 @@ export const createStandup = async (req: Request, res: Response) => {
             data: {
                 userId,
                 teamId,
-                date: new Date(),
-                yesterday,
-                today,
-                blockers,
+                content: JSON.stringify({ yesterday, today, blockers }),
             },
         });
 
@@ -31,7 +28,7 @@ export const getTeamStandups = async (req: Request, res: Response) => {
         const standups = await prismaClient.standup.findMany({
             where: {
                 teamId,
-                date: {
+                createdAt: {
                     gte: new Date(new Date().setHours(0, 0, 0, 0)),
                 },
             },
@@ -39,7 +36,7 @@ export const getTeamStandups = async (req: Request, res: Response) => {
                 user: true,
             },
             orderBy: {
-                date: 'desc',
+                createdAt: 'desc',
             },
         });
 
