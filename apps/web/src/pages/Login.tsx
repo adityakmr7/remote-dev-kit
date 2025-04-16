@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { authService } from '../services/auth.service';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,14 +13,8 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:4000/api/auth/manual/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Login failed');
-            login(data.token);
+            const { token } = await authService.login(email, password);
+            login(token);
             navigate('/dashboard');
         } catch (err) {
             setError('Invalid email or password');
