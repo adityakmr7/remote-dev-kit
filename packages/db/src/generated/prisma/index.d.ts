@@ -34,10 +34,25 @@ export type TeamMember = $Result.DefaultSelection<Prisma.$TeamMemberPayload>
  */
 export type Standup = $Result.DefaultSelection<Prisma.$StandupPayload>
 /**
- * Model StatusUpdate
+ * Model FocusSession
  * 
  */
-export type StatusUpdate = $Result.DefaultSelection<Prisma.$StatusUpdatePayload>
+export type FocusSession = $Result.DefaultSelection<Prisma.$FocusSessionPayload>
+/**
+ * Model CodeReview
+ * 
+ */
+export type CodeReview = $Result.DefaultSelection<Prisma.$CodeReviewPayload>
+/**
+ * Model Repository
+ * 
+ */
+export type Repository = $Result.DefaultSelection<Prisma.$RepositoryPayload>
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
 
 /**
  * Enums
@@ -50,11 +65,24 @@ export namespace $Enums {
 
 export type Provider = (typeof Provider)[keyof typeof Provider]
 
+
+export const SubscriptionTier: {
+  FREE: 'FREE',
+  PRO: 'PRO',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
+export type SubscriptionTier = (typeof SubscriptionTier)[keyof typeof SubscriptionTier]
+
 }
 
 export type Provider = $Enums.Provider
 
 export const Provider: typeof $Enums.Provider
+
+export type SubscriptionTier = $Enums.SubscriptionTier
+
+export const SubscriptionTier: typeof $Enums.SubscriptionTier
 
 /**
  * ##  Prisma Client ʲˢ
@@ -222,14 +250,44 @@ export class PrismaClient<
   get standup(): Prisma.StandupDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.statusUpdate`: Exposes CRUD operations for the **StatusUpdate** model.
+   * `prisma.focusSession`: Exposes CRUD operations for the **FocusSession** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more StatusUpdates
-    * const statusUpdates = await prisma.statusUpdate.findMany()
+    * // Fetch zero or more FocusSessions
+    * const focusSessions = await prisma.focusSession.findMany()
     * ```
     */
-  get statusUpdate(): Prisma.StatusUpdateDelegate<ExtArgs, ClientOptions>;
+  get focusSession(): Prisma.FocusSessionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.codeReview`: Exposes CRUD operations for the **CodeReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CodeReviews
+    * const codeReviews = await prisma.codeReview.findMany()
+    * ```
+    */
+  get codeReview(): Prisma.CodeReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.repository`: Exposes CRUD operations for the **Repository** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Repositories
+    * const repositories = await prisma.repository.findMany()
+    * ```
+    */
+  get repository(): Prisma.RepositoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subscriptions
+    * const subscriptions = await prisma.subscription.findMany()
+    * ```
+    */
+  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -674,7 +732,10 @@ export namespace Prisma {
     Team: 'Team',
     TeamMember: 'TeamMember',
     Standup: 'Standup',
-    StatusUpdate: 'StatusUpdate'
+    FocusSession: 'FocusSession',
+    CodeReview: 'CodeReview',
+    Repository: 'Repository',
+    Subscription: 'Subscription'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -693,7 +754,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "team" | "teamMember" | "standup" | "statusUpdate"
+      modelProps: "user" | "team" | "teamMember" | "standup" | "focusSession" | "codeReview" | "repository" | "subscription"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -993,77 +1054,299 @@ export namespace Prisma {
           }
         }
       }
-      StatusUpdate: {
-        payload: Prisma.$StatusUpdatePayload<ExtArgs>
-        fields: Prisma.StatusUpdateFieldRefs
+      FocusSession: {
+        payload: Prisma.$FocusSessionPayload<ExtArgs>
+        fields: Prisma.FocusSessionFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.StatusUpdateFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload> | null
+            args: Prisma.FocusSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.StatusUpdateFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           findFirst: {
-            args: Prisma.StatusUpdateFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload> | null
+            args: Prisma.FocusSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.StatusUpdateFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           findMany: {
-            args: Prisma.StatusUpdateFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>[]
+            args: Prisma.FocusSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>[]
           }
           create: {
-            args: Prisma.StatusUpdateCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           createMany: {
-            args: Prisma.StatusUpdateCreateManyArgs<ExtArgs>
+            args: Prisma.FocusSessionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.StatusUpdateCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>[]
+            args: Prisma.FocusSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>[]
           }
           delete: {
-            args: Prisma.StatusUpdateDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           update: {
-            args: Prisma.StatusUpdateUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           deleteMany: {
-            args: Prisma.StatusUpdateDeleteManyArgs<ExtArgs>
+            args: Prisma.FocusSessionDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.StatusUpdateUpdateManyArgs<ExtArgs>
+            args: Prisma.FocusSessionUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.StatusUpdateUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>[]
+            args: Prisma.FocusSessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>[]
           }
           upsert: {
-            args: Prisma.StatusUpdateUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StatusUpdatePayload>
+            args: Prisma.FocusSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FocusSessionPayload>
           }
           aggregate: {
-            args: Prisma.StatusUpdateAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateStatusUpdate>
+            args: Prisma.FocusSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFocusSession>
           }
           groupBy: {
-            args: Prisma.StatusUpdateGroupByArgs<ExtArgs>
-            result: $Utils.Optional<StatusUpdateGroupByOutputType>[]
+            args: Prisma.FocusSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FocusSessionGroupByOutputType>[]
           }
           count: {
-            args: Prisma.StatusUpdateCountArgs<ExtArgs>
-            result: $Utils.Optional<StatusUpdateCountAggregateOutputType> | number
+            args: Prisma.FocusSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<FocusSessionCountAggregateOutputType> | number
+          }
+        }
+      }
+      CodeReview: {
+        payload: Prisma.$CodeReviewPayload<ExtArgs>
+        fields: Prisma.CodeReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CodeReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CodeReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.CodeReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CodeReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          findMany: {
+            args: Prisma.CodeReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>[]
+          }
+          create: {
+            args: Prisma.CodeReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          createMany: {
+            args: Prisma.CodeReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CodeReviewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>[]
+          }
+          delete: {
+            args: Prisma.CodeReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          update: {
+            args: Prisma.CodeReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.CodeReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CodeReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CodeReviewUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>[]
+          }
+          upsert: {
+            args: Prisma.CodeReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CodeReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.CodeReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCodeReview>
+          }
+          groupBy: {
+            args: Prisma.CodeReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CodeReviewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CodeReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<CodeReviewCountAggregateOutputType> | number
+          }
+        }
+      }
+      Repository: {
+        payload: Prisma.$RepositoryPayload<ExtArgs>
+        fields: Prisma.RepositoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RepositoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RepositoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          findFirst: {
+            args: Prisma.RepositoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RepositoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          findMany: {
+            args: Prisma.RepositoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>[]
+          }
+          create: {
+            args: Prisma.RepositoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          createMany: {
+            args: Prisma.RepositoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RepositoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>[]
+          }
+          delete: {
+            args: Prisma.RepositoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          update: {
+            args: Prisma.RepositoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.RepositoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RepositoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RepositoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.RepositoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepositoryPayload>
+          }
+          aggregate: {
+            args: Prisma.RepositoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRepository>
+          }
+          groupBy: {
+            args: Prisma.RepositoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RepositoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RepositoryCountArgs<ExtArgs>
+            result: $Utils.Optional<RepositoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Subscription: {
+        payload: Prisma.$SubscriptionPayload<ExtArgs>
+        fields: Prisma.SubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscription>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
           }
         }
       }
@@ -1155,7 +1438,10 @@ export namespace Prisma {
     team?: TeamOmit
     teamMember?: TeamMemberOmit
     standup?: StandupOmit
-    statusUpdate?: StatusUpdateOmit
+    focusSession?: FocusSessionOmit
+    codeReview?: CodeReviewOmit
+    repository?: RepositoryOmit
+    subscription?: SubscriptionOmit
   }
 
   /* Types for Logging */
@@ -1250,15 +1536,17 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    standups: number
     teams: number
-    StatusUpdate: number
+    standups: number
+    focusSessions: number
+    codeReviews: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    standups?: boolean | UserCountOutputTypeCountStandupsArgs
     teams?: boolean | UserCountOutputTypeCountTeamsArgs
-    StatusUpdate?: boolean | UserCountOutputTypeCountStatusUpdateArgs
+    standups?: boolean | UserCountOutputTypeCountStandupsArgs
+    focusSessions?: boolean | UserCountOutputTypeCountFocusSessionsArgs
+    codeReviews?: boolean | UserCountOutputTypeCountCodeReviewsArgs
   }
 
   // Custom InputTypes
@@ -1275,13 +1563,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountStandupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StandupWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeamMemberWhereInput
   }
@@ -1289,8 +1570,22 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StatusUpdateWhereInput
+  export type UserCountOutputTypeCountStandupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StandupWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFocusSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FocusSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCodeReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CodeReviewWhereInput
   }
 
 
@@ -1301,13 +1596,13 @@ export namespace Prisma {
   export type TeamCountOutputType = {
     members: number
     standups: number
-    StatusUpdate: number
+    repositories: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | TeamCountOutputTypeCountMembersArgs
     standups?: boolean | TeamCountOutputTypeCountStandupsArgs
-    StatusUpdate?: boolean | TeamCountOutputTypeCountStatusUpdateArgs
+    repositories?: boolean | TeamCountOutputTypeCountRepositoriesArgs
   }
 
   // Custom InputTypes
@@ -1338,8 +1633,8 @@ export namespace Prisma {
   /**
    * TeamCountOutputType without action
    */
-  export type TeamCountOutputTypeCountStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StatusUpdateWhereInput
+  export type TeamCountOutputTypeCountRepositoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RepositoryWhereInput
   }
 
 
@@ -1527,9 +1822,11 @@ export namespace Prisma {
     avatarUrl?: boolean
     provider?: boolean
     createdAt?: boolean
-    standups?: boolean | User$standupsArgs<ExtArgs>
     teams?: boolean | User$teamsArgs<ExtArgs>
-    StatusUpdate?: boolean | User$StatusUpdateArgs<ExtArgs>
+    standups?: boolean | User$standupsArgs<ExtArgs>
+    focusSessions?: boolean | User$focusSessionsArgs<ExtArgs>
+    codeReviews?: boolean | User$codeReviewsArgs<ExtArgs>
+    subscription?: boolean | User$subscriptionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1565,9 +1862,11 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "avatarUrl" | "provider" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    standups?: boolean | User$standupsArgs<ExtArgs>
     teams?: boolean | User$teamsArgs<ExtArgs>
-    StatusUpdate?: boolean | User$StatusUpdateArgs<ExtArgs>
+    standups?: boolean | User$standupsArgs<ExtArgs>
+    focusSessions?: boolean | User$focusSessionsArgs<ExtArgs>
+    codeReviews?: boolean | User$codeReviewsArgs<ExtArgs>
+    subscription?: boolean | User$subscriptionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1576,9 +1875,11 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      standups: Prisma.$StandupPayload<ExtArgs>[]
       teams: Prisma.$TeamMemberPayload<ExtArgs>[]
-      StatusUpdate: Prisma.$StatusUpdatePayload<ExtArgs>[]
+      standups: Prisma.$StandupPayload<ExtArgs>[]
+      focusSessions: Prisma.$FocusSessionPayload<ExtArgs>[]
+      codeReviews: Prisma.$CodeReviewPayload<ExtArgs>[]
+      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1982,9 +2283,11 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    standups<T extends User$standupsArgs<ExtArgs> = {}>(args?: Subset<T, User$standupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teams<T extends User$teamsArgs<ExtArgs> = {}>(args?: Subset<T, User$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    StatusUpdate<T extends User$StatusUpdateArgs<ExtArgs> = {}>(args?: Subset<T, User$StatusUpdateArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    standups<T extends User$standupsArgs<ExtArgs> = {}>(args?: Subset<T, User$standupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    focusSessions<T extends User$focusSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$focusSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    codeReviews<T extends User$codeReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$codeReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2409,30 +2712,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.standups
-   */
-  export type User$standupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Standup
-     */
-    select?: StandupSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Standup
-     */
-    omit?: StandupOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StandupInclude<ExtArgs> | null
-    where?: StandupWhereInput
-    orderBy?: StandupOrderByWithRelationInput | StandupOrderByWithRelationInput[]
-    cursor?: StandupWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StandupScalarFieldEnum | StandupScalarFieldEnum[]
-  }
-
-  /**
    * User.teams
    */
   export type User$teamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2457,27 +2736,94 @@ export namespace Prisma {
   }
 
   /**
-   * User.StatusUpdate
+   * User.standups
    */
-  export type User$StatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$standupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Standup
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: StandupSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Standup
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: StandupOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
-    where?: StatusUpdateWhereInput
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
-    cursor?: StatusUpdateWhereUniqueInput
+    include?: StandupInclude<ExtArgs> | null
+    where?: StandupWhereInput
+    orderBy?: StandupOrderByWithRelationInput | StandupOrderByWithRelationInput[]
+    cursor?: StandupWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: StatusUpdateScalarFieldEnum | StatusUpdateScalarFieldEnum[]
+    distinct?: StandupScalarFieldEnum | StandupScalarFieldEnum[]
+  }
+
+  /**
+   * User.focusSessions
+   */
+  export type User$focusSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    where?: FocusSessionWhereInput
+    orderBy?: FocusSessionOrderByWithRelationInput | FocusSessionOrderByWithRelationInput[]
+    cursor?: FocusSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FocusSessionScalarFieldEnum | FocusSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.codeReviews
+   */
+  export type User$codeReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    where?: CodeReviewWhereInput
+    orderBy?: CodeReviewOrderByWithRelationInput | CodeReviewOrderByWithRelationInput[]
+    cursor?: CodeReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CodeReviewScalarFieldEnum | CodeReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.subscription
+   */
+  export type User$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
   }
 
   /**
@@ -2649,7 +2995,7 @@ export namespace Prisma {
     createdAt?: boolean
     members?: boolean | Team$membersArgs<ExtArgs>
     standups?: boolean | Team$standupsArgs<ExtArgs>
-    StatusUpdate?: boolean | Team$StatusUpdateArgs<ExtArgs>
+    repositories?: boolean | Team$repositoriesArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -2675,7 +3021,7 @@ export namespace Prisma {
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Team$membersArgs<ExtArgs>
     standups?: boolean | Team$standupsArgs<ExtArgs>
-    StatusUpdate?: boolean | Team$StatusUpdateArgs<ExtArgs>
+    repositories?: boolean | Team$repositoriesArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2686,7 +3032,7 @@ export namespace Prisma {
     objects: {
       members: Prisma.$TeamMemberPayload<ExtArgs>[]
       standups: Prisma.$StandupPayload<ExtArgs>[]
-      StatusUpdate: Prisma.$StatusUpdatePayload<ExtArgs>[]
+      repositories: Prisma.$RepositoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3088,7 +3434,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     members<T extends Team$membersArgs<ExtArgs> = {}>(args?: Subset<T, Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     standups<T extends Team$standupsArgs<ExtArgs> = {}>(args?: Subset<T, Team$standupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    StatusUpdate<T extends Team$StatusUpdateArgs<ExtArgs> = {}>(args?: Subset<T, Team$StatusUpdateArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    repositories<T extends Team$repositoriesArgs<ExtArgs> = {}>(args?: Subset<T, Team$repositoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3557,27 +3903,27 @@ export namespace Prisma {
   }
 
   /**
-   * Team.StatusUpdate
+   * Team.repositories
    */
-  export type Team$StatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Team$repositoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
-    where?: StatusUpdateWhereInput
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
-    cursor?: StatusUpdateWhereUniqueInput
+    include?: RepositoryInclude<ExtArgs> | null
+    where?: RepositoryWhereInput
+    orderBy?: RepositoryOrderByWithRelationInput | RepositoryOrderByWithRelationInput[]
+    cursor?: RepositoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: StatusUpdateScalarFieldEnum | StatusUpdateScalarFieldEnum[]
+    distinct?: RepositoryScalarFieldEnum | RepositoryScalarFieldEnum[]
   }
 
   /**
@@ -3611,46 +3957,52 @@ export namespace Prisma {
 
   export type TeamMemberMinAggregateOutputType = {
     id: string | null
-    role: string | null
     userId: string | null
     teamId: string | null
+    role: string | null
+    createdAt: Date | null
   }
 
   export type TeamMemberMaxAggregateOutputType = {
     id: string | null
-    role: string | null
     userId: string | null
     teamId: string | null
+    role: string | null
+    createdAt: Date | null
   }
 
   export type TeamMemberCountAggregateOutputType = {
     id: number
-    role: number
     userId: number
     teamId: number
+    role: number
+    createdAt: number
     _all: number
   }
 
 
   export type TeamMemberMinAggregateInputType = {
     id?: true
-    role?: true
     userId?: true
     teamId?: true
+    role?: true
+    createdAt?: true
   }
 
   export type TeamMemberMaxAggregateInputType = {
     id?: true
-    role?: true
     userId?: true
     teamId?: true
+    role?: true
+    createdAt?: true
   }
 
   export type TeamMemberCountAggregateInputType = {
     id?: true
-    role?: true
     userId?: true
     teamId?: true
+    role?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -3728,9 +4080,10 @@ export namespace Prisma {
 
   export type TeamMemberGroupByOutputType = {
     id: string
-    role: string
     userId: string
     teamId: string
+    role: string
+    createdAt: Date
     _count: TeamMemberCountAggregateOutputType | null
     _min: TeamMemberMinAggregateOutputType | null
     _max: TeamMemberMaxAggregateOutputType | null
@@ -3752,39 +4105,43 @@ export namespace Prisma {
 
   export type TeamMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    role?: boolean
     userId?: boolean
     teamId?: boolean
+    role?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["teamMember"]>
 
   export type TeamMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    role?: boolean
     userId?: boolean
     teamId?: boolean
+    role?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["teamMember"]>
 
   export type TeamMemberSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    role?: boolean
     userId?: boolean
     teamId?: boolean
+    role?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["teamMember"]>
 
   export type TeamMemberSelectScalar = {
     id?: boolean
-    role?: boolean
     userId?: boolean
     teamId?: boolean
+    role?: boolean
+    createdAt?: boolean
   }
 
-  export type TeamMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "userId" | "teamId", ExtArgs["result"]["teamMember"]>
+  export type TeamMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "teamId" | "role" | "createdAt", ExtArgs["result"]["teamMember"]>
   export type TeamMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
@@ -3806,9 +4163,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      role: string
       userId: string
       teamId: string
+      role: string
+      createdAt: Date
     }, ExtArgs["result"]["teamMember"]>
     composites: {}
   }
@@ -4235,9 +4593,10 @@ export namespace Prisma {
    */
   interface TeamMemberFieldRefs {
     readonly id: FieldRef<"TeamMember", 'String'>
-    readonly role: FieldRef<"TeamMember", 'String'>
     readonly userId: FieldRef<"TeamMember", 'String'>
     readonly teamId: FieldRef<"TeamMember", 'String'>
+    readonly role: FieldRef<"TeamMember", 'String'>
+    readonly createdAt: FieldRef<"TeamMember", 'DateTime'>
   }
     
 
@@ -4664,64 +5023,52 @@ export namespace Prisma {
 
   export type StandupMinAggregateOutputType = {
     id: string | null
-    date: Date | null
     userId: string | null
     teamId: string | null
-    yesterday: string | null
-    today: string | null
-    blockers: string | null
+    content: string | null
+    createdAt: Date | null
   }
 
   export type StandupMaxAggregateOutputType = {
     id: string | null
-    date: Date | null
     userId: string | null
     teamId: string | null
-    yesterday: string | null
-    today: string | null
-    blockers: string | null
+    content: string | null
+    createdAt: Date | null
   }
 
   export type StandupCountAggregateOutputType = {
     id: number
-    date: number
     userId: number
     teamId: number
-    yesterday: number
-    today: number
-    blockers: number
+    content: number
+    createdAt: number
     _all: number
   }
 
 
   export type StandupMinAggregateInputType = {
     id?: true
-    date?: true
     userId?: true
     teamId?: true
-    yesterday?: true
-    today?: true
-    blockers?: true
+    content?: true
+    createdAt?: true
   }
 
   export type StandupMaxAggregateInputType = {
     id?: true
-    date?: true
     userId?: true
     teamId?: true
-    yesterday?: true
-    today?: true
-    blockers?: true
+    content?: true
+    createdAt?: true
   }
 
   export type StandupCountAggregateInputType = {
     id?: true
-    date?: true
     userId?: true
     teamId?: true
-    yesterday?: true
-    today?: true
-    blockers?: true
+    content?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -4799,12 +5146,10 @@ export namespace Prisma {
 
   export type StandupGroupByOutputType = {
     id: string
-    date: Date
     userId: string
     teamId: string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt: Date
     _count: StandupCountAggregateOutputType | null
     _min: StandupMinAggregateOutputType | null
     _max: StandupMaxAggregateOutputType | null
@@ -4826,51 +5171,43 @@ export namespace Prisma {
 
   export type StandupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     userId?: boolean
     teamId?: boolean
-    yesterday?: boolean
-    today?: boolean
-    blockers?: boolean
+    content?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
 
   export type StandupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     userId?: boolean
     teamId?: boolean
-    yesterday?: boolean
-    today?: boolean
-    blockers?: boolean
+    content?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
 
   export type StandupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     userId?: boolean
     teamId?: boolean
-    yesterday?: boolean
-    today?: boolean
-    blockers?: boolean
+    content?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
 
   export type StandupSelectScalar = {
     id?: boolean
-    date?: boolean
     userId?: boolean
     teamId?: boolean
-    yesterday?: boolean
-    today?: boolean
-    blockers?: boolean
+    content?: boolean
+    createdAt?: boolean
   }
 
-  export type StandupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "userId" | "teamId" | "yesterday" | "today" | "blockers", ExtArgs["result"]["standup"]>
+  export type StandupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "teamId" | "content" | "createdAt", ExtArgs["result"]["standup"]>
   export type StandupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     team?: boolean | TeamDefaultArgs<ExtArgs>
@@ -4892,12 +5229,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      date: Date
       userId: string
       teamId: string
-      yesterday: string
-      today: string
-      blockers: string
+      content: string
+      createdAt: Date
     }, ExtArgs["result"]["standup"]>
     composites: {}
   }
@@ -5324,12 +5659,10 @@ export namespace Prisma {
    */
   interface StandupFieldRefs {
     readonly id: FieldRef<"Standup", 'String'>
-    readonly date: FieldRef<"Standup", 'DateTime'>
     readonly userId: FieldRef<"Standup", 'String'>
     readonly teamId: FieldRef<"Standup", 'String'>
-    readonly yesterday: FieldRef<"Standup", 'String'>
-    readonly today: FieldRef<"Standup", 'String'>
-    readonly blockers: FieldRef<"Standup", 'String'>
+    readonly content: FieldRef<"Standup", 'String'>
+    readonly createdAt: FieldRef<"Standup", 'DateTime'>
   }
     
 
@@ -5745,357 +6078,384 @@ export namespace Prisma {
 
 
   /**
-   * Model StatusUpdate
+   * Model FocusSession
    */
 
-  export type AggregateStatusUpdate = {
-    _count: StatusUpdateCountAggregateOutputType | null
-    _min: StatusUpdateMinAggregateOutputType | null
-    _max: StatusUpdateMaxAggregateOutputType | null
+  export type AggregateFocusSession = {
+    _count: FocusSessionCountAggregateOutputType | null
+    _avg: FocusSessionAvgAggregateOutputType | null
+    _sum: FocusSessionSumAggregateOutputType | null
+    _min: FocusSessionMinAggregateOutputType | null
+    _max: FocusSessionMaxAggregateOutputType | null
   }
 
-  export type StatusUpdateMinAggregateOutputType = {
+  export type FocusSessionAvgAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type FocusSessionSumAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type FocusSessionMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    teamId: string | null
-    status: string | null
-    updatedAt: Date | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
   }
 
-  export type StatusUpdateMaxAggregateOutputType = {
+  export type FocusSessionMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    teamId: string | null
-    status: string | null
-    updatedAt: Date | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
   }
 
-  export type StatusUpdateCountAggregateOutputType = {
+  export type FocusSessionCountAggregateOutputType = {
     id: number
     userId: number
-    teamId: number
-    status: number
-    updatedAt: number
+    startTime: number
+    endTime: number
+    duration: number
     _all: number
   }
 
 
-  export type StatusUpdateMinAggregateInputType = {
-    id?: true
-    userId?: true
-    teamId?: true
-    status?: true
-    updatedAt?: true
+  export type FocusSessionAvgAggregateInputType = {
+    duration?: true
   }
 
-  export type StatusUpdateMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    teamId?: true
-    status?: true
-    updatedAt?: true
+  export type FocusSessionSumAggregateInputType = {
+    duration?: true
   }
 
-  export type StatusUpdateCountAggregateInputType = {
+  export type FocusSessionMinAggregateInputType = {
     id?: true
     userId?: true
-    teamId?: true
-    status?: true
-    updatedAt?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+  }
+
+  export type FocusSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+  }
+
+  export type FocusSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
     _all?: true
   }
 
-  export type StatusUpdateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FocusSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which StatusUpdate to aggregate.
+     * Filter which FocusSession to aggregate.
      */
-    where?: StatusUpdateWhereInput
+    where?: FocusSessionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StatusUpdates to fetch.
+     * Determine the order of FocusSessions to fetch.
      */
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
+    orderBy?: FocusSessionOrderByWithRelationInput | FocusSessionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: StatusUpdateWhereUniqueInput
+    cursor?: FocusSessionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StatusUpdates from the position of the cursor.
+     * Take `±n` FocusSessions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StatusUpdates.
+     * Skip the first `n` FocusSessions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned StatusUpdates
+     * Count returned FocusSessions
     **/
-    _count?: true | StatusUpdateCountAggregateInputType
+    _count?: true | FocusSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FocusSessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FocusSessionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: StatusUpdateMinAggregateInputType
+    _min?: FocusSessionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: StatusUpdateMaxAggregateInputType
+    _max?: FocusSessionMaxAggregateInputType
   }
 
-  export type GetStatusUpdateAggregateType<T extends StatusUpdateAggregateArgs> = {
-        [P in keyof T & keyof AggregateStatusUpdate]: P extends '_count' | 'count'
+  export type GetFocusSessionAggregateType<T extends FocusSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateFocusSession]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateStatusUpdate[P]>
-      : GetScalarType<T[P], AggregateStatusUpdate[P]>
+        : GetScalarType<T[P], AggregateFocusSession[P]>
+      : GetScalarType<T[P], AggregateFocusSession[P]>
   }
 
 
 
 
-  export type StatusUpdateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StatusUpdateWhereInput
-    orderBy?: StatusUpdateOrderByWithAggregationInput | StatusUpdateOrderByWithAggregationInput[]
-    by: StatusUpdateScalarFieldEnum[] | StatusUpdateScalarFieldEnum
-    having?: StatusUpdateScalarWhereWithAggregatesInput
+  export type FocusSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FocusSessionWhereInput
+    orderBy?: FocusSessionOrderByWithAggregationInput | FocusSessionOrderByWithAggregationInput[]
+    by: FocusSessionScalarFieldEnum[] | FocusSessionScalarFieldEnum
+    having?: FocusSessionScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: StatusUpdateCountAggregateInputType | true
-    _min?: StatusUpdateMinAggregateInputType
-    _max?: StatusUpdateMaxAggregateInputType
+    _count?: FocusSessionCountAggregateInputType | true
+    _avg?: FocusSessionAvgAggregateInputType
+    _sum?: FocusSessionSumAggregateInputType
+    _min?: FocusSessionMinAggregateInputType
+    _max?: FocusSessionMaxAggregateInputType
   }
 
-  export type StatusUpdateGroupByOutputType = {
+  export type FocusSessionGroupByOutputType = {
     id: string
     userId: string
-    teamId: string
-    status: string
-    updatedAt: Date
-    _count: StatusUpdateCountAggregateOutputType | null
-    _min: StatusUpdateMinAggregateOutputType | null
-    _max: StatusUpdateMaxAggregateOutputType | null
+    startTime: Date
+    endTime: Date | null
+    duration: number
+    _count: FocusSessionCountAggregateOutputType | null
+    _avg: FocusSessionAvgAggregateOutputType | null
+    _sum: FocusSessionSumAggregateOutputType | null
+    _min: FocusSessionMinAggregateOutputType | null
+    _max: FocusSessionMaxAggregateOutputType | null
   }
 
-  type GetStatusUpdateGroupByPayload<T extends StatusUpdateGroupByArgs> = Prisma.PrismaPromise<
+  type GetFocusSessionGroupByPayload<T extends FocusSessionGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<StatusUpdateGroupByOutputType, T['by']> &
+      PickEnumerable<FocusSessionGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof StatusUpdateGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof FocusSessionGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], StatusUpdateGroupByOutputType[P]>
-            : GetScalarType<T[P], StatusUpdateGroupByOutputType[P]>
+              : GetScalarType<T[P], FocusSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], FocusSessionGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type StatusUpdateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type FocusSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    teamId?: boolean
-    status?: boolean
-    updatedAt?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["statusUpdate"]>
+  }, ExtArgs["result"]["focusSession"]>
 
-  export type StatusUpdateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type FocusSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    teamId?: boolean
-    status?: boolean
-    updatedAt?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["statusUpdate"]>
+  }, ExtArgs["result"]["focusSession"]>
 
-  export type StatusUpdateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type FocusSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    teamId?: boolean
-    status?: boolean
-    updatedAt?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["statusUpdate"]>
+  }, ExtArgs["result"]["focusSession"]>
 
-  export type StatusUpdateSelectScalar = {
+  export type FocusSessionSelectScalar = {
     id?: boolean
     userId?: boolean
-    teamId?: boolean
-    status?: boolean
-    updatedAt?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
   }
 
-  export type StatusUpdateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "teamId" | "status" | "updatedAt", ExtArgs["result"]["statusUpdate"]>
-  export type StatusUpdateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FocusSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "startTime" | "endTime" | "duration", ExtArgs["result"]["focusSession"]>
+  export type FocusSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
   }
-  export type StatusUpdateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FocusSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
   }
-  export type StatusUpdateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FocusSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
   }
 
-  export type $StatusUpdatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "StatusUpdate"
+  export type $FocusSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FocusSession"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      team: Prisma.$TeamPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      teamId: string
-      status: string
-      updatedAt: Date
-    }, ExtArgs["result"]["statusUpdate"]>
+      startTime: Date
+      endTime: Date | null
+      duration: number
+    }, ExtArgs["result"]["focusSession"]>
     composites: {}
   }
 
-  type StatusUpdateGetPayload<S extends boolean | null | undefined | StatusUpdateDefaultArgs> = $Result.GetResult<Prisma.$StatusUpdatePayload, S>
+  type FocusSessionGetPayload<S extends boolean | null | undefined | FocusSessionDefaultArgs> = $Result.GetResult<Prisma.$FocusSessionPayload, S>
 
-  type StatusUpdateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<StatusUpdateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: StatusUpdateCountAggregateInputType | true
+  type FocusSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FocusSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FocusSessionCountAggregateInputType | true
     }
 
-  export interface StatusUpdateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StatusUpdate'], meta: { name: 'StatusUpdate' } }
+  export interface FocusSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FocusSession'], meta: { name: 'FocusSession' } }
     /**
-     * Find zero or one StatusUpdate that matches the filter.
-     * @param {StatusUpdateFindUniqueArgs} args - Arguments to find a StatusUpdate
+     * Find zero or one FocusSession that matches the filter.
+     * @param {FocusSessionFindUniqueArgs} args - Arguments to find a FocusSession
      * @example
-     * // Get one StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.findUnique({
+     * // Get one FocusSession
+     * const focusSession = await prisma.focusSession.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends StatusUpdateFindUniqueArgs>(args: SelectSubset<T, StatusUpdateFindUniqueArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends FocusSessionFindUniqueArgs>(args: SelectSubset<T, FocusSessionFindUniqueArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one StatusUpdate that matches the filter or throw an error with `error.code='P2025'`
+     * Find one FocusSession that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {StatusUpdateFindUniqueOrThrowArgs} args - Arguments to find a StatusUpdate
+     * @param {FocusSessionFindUniqueOrThrowArgs} args - Arguments to find a FocusSession
      * @example
-     * // Get one StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.findUniqueOrThrow({
+     * // Get one FocusSession
+     * const focusSession = await prisma.focusSession.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends StatusUpdateFindUniqueOrThrowArgs>(args: SelectSubset<T, StatusUpdateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends FocusSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, FocusSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StatusUpdate that matches the filter.
+     * Find the first FocusSession that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateFindFirstArgs} args - Arguments to find a StatusUpdate
+     * @param {FocusSessionFindFirstArgs} args - Arguments to find a FocusSession
      * @example
-     * // Get one StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.findFirst({
+     * // Get one FocusSession
+     * const focusSession = await prisma.focusSession.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends StatusUpdateFindFirstArgs>(args?: SelectSubset<T, StatusUpdateFindFirstArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends FocusSessionFindFirstArgs>(args?: SelectSubset<T, FocusSessionFindFirstArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StatusUpdate that matches the filter or
+     * Find the first FocusSession that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateFindFirstOrThrowArgs} args - Arguments to find a StatusUpdate
+     * @param {FocusSessionFindFirstOrThrowArgs} args - Arguments to find a FocusSession
      * @example
-     * // Get one StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.findFirstOrThrow({
+     * // Get one FocusSession
+     * const focusSession = await prisma.focusSession.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends StatusUpdateFindFirstOrThrowArgs>(args?: SelectSubset<T, StatusUpdateFindFirstOrThrowArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends FocusSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, FocusSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more StatusUpdates that matches the filter.
+     * Find zero or more FocusSessions that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {FocusSessionFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all StatusUpdates
-     * const statusUpdates = await prisma.statusUpdate.findMany()
+     * // Get all FocusSessions
+     * const focusSessions = await prisma.focusSession.findMany()
      * 
-     * // Get first 10 StatusUpdates
-     * const statusUpdates = await prisma.statusUpdate.findMany({ take: 10 })
+     * // Get first 10 FocusSessions
+     * const focusSessions = await prisma.focusSession.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const statusUpdateWithIdOnly = await prisma.statusUpdate.findMany({ select: { id: true } })
+     * const focusSessionWithIdOnly = await prisma.focusSession.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends StatusUpdateFindManyArgs>(args?: SelectSubset<T, StatusUpdateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends FocusSessionFindManyArgs>(args?: SelectSubset<T, FocusSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a StatusUpdate.
-     * @param {StatusUpdateCreateArgs} args - Arguments to create a StatusUpdate.
+     * Create a FocusSession.
+     * @param {FocusSessionCreateArgs} args - Arguments to create a FocusSession.
      * @example
-     * // Create one StatusUpdate
-     * const StatusUpdate = await prisma.statusUpdate.create({
+     * // Create one FocusSession
+     * const FocusSession = await prisma.focusSession.create({
      *   data: {
-     *     // ... data to create a StatusUpdate
+     *     // ... data to create a FocusSession
      *   }
      * })
      * 
      */
-    create<T extends StatusUpdateCreateArgs>(args: SelectSubset<T, StatusUpdateCreateArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends FocusSessionCreateArgs>(args: SelectSubset<T, FocusSessionCreateArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many StatusUpdates.
-     * @param {StatusUpdateCreateManyArgs} args - Arguments to create many StatusUpdates.
+     * Create many FocusSessions.
+     * @param {FocusSessionCreateManyArgs} args - Arguments to create many FocusSessions.
      * @example
-     * // Create many StatusUpdates
-     * const statusUpdate = await prisma.statusUpdate.createMany({
+     * // Create many FocusSessions
+     * const focusSession = await prisma.focusSession.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends StatusUpdateCreateManyArgs>(args?: SelectSubset<T, StatusUpdateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends FocusSessionCreateManyArgs>(args?: SelectSubset<T, FocusSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many StatusUpdates and returns the data saved in the database.
-     * @param {StatusUpdateCreateManyAndReturnArgs} args - Arguments to create many StatusUpdates.
+     * Create many FocusSessions and returns the data saved in the database.
+     * @param {FocusSessionCreateManyAndReturnArgs} args - Arguments to create many FocusSessions.
      * @example
-     * // Create many StatusUpdates
-     * const statusUpdate = await prisma.statusUpdate.createManyAndReturn({
+     * // Create many FocusSessions
+     * const focusSession = await prisma.focusSession.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many StatusUpdates and only return the `id`
-     * const statusUpdateWithIdOnly = await prisma.statusUpdate.createManyAndReturn({
+     * // Create many FocusSessions and only return the `id`
+     * const focusSessionWithIdOnly = await prisma.focusSession.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6105,28 +6465,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends StatusUpdateCreateManyAndReturnArgs>(args?: SelectSubset<T, StatusUpdateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends FocusSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, FocusSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a StatusUpdate.
-     * @param {StatusUpdateDeleteArgs} args - Arguments to delete one StatusUpdate.
+     * Delete a FocusSession.
+     * @param {FocusSessionDeleteArgs} args - Arguments to delete one FocusSession.
      * @example
-     * // Delete one StatusUpdate
-     * const StatusUpdate = await prisma.statusUpdate.delete({
+     * // Delete one FocusSession
+     * const FocusSession = await prisma.focusSession.delete({
      *   where: {
-     *     // ... filter to delete one StatusUpdate
+     *     // ... filter to delete one FocusSession
      *   }
      * })
      * 
      */
-    delete<T extends StatusUpdateDeleteArgs>(args: SelectSubset<T, StatusUpdateDeleteArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends FocusSessionDeleteArgs>(args: SelectSubset<T, FocusSessionDeleteArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one StatusUpdate.
-     * @param {StatusUpdateUpdateArgs} args - Arguments to update one StatusUpdate.
+     * Update one FocusSession.
+     * @param {FocusSessionUpdateArgs} args - Arguments to update one FocusSession.
      * @example
-     * // Update one StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.update({
+     * // Update one FocusSession
+     * const focusSession = await prisma.focusSession.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6136,30 +6496,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends StatusUpdateUpdateArgs>(args: SelectSubset<T, StatusUpdateUpdateArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends FocusSessionUpdateArgs>(args: SelectSubset<T, FocusSessionUpdateArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more StatusUpdates.
-     * @param {StatusUpdateDeleteManyArgs} args - Arguments to filter StatusUpdates to delete.
+     * Delete zero or more FocusSessions.
+     * @param {FocusSessionDeleteManyArgs} args - Arguments to filter FocusSessions to delete.
      * @example
-     * // Delete a few StatusUpdates
-     * const { count } = await prisma.statusUpdate.deleteMany({
+     * // Delete a few FocusSessions
+     * const { count } = await prisma.focusSession.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends StatusUpdateDeleteManyArgs>(args?: SelectSubset<T, StatusUpdateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends FocusSessionDeleteManyArgs>(args?: SelectSubset<T, FocusSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StatusUpdates.
+     * Update zero or more FocusSessions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {FocusSessionUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many StatusUpdates
-     * const statusUpdate = await prisma.statusUpdate.updateMany({
+     * // Update many FocusSessions
+     * const focusSession = await prisma.focusSession.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6169,14 +6529,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends StatusUpdateUpdateManyArgs>(args: SelectSubset<T, StatusUpdateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends FocusSessionUpdateManyArgs>(args: SelectSubset<T, FocusSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StatusUpdates and returns the data updated in the database.
-     * @param {StatusUpdateUpdateManyAndReturnArgs} args - Arguments to update many StatusUpdates.
+     * Update zero or more FocusSessions and returns the data updated in the database.
+     * @param {FocusSessionUpdateManyAndReturnArgs} args - Arguments to update many FocusSessions.
      * @example
-     * // Update many StatusUpdates
-     * const statusUpdate = await prisma.statusUpdate.updateManyAndReturn({
+     * // Update many FocusSessions
+     * const focusSession = await prisma.focusSession.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6185,8 +6545,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more StatusUpdates and only return the `id`
-     * const statusUpdateWithIdOnly = await prisma.statusUpdate.updateManyAndReturn({
+     * // Update zero or more FocusSessions and only return the `id`
+     * const focusSessionWithIdOnly = await prisma.focusSession.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -6199,56 +6559,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends StatusUpdateUpdateManyAndReturnArgs>(args: SelectSubset<T, StatusUpdateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends FocusSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, FocusSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one StatusUpdate.
-     * @param {StatusUpdateUpsertArgs} args - Arguments to update or create a StatusUpdate.
+     * Create or update one FocusSession.
+     * @param {FocusSessionUpsertArgs} args - Arguments to update or create a FocusSession.
      * @example
-     * // Update or create a StatusUpdate
-     * const statusUpdate = await prisma.statusUpdate.upsert({
+     * // Update or create a FocusSession
+     * const focusSession = await prisma.focusSession.upsert({
      *   create: {
-     *     // ... data to create a StatusUpdate
+     *     // ... data to create a FocusSession
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the StatusUpdate we want to update
+     *     // ... the filter for the FocusSession we want to update
      *   }
      * })
      */
-    upsert<T extends StatusUpdateUpsertArgs>(args: SelectSubset<T, StatusUpdateUpsertArgs<ExtArgs>>): Prisma__StatusUpdateClient<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends FocusSessionUpsertArgs>(args: SelectSubset<T, FocusSessionUpsertArgs<ExtArgs>>): Prisma__FocusSessionClient<$Result.GetResult<Prisma.$FocusSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of StatusUpdates.
+     * Count the number of FocusSessions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateCountArgs} args - Arguments to filter StatusUpdates to count.
+     * @param {FocusSessionCountArgs} args - Arguments to filter FocusSessions to count.
      * @example
-     * // Count the number of StatusUpdates
-     * const count = await prisma.statusUpdate.count({
+     * // Count the number of FocusSessions
+     * const count = await prisma.focusSession.count({
      *   where: {
-     *     // ... the filter for the StatusUpdates we want to count
+     *     // ... the filter for the FocusSessions we want to count
      *   }
      * })
     **/
-    count<T extends StatusUpdateCountArgs>(
-      args?: Subset<T, StatusUpdateCountArgs>,
+    count<T extends FocusSessionCountArgs>(
+      args?: Subset<T, FocusSessionCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], StatusUpdateCountAggregateOutputType>
+          : GetScalarType<T['select'], FocusSessionCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a StatusUpdate.
+     * Allows you to perform aggregations operations on a FocusSession.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {FocusSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6268,13 +6628,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends StatusUpdateAggregateArgs>(args: Subset<T, StatusUpdateAggregateArgs>): Prisma.PrismaPromise<GetStatusUpdateAggregateType<T>>
+    aggregate<T extends FocusSessionAggregateArgs>(args: Subset<T, FocusSessionAggregateArgs>): Prisma.PrismaPromise<GetFocusSessionAggregateType<T>>
 
     /**
-     * Group by StatusUpdate.
+     * Group by FocusSession.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StatusUpdateGroupByArgs} args - Group by arguments.
+     * @param {FocusSessionGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -6289,14 +6649,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends StatusUpdateGroupByArgs,
+      T extends FocusSessionGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: StatusUpdateGroupByArgs['orderBy'] }
-        : { orderBy?: StatusUpdateGroupByArgs['orderBy'] },
+        ? { orderBy: FocusSessionGroupByArgs['orderBy'] }
+        : { orderBy?: FocusSessionGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6345,22 +6705,2159 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, StatusUpdateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStatusUpdateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, FocusSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFocusSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the StatusUpdate model
+   * Fields of the FocusSession model
    */
-  readonly fields: StatusUpdateFieldRefs;
+  readonly fields: FocusSessionFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for StatusUpdate.
+   * The delegate class that acts as a "Promise-like" for FocusSession.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__StatusUpdateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__FocusSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FocusSession model
+   */
+  interface FocusSessionFieldRefs {
+    readonly id: FieldRef<"FocusSession", 'String'>
+    readonly userId: FieldRef<"FocusSession", 'String'>
+    readonly startTime: FieldRef<"FocusSession", 'DateTime'>
+    readonly endTime: FieldRef<"FocusSession", 'DateTime'>
+    readonly duration: FieldRef<"FocusSession", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FocusSession findUnique
+   */
+  export type FocusSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which FocusSession to fetch.
+     */
+    where: FocusSessionWhereUniqueInput
+  }
+
+  /**
+   * FocusSession findUniqueOrThrow
+   */
+  export type FocusSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which FocusSession to fetch.
+     */
+    where: FocusSessionWhereUniqueInput
+  }
+
+  /**
+   * FocusSession findFirst
+   */
+  export type FocusSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which FocusSession to fetch.
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FocusSessions to fetch.
+     */
+    orderBy?: FocusSessionOrderByWithRelationInput | FocusSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FocusSessions.
+     */
+    cursor?: FocusSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FocusSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FocusSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FocusSessions.
+     */
+    distinct?: FocusSessionScalarFieldEnum | FocusSessionScalarFieldEnum[]
+  }
+
+  /**
+   * FocusSession findFirstOrThrow
+   */
+  export type FocusSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which FocusSession to fetch.
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FocusSessions to fetch.
+     */
+    orderBy?: FocusSessionOrderByWithRelationInput | FocusSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FocusSessions.
+     */
+    cursor?: FocusSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FocusSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FocusSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FocusSessions.
+     */
+    distinct?: FocusSessionScalarFieldEnum | FocusSessionScalarFieldEnum[]
+  }
+
+  /**
+   * FocusSession findMany
+   */
+  export type FocusSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which FocusSessions to fetch.
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FocusSessions to fetch.
+     */
+    orderBy?: FocusSessionOrderByWithRelationInput | FocusSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FocusSessions.
+     */
+    cursor?: FocusSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FocusSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FocusSessions.
+     */
+    skip?: number
+    distinct?: FocusSessionScalarFieldEnum | FocusSessionScalarFieldEnum[]
+  }
+
+  /**
+   * FocusSession create
+   */
+  export type FocusSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FocusSession.
+     */
+    data: XOR<FocusSessionCreateInput, FocusSessionUncheckedCreateInput>
+  }
+
+  /**
+   * FocusSession createMany
+   */
+  export type FocusSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FocusSessions.
+     */
+    data: FocusSessionCreateManyInput | FocusSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FocusSession createManyAndReturn
+   */
+  export type FocusSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many FocusSessions.
+     */
+    data: FocusSessionCreateManyInput | FocusSessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FocusSession update
+   */
+  export type FocusSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FocusSession.
+     */
+    data: XOR<FocusSessionUpdateInput, FocusSessionUncheckedUpdateInput>
+    /**
+     * Choose, which FocusSession to update.
+     */
+    where: FocusSessionWhereUniqueInput
+  }
+
+  /**
+   * FocusSession updateMany
+   */
+  export type FocusSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FocusSessions.
+     */
+    data: XOR<FocusSessionUpdateManyMutationInput, FocusSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which FocusSessions to update
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * Limit how many FocusSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FocusSession updateManyAndReturn
+   */
+  export type FocusSessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * The data used to update FocusSessions.
+     */
+    data: XOR<FocusSessionUpdateManyMutationInput, FocusSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which FocusSessions to update
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * Limit how many FocusSessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FocusSession upsert
+   */
+  export type FocusSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FocusSession to update in case it exists.
+     */
+    where: FocusSessionWhereUniqueInput
+    /**
+     * In case the FocusSession found by the `where` argument doesn't exist, create a new FocusSession with this data.
+     */
+    create: XOR<FocusSessionCreateInput, FocusSessionUncheckedCreateInput>
+    /**
+     * In case the FocusSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FocusSessionUpdateInput, FocusSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * FocusSession delete
+   */
+  export type FocusSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+    /**
+     * Filter which FocusSession to delete.
+     */
+    where: FocusSessionWhereUniqueInput
+  }
+
+  /**
+   * FocusSession deleteMany
+   */
+  export type FocusSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FocusSessions to delete
+     */
+    where?: FocusSessionWhereInput
+    /**
+     * Limit how many FocusSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FocusSession without action
+   */
+  export type FocusSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FocusSession
+     */
+    select?: FocusSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FocusSession
+     */
+    omit?: FocusSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FocusSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CodeReview
+   */
+
+  export type AggregateCodeReview = {
+    _count: CodeReviewCountAggregateOutputType | null
+    _min: CodeReviewMinAggregateOutputType | null
+    _max: CodeReviewMaxAggregateOutputType | null
+  }
+
+  export type CodeReviewMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    prUrl: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CodeReviewMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    prUrl: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CodeReviewCountAggregateOutputType = {
+    id: number
+    userId: number
+    prUrl: number
+    status: number
+    comments: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CodeReviewMinAggregateInputType = {
+    id?: true
+    userId?: true
+    prUrl?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CodeReviewMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    prUrl?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CodeReviewCountAggregateInputType = {
+    id?: true
+    userId?: true
+    prUrl?: true
+    status?: true
+    comments?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CodeReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CodeReview to aggregate.
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CodeReviews to fetch.
+     */
+    orderBy?: CodeReviewOrderByWithRelationInput | CodeReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CodeReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CodeReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CodeReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CodeReviews
+    **/
+    _count?: true | CodeReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CodeReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CodeReviewMaxAggregateInputType
+  }
+
+  export type GetCodeReviewAggregateType<T extends CodeReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateCodeReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCodeReview[P]>
+      : GetScalarType<T[P], AggregateCodeReview[P]>
+  }
+
+
+
+
+  export type CodeReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CodeReviewWhereInput
+    orderBy?: CodeReviewOrderByWithAggregationInput | CodeReviewOrderByWithAggregationInput[]
+    by: CodeReviewScalarFieldEnum[] | CodeReviewScalarFieldEnum
+    having?: CodeReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CodeReviewCountAggregateInputType | true
+    _min?: CodeReviewMinAggregateInputType
+    _max?: CodeReviewMaxAggregateInputType
+  }
+
+  export type CodeReviewGroupByOutputType = {
+    id: string
+    userId: string
+    prUrl: string
+    status: string
+    comments: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: CodeReviewCountAggregateOutputType | null
+    _min: CodeReviewMinAggregateOutputType | null
+    _max: CodeReviewMaxAggregateOutputType | null
+  }
+
+  type GetCodeReviewGroupByPayload<T extends CodeReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CodeReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CodeReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CodeReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], CodeReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CodeReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    prUrl?: boolean
+    status?: boolean
+    comments?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["codeReview"]>
+
+  export type CodeReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    prUrl?: boolean
+    status?: boolean
+    comments?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["codeReview"]>
+
+  export type CodeReviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    prUrl?: boolean
+    status?: boolean
+    comments?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["codeReview"]>
+
+  export type CodeReviewSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    prUrl?: boolean
+    status?: boolean
+    comments?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CodeReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "prUrl" | "status" | "comments" | "createdAt" | "updatedAt", ExtArgs["result"]["codeReview"]>
+  export type CodeReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CodeReviewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CodeReviewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CodeReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CodeReview"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      prUrl: string
+      status: string
+      comments: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["codeReview"]>
+    composites: {}
+  }
+
+  type CodeReviewGetPayload<S extends boolean | null | undefined | CodeReviewDefaultArgs> = $Result.GetResult<Prisma.$CodeReviewPayload, S>
+
+  type CodeReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CodeReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CodeReviewCountAggregateInputType | true
+    }
+
+  export interface CodeReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CodeReview'], meta: { name: 'CodeReview' } }
+    /**
+     * Find zero or one CodeReview that matches the filter.
+     * @param {CodeReviewFindUniqueArgs} args - Arguments to find a CodeReview
+     * @example
+     * // Get one CodeReview
+     * const codeReview = await prisma.codeReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CodeReviewFindUniqueArgs>(args: SelectSubset<T, CodeReviewFindUniqueArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CodeReview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CodeReviewFindUniqueOrThrowArgs} args - Arguments to find a CodeReview
+     * @example
+     * // Get one CodeReview
+     * const codeReview = await prisma.codeReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CodeReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, CodeReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CodeReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewFindFirstArgs} args - Arguments to find a CodeReview
+     * @example
+     * // Get one CodeReview
+     * const codeReview = await prisma.codeReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CodeReviewFindFirstArgs>(args?: SelectSubset<T, CodeReviewFindFirstArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CodeReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewFindFirstOrThrowArgs} args - Arguments to find a CodeReview
+     * @example
+     * // Get one CodeReview
+     * const codeReview = await prisma.codeReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CodeReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, CodeReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CodeReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CodeReviews
+     * const codeReviews = await prisma.codeReview.findMany()
+     * 
+     * // Get first 10 CodeReviews
+     * const codeReviews = await prisma.codeReview.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const codeReviewWithIdOnly = await prisma.codeReview.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CodeReviewFindManyArgs>(args?: SelectSubset<T, CodeReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CodeReview.
+     * @param {CodeReviewCreateArgs} args - Arguments to create a CodeReview.
+     * @example
+     * // Create one CodeReview
+     * const CodeReview = await prisma.codeReview.create({
+     *   data: {
+     *     // ... data to create a CodeReview
+     *   }
+     * })
+     * 
+     */
+    create<T extends CodeReviewCreateArgs>(args: SelectSubset<T, CodeReviewCreateArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CodeReviews.
+     * @param {CodeReviewCreateManyArgs} args - Arguments to create many CodeReviews.
+     * @example
+     * // Create many CodeReviews
+     * const codeReview = await prisma.codeReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CodeReviewCreateManyArgs>(args?: SelectSubset<T, CodeReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CodeReviews and returns the data saved in the database.
+     * @param {CodeReviewCreateManyAndReturnArgs} args - Arguments to create many CodeReviews.
+     * @example
+     * // Create many CodeReviews
+     * const codeReview = await prisma.codeReview.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CodeReviews and only return the `id`
+     * const codeReviewWithIdOnly = await prisma.codeReview.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CodeReviewCreateManyAndReturnArgs>(args?: SelectSubset<T, CodeReviewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CodeReview.
+     * @param {CodeReviewDeleteArgs} args - Arguments to delete one CodeReview.
+     * @example
+     * // Delete one CodeReview
+     * const CodeReview = await prisma.codeReview.delete({
+     *   where: {
+     *     // ... filter to delete one CodeReview
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CodeReviewDeleteArgs>(args: SelectSubset<T, CodeReviewDeleteArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CodeReview.
+     * @param {CodeReviewUpdateArgs} args - Arguments to update one CodeReview.
+     * @example
+     * // Update one CodeReview
+     * const codeReview = await prisma.codeReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CodeReviewUpdateArgs>(args: SelectSubset<T, CodeReviewUpdateArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CodeReviews.
+     * @param {CodeReviewDeleteManyArgs} args - Arguments to filter CodeReviews to delete.
+     * @example
+     * // Delete a few CodeReviews
+     * const { count } = await prisma.codeReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CodeReviewDeleteManyArgs>(args?: SelectSubset<T, CodeReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CodeReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CodeReviews
+     * const codeReview = await prisma.codeReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CodeReviewUpdateManyArgs>(args: SelectSubset<T, CodeReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CodeReviews and returns the data updated in the database.
+     * @param {CodeReviewUpdateManyAndReturnArgs} args - Arguments to update many CodeReviews.
+     * @example
+     * // Update many CodeReviews
+     * const codeReview = await prisma.codeReview.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CodeReviews and only return the `id`
+     * const codeReviewWithIdOnly = await prisma.codeReview.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CodeReviewUpdateManyAndReturnArgs>(args: SelectSubset<T, CodeReviewUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CodeReview.
+     * @param {CodeReviewUpsertArgs} args - Arguments to update or create a CodeReview.
+     * @example
+     * // Update or create a CodeReview
+     * const codeReview = await prisma.codeReview.upsert({
+     *   create: {
+     *     // ... data to create a CodeReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CodeReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CodeReviewUpsertArgs>(args: SelectSubset<T, CodeReviewUpsertArgs<ExtArgs>>): Prisma__CodeReviewClient<$Result.GetResult<Prisma.$CodeReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CodeReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewCountArgs} args - Arguments to filter CodeReviews to count.
+     * @example
+     * // Count the number of CodeReviews
+     * const count = await prisma.codeReview.count({
+     *   where: {
+     *     // ... the filter for the CodeReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends CodeReviewCountArgs>(
+      args?: Subset<T, CodeReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CodeReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CodeReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CodeReviewAggregateArgs>(args: Subset<T, CodeReviewAggregateArgs>): Prisma.PrismaPromise<GetCodeReviewAggregateType<T>>
+
+    /**
+     * Group by CodeReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CodeReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CodeReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CodeReviewGroupByArgs['orderBy'] }
+        : { orderBy?: CodeReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CodeReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCodeReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CodeReview model
+   */
+  readonly fields: CodeReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CodeReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CodeReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CodeReview model
+   */
+  interface CodeReviewFieldRefs {
+    readonly id: FieldRef<"CodeReview", 'String'>
+    readonly userId: FieldRef<"CodeReview", 'String'>
+    readonly prUrl: FieldRef<"CodeReview", 'String'>
+    readonly status: FieldRef<"CodeReview", 'String'>
+    readonly comments: FieldRef<"CodeReview", 'Json'>
+    readonly createdAt: FieldRef<"CodeReview", 'DateTime'>
+    readonly updatedAt: FieldRef<"CodeReview", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CodeReview findUnique
+   */
+  export type CodeReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which CodeReview to fetch.
+     */
+    where: CodeReviewWhereUniqueInput
+  }
+
+  /**
+   * CodeReview findUniqueOrThrow
+   */
+  export type CodeReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which CodeReview to fetch.
+     */
+    where: CodeReviewWhereUniqueInput
+  }
+
+  /**
+   * CodeReview findFirst
+   */
+  export type CodeReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which CodeReview to fetch.
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CodeReviews to fetch.
+     */
+    orderBy?: CodeReviewOrderByWithRelationInput | CodeReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CodeReviews.
+     */
+    cursor?: CodeReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CodeReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CodeReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CodeReviews.
+     */
+    distinct?: CodeReviewScalarFieldEnum | CodeReviewScalarFieldEnum[]
+  }
+
+  /**
+   * CodeReview findFirstOrThrow
+   */
+  export type CodeReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which CodeReview to fetch.
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CodeReviews to fetch.
+     */
+    orderBy?: CodeReviewOrderByWithRelationInput | CodeReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CodeReviews.
+     */
+    cursor?: CodeReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CodeReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CodeReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CodeReviews.
+     */
+    distinct?: CodeReviewScalarFieldEnum | CodeReviewScalarFieldEnum[]
+  }
+
+  /**
+   * CodeReview findMany
+   */
+  export type CodeReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which CodeReviews to fetch.
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CodeReviews to fetch.
+     */
+    orderBy?: CodeReviewOrderByWithRelationInput | CodeReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CodeReviews.
+     */
+    cursor?: CodeReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CodeReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CodeReviews.
+     */
+    skip?: number
+    distinct?: CodeReviewScalarFieldEnum | CodeReviewScalarFieldEnum[]
+  }
+
+  /**
+   * CodeReview create
+   */
+  export type CodeReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CodeReview.
+     */
+    data: XOR<CodeReviewCreateInput, CodeReviewUncheckedCreateInput>
+  }
+
+  /**
+   * CodeReview createMany
+   */
+  export type CodeReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CodeReviews.
+     */
+    data: CodeReviewCreateManyInput | CodeReviewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CodeReview createManyAndReturn
+   */
+  export type CodeReviewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * The data used to create many CodeReviews.
+     */
+    data: CodeReviewCreateManyInput | CodeReviewCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CodeReview update
+   */
+  export type CodeReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CodeReview.
+     */
+    data: XOR<CodeReviewUpdateInput, CodeReviewUncheckedUpdateInput>
+    /**
+     * Choose, which CodeReview to update.
+     */
+    where: CodeReviewWhereUniqueInput
+  }
+
+  /**
+   * CodeReview updateMany
+   */
+  export type CodeReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CodeReviews.
+     */
+    data: XOR<CodeReviewUpdateManyMutationInput, CodeReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which CodeReviews to update
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * Limit how many CodeReviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CodeReview updateManyAndReturn
+   */
+  export type CodeReviewUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * The data used to update CodeReviews.
+     */
+    data: XOR<CodeReviewUpdateManyMutationInput, CodeReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which CodeReviews to update
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * Limit how many CodeReviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CodeReview upsert
+   */
+  export type CodeReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CodeReview to update in case it exists.
+     */
+    where: CodeReviewWhereUniqueInput
+    /**
+     * In case the CodeReview found by the `where` argument doesn't exist, create a new CodeReview with this data.
+     */
+    create: XOR<CodeReviewCreateInput, CodeReviewUncheckedCreateInput>
+    /**
+     * In case the CodeReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CodeReviewUpdateInput, CodeReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * CodeReview delete
+   */
+  export type CodeReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+    /**
+     * Filter which CodeReview to delete.
+     */
+    where: CodeReviewWhereUniqueInput
+  }
+
+  /**
+   * CodeReview deleteMany
+   */
+  export type CodeReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CodeReviews to delete
+     */
+    where?: CodeReviewWhereInput
+    /**
+     * Limit how many CodeReviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CodeReview without action
+   */
+  export type CodeReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CodeReview
+     */
+    select?: CodeReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CodeReview
+     */
+    omit?: CodeReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CodeReviewInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Repository
+   */
+
+  export type AggregateRepository = {
+    _count: RepositoryCountAggregateOutputType | null
+    _min: RepositoryMinAggregateOutputType | null
+    _max: RepositoryMaxAggregateOutputType | null
+  }
+
+  export type RepositoryMinAggregateOutputType = {
+    id: string | null
+    teamId: string | null
+    url: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type RepositoryMaxAggregateOutputType = {
+    id: string | null
+    teamId: string | null
+    url: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type RepositoryCountAggregateOutputType = {
+    id: number
+    teamId: number
+    url: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RepositoryMinAggregateInputType = {
+    id?: true
+    teamId?: true
+    url?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type RepositoryMaxAggregateInputType = {
+    id?: true
+    teamId?: true
+    url?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type RepositoryCountAggregateInputType = {
+    id?: true
+    teamId?: true
+    url?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RepositoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Repository to aggregate.
+     */
+    where?: RepositoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Repositories to fetch.
+     */
+    orderBy?: RepositoryOrderByWithRelationInput | RepositoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RepositoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Repositories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Repositories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Repositories
+    **/
+    _count?: true | RepositoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RepositoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RepositoryMaxAggregateInputType
+  }
+
+  export type GetRepositoryAggregateType<T extends RepositoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateRepository]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRepository[P]>
+      : GetScalarType<T[P], AggregateRepository[P]>
+  }
+
+
+
+
+  export type RepositoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RepositoryWhereInput
+    orderBy?: RepositoryOrderByWithAggregationInput | RepositoryOrderByWithAggregationInput[]
+    by: RepositoryScalarFieldEnum[] | RepositoryScalarFieldEnum
+    having?: RepositoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RepositoryCountAggregateInputType | true
+    _min?: RepositoryMinAggregateInputType
+    _max?: RepositoryMaxAggregateInputType
+  }
+
+  export type RepositoryGroupByOutputType = {
+    id: string
+    teamId: string
+    url: string
+    name: string
+    createdAt: Date
+    _count: RepositoryCountAggregateOutputType | null
+    _min: RepositoryMinAggregateOutputType | null
+    _max: RepositoryMaxAggregateOutputType | null
+  }
+
+  type GetRepositoryGroupByPayload<T extends RepositoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RepositoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RepositoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RepositoryGroupByOutputType[P]>
+            : GetScalarType<T[P], RepositoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RepositorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamId?: boolean
+    url?: boolean
+    name?: boolean
+    createdAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repository"]>
+
+  export type RepositorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamId?: boolean
+    url?: boolean
+    name?: boolean
+    createdAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repository"]>
+
+  export type RepositorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamId?: boolean
+    url?: boolean
+    name?: boolean
+    createdAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repository"]>
+
+  export type RepositorySelectScalar = {
+    id?: boolean
+    teamId?: boolean
+    url?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type RepositoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teamId" | "url" | "name" | "createdAt", ExtArgs["result"]["repository"]>
+  export type RepositoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type RepositoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type RepositoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+
+  export type $RepositoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Repository"
+    objects: {
+      team: Prisma.$TeamPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      teamId: string
+      url: string
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["repository"]>
+    composites: {}
+  }
+
+  type RepositoryGetPayload<S extends boolean | null | undefined | RepositoryDefaultArgs> = $Result.GetResult<Prisma.$RepositoryPayload, S>
+
+  type RepositoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RepositoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RepositoryCountAggregateInputType | true
+    }
+
+  export interface RepositoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Repository'], meta: { name: 'Repository' } }
+    /**
+     * Find zero or one Repository that matches the filter.
+     * @param {RepositoryFindUniqueArgs} args - Arguments to find a Repository
+     * @example
+     * // Get one Repository
+     * const repository = await prisma.repository.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RepositoryFindUniqueArgs>(args: SelectSubset<T, RepositoryFindUniqueArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Repository that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RepositoryFindUniqueOrThrowArgs} args - Arguments to find a Repository
+     * @example
+     * // Get one Repository
+     * const repository = await prisma.repository.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RepositoryFindUniqueOrThrowArgs>(args: SelectSubset<T, RepositoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Repository that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryFindFirstArgs} args - Arguments to find a Repository
+     * @example
+     * // Get one Repository
+     * const repository = await prisma.repository.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RepositoryFindFirstArgs>(args?: SelectSubset<T, RepositoryFindFirstArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Repository that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryFindFirstOrThrowArgs} args - Arguments to find a Repository
+     * @example
+     * // Get one Repository
+     * const repository = await prisma.repository.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RepositoryFindFirstOrThrowArgs>(args?: SelectSubset<T, RepositoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Repositories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Repositories
+     * const repositories = await prisma.repository.findMany()
+     * 
+     * // Get first 10 Repositories
+     * const repositories = await prisma.repository.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const repositoryWithIdOnly = await prisma.repository.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RepositoryFindManyArgs>(args?: SelectSubset<T, RepositoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Repository.
+     * @param {RepositoryCreateArgs} args - Arguments to create a Repository.
+     * @example
+     * // Create one Repository
+     * const Repository = await prisma.repository.create({
+     *   data: {
+     *     // ... data to create a Repository
+     *   }
+     * })
+     * 
+     */
+    create<T extends RepositoryCreateArgs>(args: SelectSubset<T, RepositoryCreateArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Repositories.
+     * @param {RepositoryCreateManyArgs} args - Arguments to create many Repositories.
+     * @example
+     * // Create many Repositories
+     * const repository = await prisma.repository.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RepositoryCreateManyArgs>(args?: SelectSubset<T, RepositoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Repositories and returns the data saved in the database.
+     * @param {RepositoryCreateManyAndReturnArgs} args - Arguments to create many Repositories.
+     * @example
+     * // Create many Repositories
+     * const repository = await prisma.repository.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Repositories and only return the `id`
+     * const repositoryWithIdOnly = await prisma.repository.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RepositoryCreateManyAndReturnArgs>(args?: SelectSubset<T, RepositoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Repository.
+     * @param {RepositoryDeleteArgs} args - Arguments to delete one Repository.
+     * @example
+     * // Delete one Repository
+     * const Repository = await prisma.repository.delete({
+     *   where: {
+     *     // ... filter to delete one Repository
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RepositoryDeleteArgs>(args: SelectSubset<T, RepositoryDeleteArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Repository.
+     * @param {RepositoryUpdateArgs} args - Arguments to update one Repository.
+     * @example
+     * // Update one Repository
+     * const repository = await prisma.repository.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RepositoryUpdateArgs>(args: SelectSubset<T, RepositoryUpdateArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Repositories.
+     * @param {RepositoryDeleteManyArgs} args - Arguments to filter Repositories to delete.
+     * @example
+     * // Delete a few Repositories
+     * const { count } = await prisma.repository.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RepositoryDeleteManyArgs>(args?: SelectSubset<T, RepositoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Repositories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Repositories
+     * const repository = await prisma.repository.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RepositoryUpdateManyArgs>(args: SelectSubset<T, RepositoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Repositories and returns the data updated in the database.
+     * @param {RepositoryUpdateManyAndReturnArgs} args - Arguments to update many Repositories.
+     * @example
+     * // Update many Repositories
+     * const repository = await prisma.repository.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Repositories and only return the `id`
+     * const repositoryWithIdOnly = await prisma.repository.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RepositoryUpdateManyAndReturnArgs>(args: SelectSubset<T, RepositoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Repository.
+     * @param {RepositoryUpsertArgs} args - Arguments to update or create a Repository.
+     * @example
+     * // Update or create a Repository
+     * const repository = await prisma.repository.upsert({
+     *   create: {
+     *     // ... data to create a Repository
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Repository we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RepositoryUpsertArgs>(args: SelectSubset<T, RepositoryUpsertArgs<ExtArgs>>): Prisma__RepositoryClient<$Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Repositories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryCountArgs} args - Arguments to filter Repositories to count.
+     * @example
+     * // Count the number of Repositories
+     * const count = await prisma.repository.count({
+     *   where: {
+     *     // ... the filter for the Repositories we want to count
+     *   }
+     * })
+    **/
+    count<T extends RepositoryCountArgs>(
+      args?: Subset<T, RepositoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RepositoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Repository.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RepositoryAggregateArgs>(args: Subset<T, RepositoryAggregateArgs>): Prisma.PrismaPromise<GetRepositoryAggregateType<T>>
+
+    /**
+     * Group by Repository.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepositoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RepositoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RepositoryGroupByArgs['orderBy'] }
+        : { orderBy?: RepositoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RepositoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRepositoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Repository model
+   */
+  readonly fields: RepositoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Repository.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RepositoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
     team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6388,425 +8885,1483 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the StatusUpdate model
+   * Fields of the Repository model
    */
-  interface StatusUpdateFieldRefs {
-    readonly id: FieldRef<"StatusUpdate", 'String'>
-    readonly userId: FieldRef<"StatusUpdate", 'String'>
-    readonly teamId: FieldRef<"StatusUpdate", 'String'>
-    readonly status: FieldRef<"StatusUpdate", 'String'>
-    readonly updatedAt: FieldRef<"StatusUpdate", 'DateTime'>
+  interface RepositoryFieldRefs {
+    readonly id: FieldRef<"Repository", 'String'>
+    readonly teamId: FieldRef<"Repository", 'String'>
+    readonly url: FieldRef<"Repository", 'String'>
+    readonly name: FieldRef<"Repository", 'String'>
+    readonly createdAt: FieldRef<"Repository", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * StatusUpdate findUnique
+   * Repository findUnique
    */
-  export type StatusUpdateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter, which StatusUpdate to fetch.
+     * Filter, which Repository to fetch.
      */
-    where: StatusUpdateWhereUniqueInput
+    where: RepositoryWhereUniqueInput
   }
 
   /**
-   * StatusUpdate findUniqueOrThrow
+   * Repository findUniqueOrThrow
    */
-  export type StatusUpdateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter, which StatusUpdate to fetch.
+     * Filter, which Repository to fetch.
      */
-    where: StatusUpdateWhereUniqueInput
+    where: RepositoryWhereUniqueInput
   }
 
   /**
-   * StatusUpdate findFirst
+   * Repository findFirst
    */
-  export type StatusUpdateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter, which StatusUpdate to fetch.
+     * Filter, which Repository to fetch.
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StatusUpdates to fetch.
+     * Determine the order of Repositories to fetch.
      */
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
+    orderBy?: RepositoryOrderByWithRelationInput | RepositoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StatusUpdates.
+     * Sets the position for searching for Repositories.
      */
-    cursor?: StatusUpdateWhereUniqueInput
+    cursor?: RepositoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StatusUpdates from the position of the cursor.
+     * Take `±n` Repositories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StatusUpdates.
+     * Skip the first `n` Repositories.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StatusUpdates.
+     * Filter by unique combinations of Repositories.
      */
-    distinct?: StatusUpdateScalarFieldEnum | StatusUpdateScalarFieldEnum[]
+    distinct?: RepositoryScalarFieldEnum | RepositoryScalarFieldEnum[]
   }
 
   /**
-   * StatusUpdate findFirstOrThrow
+   * Repository findFirstOrThrow
    */
-  export type StatusUpdateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter, which StatusUpdate to fetch.
+     * Filter, which Repository to fetch.
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StatusUpdates to fetch.
+     * Determine the order of Repositories to fetch.
      */
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
+    orderBy?: RepositoryOrderByWithRelationInput | RepositoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StatusUpdates.
+     * Sets the position for searching for Repositories.
      */
-    cursor?: StatusUpdateWhereUniqueInput
+    cursor?: RepositoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StatusUpdates from the position of the cursor.
+     * Take `±n` Repositories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StatusUpdates.
+     * Skip the first `n` Repositories.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StatusUpdates.
+     * Filter by unique combinations of Repositories.
      */
-    distinct?: StatusUpdateScalarFieldEnum | StatusUpdateScalarFieldEnum[]
+    distinct?: RepositoryScalarFieldEnum | RepositoryScalarFieldEnum[]
   }
 
   /**
-   * StatusUpdate findMany
+   * Repository findMany
    */
-  export type StatusUpdateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter, which StatusUpdates to fetch.
+     * Filter, which Repositories to fetch.
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StatusUpdates to fetch.
+     * Determine the order of Repositories to fetch.
      */
-    orderBy?: StatusUpdateOrderByWithRelationInput | StatusUpdateOrderByWithRelationInput[]
+    orderBy?: RepositoryOrderByWithRelationInput | RepositoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing StatusUpdates.
+     * Sets the position for listing Repositories.
      */
-    cursor?: StatusUpdateWhereUniqueInput
+    cursor?: RepositoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StatusUpdates from the position of the cursor.
+     * Take `±n` Repositories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StatusUpdates.
+     * Skip the first `n` Repositories.
      */
     skip?: number
-    distinct?: StatusUpdateScalarFieldEnum | StatusUpdateScalarFieldEnum[]
+    distinct?: RepositoryScalarFieldEnum | RepositoryScalarFieldEnum[]
   }
 
   /**
-   * StatusUpdate create
+   * Repository create
    */
-  export type StatusUpdateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * The data needed to create a StatusUpdate.
+     * The data needed to create a Repository.
      */
-    data: XOR<StatusUpdateCreateInput, StatusUpdateUncheckedCreateInput>
+    data: XOR<RepositoryCreateInput, RepositoryUncheckedCreateInput>
   }
 
   /**
-   * StatusUpdate createMany
+   * Repository createMany
    */
-  export type StatusUpdateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many StatusUpdates.
+     * The data used to create many Repositories.
      */
-    data: StatusUpdateCreateManyInput | StatusUpdateCreateManyInput[]
+    data: RepositoryCreateManyInput | RepositoryCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * StatusUpdate createManyAndReturn
+   * Repository createManyAndReturn
    */
-  export type StatusUpdateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelectCreateManyAndReturn<ExtArgs> | null
+    select?: RepositorySelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
-     * The data used to create many StatusUpdates.
+     * The data used to create many Repositories.
      */
-    data: StatusUpdateCreateManyInput | StatusUpdateCreateManyInput[]
+    data: RepositoryCreateManyInput | RepositoryCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: RepositoryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * StatusUpdate update
+   * Repository update
    */
-  export type StatusUpdateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * The data needed to update a StatusUpdate.
+     * The data needed to update a Repository.
      */
-    data: XOR<StatusUpdateUpdateInput, StatusUpdateUncheckedUpdateInput>
+    data: XOR<RepositoryUpdateInput, RepositoryUncheckedUpdateInput>
     /**
-     * Choose, which StatusUpdate to update.
+     * Choose, which Repository to update.
      */
-    where: StatusUpdateWhereUniqueInput
+    where: RepositoryWhereUniqueInput
   }
 
   /**
-   * StatusUpdate updateMany
+   * Repository updateMany
    */
-  export type StatusUpdateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update StatusUpdates.
+     * The data used to update Repositories.
      */
-    data: XOR<StatusUpdateUpdateManyMutationInput, StatusUpdateUncheckedUpdateManyInput>
+    data: XOR<RepositoryUpdateManyMutationInput, RepositoryUncheckedUpdateManyInput>
     /**
-     * Filter which StatusUpdates to update
+     * Filter which Repositories to update
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
-     * Limit how many StatusUpdates to update.
+     * Limit how many Repositories to update.
      */
     limit?: number
   }
 
   /**
-   * StatusUpdate updateManyAndReturn
+   * Repository updateManyAndReturn
    */
-  export type StatusUpdateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: RepositorySelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
-     * The data used to update StatusUpdates.
+     * The data used to update Repositories.
      */
-    data: XOR<StatusUpdateUpdateManyMutationInput, StatusUpdateUncheckedUpdateManyInput>
+    data: XOR<RepositoryUpdateManyMutationInput, RepositoryUncheckedUpdateManyInput>
     /**
-     * Filter which StatusUpdates to update
+     * Filter which Repositories to update
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
-     * Limit how many StatusUpdates to update.
+     * Limit how many Repositories to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: RepositoryIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * StatusUpdate upsert
+   * Repository upsert
    */
-  export type StatusUpdateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * The filter to search for the StatusUpdate to update in case it exists.
+     * The filter to search for the Repository to update in case it exists.
      */
-    where: StatusUpdateWhereUniqueInput
+    where: RepositoryWhereUniqueInput
     /**
-     * In case the StatusUpdate found by the `where` argument doesn't exist, create a new StatusUpdate with this data.
+     * In case the Repository found by the `where` argument doesn't exist, create a new Repository with this data.
      */
-    create: XOR<StatusUpdateCreateInput, StatusUpdateUncheckedCreateInput>
+    create: XOR<RepositoryCreateInput, RepositoryUncheckedCreateInput>
     /**
-     * In case the StatusUpdate was found with the provided `where` argument, update it with this data.
+     * In case the Repository was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<StatusUpdateUpdateInput, StatusUpdateUncheckedUpdateInput>
+    update: XOR<RepositoryUpdateInput, RepositoryUncheckedUpdateInput>
   }
 
   /**
-   * StatusUpdate delete
+   * Repository delete
    */
-  export type StatusUpdateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
     /**
-     * Filter which StatusUpdate to delete.
+     * Filter which Repository to delete.
      */
-    where: StatusUpdateWhereUniqueInput
+    where: RepositoryWhereUniqueInput
   }
 
   /**
-   * StatusUpdate deleteMany
+   * Repository deleteMany
    */
-  export type StatusUpdateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which StatusUpdates to delete
+     * Filter which Repositories to delete
      */
-    where?: StatusUpdateWhereInput
+    where?: RepositoryWhereInput
     /**
-     * Limit how many StatusUpdates to delete.
+     * Limit how many Repositories to delete.
      */
     limit?: number
   }
 
   /**
-   * StatusUpdate without action
+   * Repository without action
    */
-  export type StatusUpdateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RepositoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StatusUpdate
+     * Select specific fields to fetch from the Repository
      */
-    select?: StatusUpdateSelect<ExtArgs> | null
+    select?: RepositorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StatusUpdate
+     * Omit specific fields from the Repository
      */
-    omit?: StatusUpdateOmit<ExtArgs> | null
+    omit?: RepositoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StatusUpdateInclude<ExtArgs> | null
+    include?: RepositoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Subscription
+   */
+
+  export type AggregateSubscription = {
+    _count: SubscriptionCountAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tier: $Enums.SubscriptionTier | null
+    startDate: Date | null
+    endDate: Date | null
+  }
+
+  export type SubscriptionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tier: $Enums.SubscriptionTier | null
+    startDate: Date | null
+    endDate: Date | null
+  }
+
+  export type SubscriptionCountAggregateOutputType = {
+    id: number
+    userId: number
+    tier: number
+    startDate: number
+    endDate: number
+    _all: number
+  }
+
+
+  export type SubscriptionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    tier?: true
+    startDate?: true
+    endDate?: true
+  }
+
+  export type SubscriptionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    tier?: true
+    startDate?: true
+    endDate?: true
+  }
+
+  export type SubscriptionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    tier?: true
+    startDate?: true
+    endDate?: true
+    _all?: true
+  }
+
+  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscription to aggregate.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subscriptions
+    **/
+    _count?: true | SubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscription[P]>
+      : GetScalarType<T[P], AggregateSubscription[P]>
+  }
+
+
+
+
+  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
+    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
+    having?: SubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionCountAggregateInputType | true
+    _min?: SubscriptionMinAggregateInputType
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type SubscriptionGroupByOutputType = {
+    id: string
+    userId: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date
+    endDate: Date | null
+    _count: SubscriptionCountAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tier?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tier?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tier?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    tier?: boolean
+    startDate?: boolean
+    endDate?: boolean
+  }
+
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tier" | "startDate" | "endDate", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subscription"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      tier: $Enums.SubscriptionTier
+      startDate: Date
+      endDate: Date | null
+    }, ExtArgs["result"]["subscription"]>
+    composites: {}
+  }
+
+  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
+
+  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionCountAggregateInputType | true
+    }
+
+  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
+    /**
+     * Find zero or one Subscription that matches the filter.
+     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subscriptions
+     * const subscriptions = await prisma.subscription.findMany()
+     * 
+     * // Get first 10 Subscriptions
+     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subscription.
+     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
+     * @example
+     * // Create one Subscription
+     * const Subscription = await prisma.subscription.create({
+     *   data: {
+     *     // ... data to create a Subscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subscriptions.
+     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Subscriptions and returns the data saved in the database.
+     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Subscription.
+     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
+     * @example
+     * // Delete one Subscription
+     * const Subscription = await prisma.subscription.delete({
+     *   where: {
+     *     // ... filter to delete one Subscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subscription.
+     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
+     * @example
+     * // Update one Subscription
+     * const subscription = await prisma.subscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subscriptions.
+     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
+     * @example
+     * // Delete a few Subscriptions
+     * const { count } = await prisma.subscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions and returns the data updated in the database.
+     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Subscription.
+     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
+     * @example
+     * // Update or create a Subscription
+     * const subscription = await prisma.subscription.upsert({
+     *   create: {
+     *     // ... data to create a Subscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
+     * @example
+     * // Count the number of Subscriptions
+     * const count = await prisma.subscription.count({
+     *   where: {
+     *     // ... the filter for the Subscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionCountArgs>(
+      args?: Subset<T, SubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
+
+    /**
+     * Group by Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subscription model
+   */
+  readonly fields: SubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subscription model
+   */
+  interface SubscriptionFieldRefs {
+    readonly id: FieldRef<"Subscription", 'String'>
+    readonly userId: FieldRef<"Subscription", 'String'>
+    readonly tier: FieldRef<"Subscription", 'SubscriptionTier'>
+    readonly startDate: FieldRef<"Subscription", 'DateTime'>
+    readonly endDate: FieldRef<"Subscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subscription findUnique
+   */
+  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findUniqueOrThrow
+   */
+  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findFirst
+   */
+  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findFirstOrThrow
+   */
+  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findMany
+   */
+  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscriptions to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription create
+   */
+  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subscription.
+     */
+    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Subscription createMany
+   */
+  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription createManyAndReturn
+   */
+  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription update
+   */
+  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subscription.
+     */
+    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Subscription to update.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription updateMany
+   */
+  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription updateManyAndReturn
+   */
+  export type SubscriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription upsert
+   */
+  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subscription to update in case it exists.
+     */
+    where: SubscriptionWhereUniqueInput
+    /**
+     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
+     */
+    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+    /**
+     * In case the Subscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Subscription delete
+   */
+  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Subscription to delete.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription deleteMany
+   */
+  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscriptions to delete
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription without action
+   */
+  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
   }
 
 
@@ -6848,9 +10403,10 @@ export namespace Prisma {
 
   export const TeamMemberScalarFieldEnum: {
     id: 'id',
-    role: 'role',
     userId: 'userId',
-    teamId: 'teamId'
+    teamId: 'teamId',
+    role: 'role',
+    createdAt: 'createdAt'
   };
 
   export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
@@ -6858,26 +10414,59 @@ export namespace Prisma {
 
   export const StandupScalarFieldEnum: {
     id: 'id',
-    date: 'date',
     userId: 'userId',
     teamId: 'teamId',
-    yesterday: 'yesterday',
-    today: 'today',
-    blockers: 'blockers'
+    content: 'content',
+    createdAt: 'createdAt'
   };
 
   export type StandupScalarFieldEnum = (typeof StandupScalarFieldEnum)[keyof typeof StandupScalarFieldEnum]
 
 
-  export const StatusUpdateScalarFieldEnum: {
+  export const FocusSessionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    teamId: 'teamId',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    duration: 'duration'
+  };
+
+  export type FocusSessionScalarFieldEnum = (typeof FocusSessionScalarFieldEnum)[keyof typeof FocusSessionScalarFieldEnum]
+
+
+  export const CodeReviewScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    prUrl: 'prUrl',
     status: 'status',
+    comments: 'comments',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type StatusUpdateScalarFieldEnum = (typeof StatusUpdateScalarFieldEnum)[keyof typeof StatusUpdateScalarFieldEnum]
+  export type CodeReviewScalarFieldEnum = (typeof CodeReviewScalarFieldEnum)[keyof typeof CodeReviewScalarFieldEnum]
+
+
+  export const RepositoryScalarFieldEnum: {
+    id: 'id',
+    teamId: 'teamId',
+    url: 'url',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type RepositoryScalarFieldEnum = (typeof RepositoryScalarFieldEnum)[keyof typeof RepositoryScalarFieldEnum]
+
+
+  export const SubscriptionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    tier: 'tier',
+    startDate: 'startDate',
+    endDate: 'endDate'
+  };
+
+  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6886,6 +10475,13 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -6902,6 +10498,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -6963,6 +10568,48 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionTier'
+   */
+  export type EnumSubscriptionTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionTier'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionTier[]'
+   */
+  export type ListEnumSubscriptionTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionTier[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -6979,9 +10626,11 @@ export namespace Prisma {
     avatarUrl?: StringNullableFilter<"User"> | string | null
     provider?: EnumProviderFilter<"User"> | $Enums.Provider
     createdAt?: DateTimeFilter<"User"> | Date | string
-    standups?: StandupListRelationFilter
     teams?: TeamMemberListRelationFilter
-    StatusUpdate?: StatusUpdateListRelationFilter
+    standups?: StandupListRelationFilter
+    focusSessions?: FocusSessionListRelationFilter
+    codeReviews?: CodeReviewListRelationFilter
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6992,9 +10641,11 @@ export namespace Prisma {
     avatarUrl?: SortOrderInput | SortOrder
     provider?: SortOrder
     createdAt?: SortOrder
-    standups?: StandupOrderByRelationAggregateInput
     teams?: TeamMemberOrderByRelationAggregateInput
-    StatusUpdate?: StatusUpdateOrderByRelationAggregateInput
+    standups?: StandupOrderByRelationAggregateInput
+    focusSessions?: FocusSessionOrderByRelationAggregateInput
+    codeReviews?: CodeReviewOrderByRelationAggregateInput
+    subscription?: SubscriptionOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7008,9 +10659,11 @@ export namespace Prisma {
     avatarUrl?: StringNullableFilter<"User"> | string | null
     provider?: EnumProviderFilter<"User"> | $Enums.Provider
     createdAt?: DateTimeFilter<"User"> | Date | string
-    standups?: StandupListRelationFilter
     teams?: TeamMemberListRelationFilter
-    StatusUpdate?: StatusUpdateListRelationFilter
+    standups?: StandupListRelationFilter
+    focusSessions?: FocusSessionListRelationFilter
+    codeReviews?: CodeReviewListRelationFilter
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7048,7 +10701,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Team"> | Date | string
     members?: TeamMemberListRelationFilter
     standups?: StandupListRelationFilter
-    StatusUpdate?: StatusUpdateListRelationFilter
+    repositories?: RepositoryListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -7057,7 +10710,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     members?: TeamMemberOrderByRelationAggregateInput
     standups?: StandupOrderByRelationAggregateInput
-    StatusUpdate?: StatusUpdateOrderByRelationAggregateInput
+    repositories?: RepositoryOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -7069,7 +10722,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Team"> | Date | string
     members?: TeamMemberListRelationFilter
     standups?: StandupListRelationFilter
-    StatusUpdate?: StatusUpdateListRelationFilter
+    repositories?: RepositoryListRelationFilter
   }, "id">
 
   export type TeamOrderByWithAggregationInput = {
@@ -7095,39 +10748,44 @@ export namespace Prisma {
     OR?: TeamMemberWhereInput[]
     NOT?: TeamMemberWhereInput | TeamMemberWhereInput[]
     id?: StringFilter<"TeamMember"> | string
-    role?: StringFilter<"TeamMember"> | string
     userId?: StringFilter<"TeamMember"> | string
     teamId?: StringFilter<"TeamMember"> | string
+    role?: StringFilter<"TeamMember"> | string
+    createdAt?: DateTimeFilter<"TeamMember"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
   }
 
   export type TeamMemberOrderByWithRelationInput = {
     id?: SortOrder
-    role?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
   }
 
   export type TeamMemberWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId_teamId?: TeamMemberUserIdTeamIdCompoundUniqueInput
     AND?: TeamMemberWhereInput | TeamMemberWhereInput[]
     OR?: TeamMemberWhereInput[]
     NOT?: TeamMemberWhereInput | TeamMemberWhereInput[]
-    role?: StringFilter<"TeamMember"> | string
     userId?: StringFilter<"TeamMember"> | string
     teamId?: StringFilter<"TeamMember"> | string
+    role?: StringFilter<"TeamMember"> | string
+    createdAt?: DateTimeFilter<"TeamMember"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
-  }, "id">
+  }, "id" | "userId_teamId">
 
   export type TeamMemberOrderByWithAggregationInput = {
     id?: SortOrder
-    role?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
     _count?: TeamMemberCountOrderByAggregateInput
     _max?: TeamMemberMaxOrderByAggregateInput
     _min?: TeamMemberMinOrderByAggregateInput
@@ -7138,9 +10796,10 @@ export namespace Prisma {
     OR?: TeamMemberScalarWhereWithAggregatesInput[]
     NOT?: TeamMemberScalarWhereWithAggregatesInput | TeamMemberScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"TeamMember"> | string
-    role?: StringWithAggregatesFilter<"TeamMember"> | string
     userId?: StringWithAggregatesFilter<"TeamMember"> | string
     teamId?: StringWithAggregatesFilter<"TeamMember"> | string
+    role?: StringWithAggregatesFilter<"TeamMember"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TeamMember"> | Date | string
   }
 
   export type StandupWhereInput = {
@@ -7148,24 +10807,20 @@ export namespace Prisma {
     OR?: StandupWhereInput[]
     NOT?: StandupWhereInput | StandupWhereInput[]
     id?: StringFilter<"Standup"> | string
-    date?: DateTimeFilter<"Standup"> | Date | string
     userId?: StringFilter<"Standup"> | string
     teamId?: StringFilter<"Standup"> | string
-    yesterday?: StringFilter<"Standup"> | string
-    today?: StringFilter<"Standup"> | string
-    blockers?: StringFilter<"Standup"> | string
+    content?: StringFilter<"Standup"> | string
+    createdAt?: DateTimeFilter<"Standup"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
   }
 
   export type StandupOrderByWithRelationInput = {
     id?: SortOrder
-    date?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
-    yesterday?: SortOrder
-    today?: SortOrder
-    blockers?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
   }
@@ -7175,24 +10830,20 @@ export namespace Prisma {
     AND?: StandupWhereInput | StandupWhereInput[]
     OR?: StandupWhereInput[]
     NOT?: StandupWhereInput | StandupWhereInput[]
-    date?: DateTimeFilter<"Standup"> | Date | string
     userId?: StringFilter<"Standup"> | string
     teamId?: StringFilter<"Standup"> | string
-    yesterday?: StringFilter<"Standup"> | string
-    today?: StringFilter<"Standup"> | string
-    blockers?: StringFilter<"Standup"> | string
+    content?: StringFilter<"Standup"> | string
+    createdAt?: DateTimeFilter<"Standup"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
   }, "id">
 
   export type StandupOrderByWithAggregationInput = {
     id?: SortOrder
-    date?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
-    yesterday?: SortOrder
-    today?: SortOrder
-    blockers?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
     _count?: StandupCountOrderByAggregateInput
     _max?: StandupMaxOrderByAggregateInput
     _min?: StandupMinOrderByAggregateInput
@@ -7203,70 +10854,242 @@ export namespace Prisma {
     OR?: StandupScalarWhereWithAggregatesInput[]
     NOT?: StandupScalarWhereWithAggregatesInput | StandupScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Standup"> | string
-    date?: DateTimeWithAggregatesFilter<"Standup"> | Date | string
     userId?: StringWithAggregatesFilter<"Standup"> | string
     teamId?: StringWithAggregatesFilter<"Standup"> | string
-    yesterday?: StringWithAggregatesFilter<"Standup"> | string
-    today?: StringWithAggregatesFilter<"Standup"> | string
-    blockers?: StringWithAggregatesFilter<"Standup"> | string
+    content?: StringWithAggregatesFilter<"Standup"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Standup"> | Date | string
   }
 
-  export type StatusUpdateWhereInput = {
-    AND?: StatusUpdateWhereInput | StatusUpdateWhereInput[]
-    OR?: StatusUpdateWhereInput[]
-    NOT?: StatusUpdateWhereInput | StatusUpdateWhereInput[]
-    id?: StringFilter<"StatusUpdate"> | string
-    userId?: StringFilter<"StatusUpdate"> | string
-    teamId?: StringFilter<"StatusUpdate"> | string
-    status?: StringFilter<"StatusUpdate"> | string
-    updatedAt?: DateTimeFilter<"StatusUpdate"> | Date | string
+  export type FocusSessionWhereInput = {
+    AND?: FocusSessionWhereInput | FocusSessionWhereInput[]
+    OR?: FocusSessionWhereInput[]
+    NOT?: FocusSessionWhereInput | FocusSessionWhereInput[]
+    id?: StringFilter<"FocusSession"> | string
+    userId?: StringFilter<"FocusSession"> | string
+    startTime?: DateTimeFilter<"FocusSession"> | Date | string
+    endTime?: DateTimeNullableFilter<"FocusSession"> | Date | string | null
+    duration?: IntFilter<"FocusSession"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FocusSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type FocusSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FocusSessionWhereInput | FocusSessionWhereInput[]
+    OR?: FocusSessionWhereInput[]
+    NOT?: FocusSessionWhereInput | FocusSessionWhereInput[]
+    userId?: StringFilter<"FocusSession"> | string
+    startTime?: DateTimeFilter<"FocusSession"> | Date | string
+    endTime?: DateTimeNullableFilter<"FocusSession"> | Date | string | null
+    duration?: IntFilter<"FocusSession"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type FocusSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    _count?: FocusSessionCountOrderByAggregateInput
+    _avg?: FocusSessionAvgOrderByAggregateInput
+    _max?: FocusSessionMaxOrderByAggregateInput
+    _min?: FocusSessionMinOrderByAggregateInput
+    _sum?: FocusSessionSumOrderByAggregateInput
+  }
+
+  export type FocusSessionScalarWhereWithAggregatesInput = {
+    AND?: FocusSessionScalarWhereWithAggregatesInput | FocusSessionScalarWhereWithAggregatesInput[]
+    OR?: FocusSessionScalarWhereWithAggregatesInput[]
+    NOT?: FocusSessionScalarWhereWithAggregatesInput | FocusSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FocusSession"> | string
+    userId?: StringWithAggregatesFilter<"FocusSession"> | string
+    startTime?: DateTimeWithAggregatesFilter<"FocusSession"> | Date | string
+    endTime?: DateTimeNullableWithAggregatesFilter<"FocusSession"> | Date | string | null
+    duration?: IntWithAggregatesFilter<"FocusSession"> | number
+  }
+
+  export type CodeReviewWhereInput = {
+    AND?: CodeReviewWhereInput | CodeReviewWhereInput[]
+    OR?: CodeReviewWhereInput[]
+    NOT?: CodeReviewWhereInput | CodeReviewWhereInput[]
+    id?: StringFilter<"CodeReview"> | string
+    userId?: StringFilter<"CodeReview"> | string
+    prUrl?: StringFilter<"CodeReview"> | string
+    status?: StringFilter<"CodeReview"> | string
+    comments?: JsonFilter<"CodeReview">
+    createdAt?: DateTimeFilter<"CodeReview"> | Date | string
+    updatedAt?: DateTimeFilter<"CodeReview"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CodeReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    prUrl?: SortOrder
+    status?: SortOrder
+    comments?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CodeReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CodeReviewWhereInput | CodeReviewWhereInput[]
+    OR?: CodeReviewWhereInput[]
+    NOT?: CodeReviewWhereInput | CodeReviewWhereInput[]
+    userId?: StringFilter<"CodeReview"> | string
+    prUrl?: StringFilter<"CodeReview"> | string
+    status?: StringFilter<"CodeReview"> | string
+    comments?: JsonFilter<"CodeReview">
+    createdAt?: DateTimeFilter<"CodeReview"> | Date | string
+    updatedAt?: DateTimeFilter<"CodeReview"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CodeReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    prUrl?: SortOrder
+    status?: SortOrder
+    comments?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CodeReviewCountOrderByAggregateInput
+    _max?: CodeReviewMaxOrderByAggregateInput
+    _min?: CodeReviewMinOrderByAggregateInput
+  }
+
+  export type CodeReviewScalarWhereWithAggregatesInput = {
+    AND?: CodeReviewScalarWhereWithAggregatesInput | CodeReviewScalarWhereWithAggregatesInput[]
+    OR?: CodeReviewScalarWhereWithAggregatesInput[]
+    NOT?: CodeReviewScalarWhereWithAggregatesInput | CodeReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CodeReview"> | string
+    userId?: StringWithAggregatesFilter<"CodeReview"> | string
+    prUrl?: StringWithAggregatesFilter<"CodeReview"> | string
+    status?: StringWithAggregatesFilter<"CodeReview"> | string
+    comments?: JsonWithAggregatesFilter<"CodeReview">
+    createdAt?: DateTimeWithAggregatesFilter<"CodeReview"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CodeReview"> | Date | string
+  }
+
+  export type RepositoryWhereInput = {
+    AND?: RepositoryWhereInput | RepositoryWhereInput[]
+    OR?: RepositoryWhereInput[]
+    NOT?: RepositoryWhereInput | RepositoryWhereInput[]
+    id?: StringFilter<"Repository"> | string
+    teamId?: StringFilter<"Repository"> | string
+    url?: StringFilter<"Repository"> | string
+    name?: StringFilter<"Repository"> | string
+    createdAt?: DateTimeFilter<"Repository"> | Date | string
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
   }
 
-  export type StatusUpdateOrderByWithRelationInput = {
+  export type RepositoryOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
     teamId?: SortOrder
-    status?: SortOrder
-    updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
+    url?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
     team?: TeamOrderByWithRelationInput
   }
 
-  export type StatusUpdateWhereUniqueInput = Prisma.AtLeast<{
+  export type RepositoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: StatusUpdateWhereInput | StatusUpdateWhereInput[]
-    OR?: StatusUpdateWhereInput[]
-    NOT?: StatusUpdateWhereInput | StatusUpdateWhereInput[]
-    userId?: StringFilter<"StatusUpdate"> | string
-    teamId?: StringFilter<"StatusUpdate"> | string
-    status?: StringFilter<"StatusUpdate"> | string
-    updatedAt?: DateTimeFilter<"StatusUpdate"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    AND?: RepositoryWhereInput | RepositoryWhereInput[]
+    OR?: RepositoryWhereInput[]
+    NOT?: RepositoryWhereInput | RepositoryWhereInput[]
+    teamId?: StringFilter<"Repository"> | string
+    url?: StringFilter<"Repository"> | string
+    name?: StringFilter<"Repository"> | string
+    createdAt?: DateTimeFilter<"Repository"> | Date | string
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
   }, "id">
 
-  export type StatusUpdateOrderByWithAggregationInput = {
+  export type RepositoryOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
     teamId?: SortOrder
-    status?: SortOrder
-    updatedAt?: SortOrder
-    _count?: StatusUpdateCountOrderByAggregateInput
-    _max?: StatusUpdateMaxOrderByAggregateInput
-    _min?: StatusUpdateMinOrderByAggregateInput
+    url?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: RepositoryCountOrderByAggregateInput
+    _max?: RepositoryMaxOrderByAggregateInput
+    _min?: RepositoryMinOrderByAggregateInput
   }
 
-  export type StatusUpdateScalarWhereWithAggregatesInput = {
-    AND?: StatusUpdateScalarWhereWithAggregatesInput | StatusUpdateScalarWhereWithAggregatesInput[]
-    OR?: StatusUpdateScalarWhereWithAggregatesInput[]
-    NOT?: StatusUpdateScalarWhereWithAggregatesInput | StatusUpdateScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"StatusUpdate"> | string
-    userId?: StringWithAggregatesFilter<"StatusUpdate"> | string
-    teamId?: StringWithAggregatesFilter<"StatusUpdate"> | string
-    status?: StringWithAggregatesFilter<"StatusUpdate"> | string
-    updatedAt?: DateTimeWithAggregatesFilter<"StatusUpdate"> | Date | string
+  export type RepositoryScalarWhereWithAggregatesInput = {
+    AND?: RepositoryScalarWhereWithAggregatesInput | RepositoryScalarWhereWithAggregatesInput[]
+    OR?: RepositoryScalarWhereWithAggregatesInput[]
+    NOT?: RepositoryScalarWhereWithAggregatesInput | RepositoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Repository"> | string
+    teamId?: StringWithAggregatesFilter<"Repository"> | string
+    url?: StringWithAggregatesFilter<"Repository"> | string
+    name?: StringWithAggregatesFilter<"Repository"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Repository"> | Date | string
+  }
+
+  export type SubscriptionWhereInput = {
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    id?: StringFilter<"Subscription"> | string
+    userId?: StringFilter<"Subscription"> | string
+    tier?: EnumSubscriptionTierFilter<"Subscription"> | $Enums.SubscriptionTier
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    tier?: EnumSubscriptionTierFilter<"Subscription"> | $Enums.SubscriptionTier
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type SubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    _count?: SubscriptionCountOrderByAggregateInput
+    _max?: SubscriptionMaxOrderByAggregateInput
+    _min?: SubscriptionMinOrderByAggregateInput
+  }
+
+  export type SubscriptionScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Subscription"> | string
+    userId?: StringWithAggregatesFilter<"Subscription"> | string
+    tier?: EnumSubscriptionTierWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionTier
+    startDate?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   }
 
   export type UserCreateInput = {
@@ -7277,9 +11100,11 @@ export namespace Prisma {
     avatarUrl?: string | null
     provider: $Enums.Provider
     createdAt?: Date | string
-    standups?: StandupCreateNestedManyWithoutUserInput
     teams?: TeamMemberCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutUserInput
+    standups?: StandupCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7290,9 +11115,11 @@ export namespace Prisma {
     avatarUrl?: string | null
     provider: $Enums.Provider
     createdAt?: Date | string
-    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
+    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionUncheckedCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7303,9 +11130,11 @@ export namespace Prisma {
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    standups?: StandupUpdateManyWithoutUserNestedInput
     teams?: TeamMemberUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutUserNestedInput
+    standups?: StandupUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7316,9 +11145,11 @@ export namespace Prisma {
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUncheckedUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7357,7 +11188,7 @@ export namespace Prisma {
     createdAt?: Date | string
     members?: TeamMemberCreateNestedManyWithoutTeamInput
     standups?: StandupCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -7366,7 +11197,7 @@ export namespace Prisma {
     createdAt?: Date | string
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
     standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
@@ -7375,7 +11206,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
     standups?: StandupUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -7384,7 +11215,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
     standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -7407,171 +11238,344 @@ export namespace Prisma {
 
   export type TeamMemberCreateInput = {
     id?: string
-    role: string
+    role?: string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutTeamsInput
     team: TeamCreateNestedOneWithoutMembersInput
   }
 
   export type TeamMemberUncheckedCreateInput = {
     id?: string
-    role: string
     userId: string
     teamId: string
+    role?: string
+    createdAt?: Date | string
   }
 
   export type TeamMemberUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTeamsNestedInput
     team?: TeamUpdateOneRequiredWithoutMembersNestedInput
   }
 
   export type TeamMemberUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     teamId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamMemberCreateManyInput = {
     id?: string
-    role: string
     userId: string
     teamId: string
+    role?: string
+    createdAt?: Date | string
   }
 
   export type TeamMemberUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamMemberUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     teamId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StandupCreateInput = {
     id?: string
-    date: Date | string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutStandupsInput
     team: TeamCreateNestedOneWithoutStandupsInput
   }
 
   export type StandupUncheckedCreateInput = {
     id?: string
-    date: Date | string
     userId: string
     teamId: string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
   }
 
   export type StandupUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStandupsNestedInput
     team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
   }
 
   export type StandupUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     teamId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StandupCreateManyInput = {
     id?: string
-    date: Date | string
     userId: string
     teamId: string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
   }
 
   export type StandupUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StandupUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     teamId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateCreateInput = {
+  export type FocusSessionCreateInput = {
     id?: string
-    status: string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutStatusUpdateInput
-    team: TeamCreateNestedOneWithoutStatusUpdateInput
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
+    user: UserCreateNestedOneWithoutFocusSessionsInput
   }
 
-  export type StatusUpdateUncheckedCreateInput = {
+  export type FocusSessionUncheckedCreateInput = {
     id?: string
     userId: string
-    teamId: string
-    status: string
-    updatedAt?: Date | string
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
   }
 
-  export type StatusUpdateUpdateInput = {
+  export type FocusSessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutStatusUpdateNestedInput
-    team?: TeamUpdateOneRequiredWithoutStatusUpdateNestedInput
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutFocusSessionsNestedInput
   }
 
-  export type StatusUpdateUncheckedUpdateInput = {
+  export type FocusSessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
   }
 
-  export type StatusUpdateCreateManyInput = {
+  export type FocusSessionCreateManyInput = {
     id?: string
     userId: string
-    teamId: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
+  }
+
+  export type FocusSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FocusSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CodeReviewCreateInput = {
+    id?: string
+    prUrl: string
     status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCodeReviewsInput
+  }
+
+  export type CodeReviewUncheckedCreateInput = {
+    id?: string
+    userId: string
+    prUrl: string
+    status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type StatusUpdateUpdateManyMutationInput = {
+  export type CodeReviewUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCodeReviewsNestedInput
+  }
+
+  export type CodeReviewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUncheckedUpdateManyInput = {
+  export type CodeReviewCreateManyInput = {
+    id?: string
+    userId: string
+    prUrl: string
+    status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CodeReviewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CodeReviewUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepositoryCreateInput = {
+    id?: string
+    url: string
+    name: string
+    createdAt?: Date | string
+    team: TeamCreateNestedOneWithoutRepositoriesInput
+  }
+
+  export type RepositoryUncheckedCreateInput = {
+    id?: string
+    teamId: string
+    url: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type RepositoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    team?: TeamUpdateOneRequiredWithoutRepositoriesNestedInput
+  }
+
+  export type RepositoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepositoryCreateManyInput = {
+    id?: string
+    teamId: string
+    url: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type RepositoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepositoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionCreateInput = {
+    id?: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date | string
+    endDate?: Date | string | null
+    user: UserCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date | string
+    endDate?: Date | string | null
+  }
+
+  export type SubscriptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SubscriptionCreateManyInput = {
+    id?: string
+    userId: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date | string
+    endDate?: Date | string | null
+  }
+
+  export type SubscriptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SubscriptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7622,22 +11626,33 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type StandupListRelationFilter = {
-    every?: StandupWhereInput
-    some?: StandupWhereInput
-    none?: StandupWhereInput
-  }
-
   export type TeamMemberListRelationFilter = {
     every?: TeamMemberWhereInput
     some?: TeamMemberWhereInput
     none?: TeamMemberWhereInput
   }
 
-  export type StatusUpdateListRelationFilter = {
-    every?: StatusUpdateWhereInput
-    some?: StatusUpdateWhereInput
-    none?: StatusUpdateWhereInput
+  export type StandupListRelationFilter = {
+    every?: StandupWhereInput
+    some?: StandupWhereInput
+    none?: StandupWhereInput
+  }
+
+  export type FocusSessionListRelationFilter = {
+    every?: FocusSessionWhereInput
+    some?: FocusSessionWhereInput
+    none?: FocusSessionWhereInput
+  }
+
+  export type CodeReviewListRelationFilter = {
+    every?: CodeReviewWhereInput
+    some?: CodeReviewWhereInput
+    none?: CodeReviewWhereInput
+  }
+
+  export type SubscriptionNullableScalarRelationFilter = {
+    is?: SubscriptionWhereInput | null
+    isNot?: SubscriptionWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -7645,15 +11660,19 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type StandupOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type TeamMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type StatusUpdateOrderByRelationAggregateInput = {
+  export type StandupOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FocusSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CodeReviewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7747,6 +11766,16 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type RepositoryListRelationFilter = {
+    every?: RepositoryWhereInput
+    some?: RepositoryWhereInput
+    none?: RepositoryWhereInput
+  }
+
+  export type RepositoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TeamCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -7775,86 +11804,283 @@ export namespace Prisma {
     isNot?: TeamWhereInput
   }
 
+  export type TeamMemberUserIdTeamIdCompoundUniqueInput = {
+    userId: string
+    teamId: string
+  }
+
   export type TeamMemberCountOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type TeamMemberMaxOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type TeamMemberMinOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StandupCountOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
-    yesterday?: SortOrder
-    today?: SortOrder
-    blockers?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StandupMaxOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
-    yesterday?: SortOrder
-    today?: SortOrder
-    blockers?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StandupMinOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     userId?: SortOrder
     teamId?: SortOrder
-    yesterday?: SortOrder
-    today?: SortOrder
-    blockers?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type StatusUpdateCountOrderByAggregateInput = {
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type FocusSessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type FocusSessionAvgOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type FocusSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type FocusSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type FocusSessionSumOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type CodeReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    prUrl?: SortOrder
     status?: SortOrder
+    comments?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StatusUpdateMaxOrderByAggregateInput = {
+  export type CodeReviewMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
+    prUrl?: SortOrder
     status?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StatusUpdateMinOrderByAggregateInput = {
+  export type CodeReviewMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
+    prUrl?: SortOrder
     status?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type StandupCreateNestedManyWithoutUserInput = {
-    create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
-    createMany?: StandupCreateManyUserInputEnvelope
-    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type RepositoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    teamId?: SortOrder
+    url?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RepositoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teamId?: SortOrder
+    url?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RepositoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    teamId?: SortOrder
+    url?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumSubscriptionTierFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionTier | EnumSubscriptionTierFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionTierFilter<$PrismaModel> | $Enums.SubscriptionTier
+  }
+
+  export type SubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type SubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type SubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type EnumSubscriptionTierWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionTier | EnumSubscriptionTierFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionTierWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionTier
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionTierFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionTierFilter<$PrismaModel>
   }
 
   export type TeamMemberCreateNestedManyWithoutUserInput = {
@@ -7864,18 +12090,31 @@ export namespace Prisma {
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
   }
 
-  export type StatusUpdateCreateNestedManyWithoutUserInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-  }
-
-  export type StandupUncheckedCreateNestedManyWithoutUserInput = {
+  export type StandupCreateNestedManyWithoutUserInput = {
     create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
     connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
     createMany?: StandupCreateManyUserInputEnvelope
     connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  }
+
+  export type FocusSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput> | FocusSessionCreateWithoutUserInput[] | FocusSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FocusSessionCreateOrConnectWithoutUserInput | FocusSessionCreateOrConnectWithoutUserInput[]
+    createMany?: FocusSessionCreateManyUserInputEnvelope
+    connect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+  }
+
+  export type CodeReviewCreateNestedManyWithoutUserInput = {
+    create?: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput> | CodeReviewCreateWithoutUserInput[] | CodeReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CodeReviewCreateOrConnectWithoutUserInput | CodeReviewCreateOrConnectWithoutUserInput[]
+    createMany?: CodeReviewCreateManyUserInputEnvelope
+    connect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+  }
+
+  export type SubscriptionCreateNestedOneWithoutUserInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    connect?: SubscriptionWhereUniqueInput
   }
 
   export type TeamMemberUncheckedCreateNestedManyWithoutUserInput = {
@@ -7885,11 +12124,31 @@ export namespace Prisma {
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
   }
 
-  export type StatusUpdateUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+  export type StandupUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
+    createMany?: StandupCreateManyUserInputEnvelope
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  }
+
+  export type FocusSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput> | FocusSessionCreateWithoutUserInput[] | FocusSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FocusSessionCreateOrConnectWithoutUserInput | FocusSessionCreateOrConnectWithoutUserInput[]
+    createMany?: FocusSessionCreateManyUserInputEnvelope
+    connect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+  }
+
+  export type CodeReviewUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput> | CodeReviewCreateWithoutUserInput[] | CodeReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CodeReviewCreateOrConnectWithoutUserInput | CodeReviewCreateOrConnectWithoutUserInput[]
+    createMany?: CodeReviewCreateManyUserInputEnvelope
+    connect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+  }
+
+  export type SubscriptionUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    connect?: SubscriptionWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7908,20 +12167,6 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type StandupUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
-    upsert?: StandupUpsertWithWhereUniqueWithoutUserInput | StandupUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StandupCreateManyUserInputEnvelope
-    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
-    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
-    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
-    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
-    update?: StandupUpdateWithWhereUniqueWithoutUserInput | StandupUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StandupUpdateManyWithWhereWithoutUserInput | StandupUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
-  }
-
   export type TeamMemberUpdateManyWithoutUserNestedInput = {
     create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
@@ -7936,21 +12181,7 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
-  export type StatusUpdateUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
-  }
-
-  export type StandupUncheckedUpdateManyWithoutUserNestedInput = {
+  export type StandupUpdateManyWithoutUserNestedInput = {
     create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
     connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
     upsert?: StandupUpsertWithWhereUniqueWithoutUserInput | StandupUpsertWithWhereUniqueWithoutUserInput[]
@@ -7962,6 +12193,44 @@ export namespace Prisma {
     update?: StandupUpdateWithWhereUniqueWithoutUserInput | StandupUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: StandupUpdateManyWithWhereWithoutUserInput | StandupUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
+  }
+
+  export type FocusSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput> | FocusSessionCreateWithoutUserInput[] | FocusSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FocusSessionCreateOrConnectWithoutUserInput | FocusSessionCreateOrConnectWithoutUserInput[]
+    upsert?: FocusSessionUpsertWithWhereUniqueWithoutUserInput | FocusSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FocusSessionCreateManyUserInputEnvelope
+    set?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    disconnect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    delete?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    connect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    update?: FocusSessionUpdateWithWhereUniqueWithoutUserInput | FocusSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FocusSessionUpdateManyWithWhereWithoutUserInput | FocusSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FocusSessionScalarWhereInput | FocusSessionScalarWhereInput[]
+  }
+
+  export type CodeReviewUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput> | CodeReviewCreateWithoutUserInput[] | CodeReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CodeReviewCreateOrConnectWithoutUserInput | CodeReviewCreateOrConnectWithoutUserInput[]
+    upsert?: CodeReviewUpsertWithWhereUniqueWithoutUserInput | CodeReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CodeReviewCreateManyUserInputEnvelope
+    set?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    disconnect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    delete?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    connect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    update?: CodeReviewUpdateWithWhereUniqueWithoutUserInput | CodeReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CodeReviewUpdateManyWithWhereWithoutUserInput | CodeReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CodeReviewScalarWhereInput | CodeReviewScalarWhereInput[]
+  }
+
+  export type SubscriptionUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    upsert?: SubscriptionUpsertWithoutUserInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
   }
 
   export type TeamMemberUncheckedUpdateManyWithoutUserNestedInput = {
@@ -7978,18 +12247,56 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
-  export type StatusUpdateUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
+  export type StandupUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput> | StandupCreateWithoutUserInput[] | StandupUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutUserInput | StandupCreateOrConnectWithoutUserInput[]
+    upsert?: StandupUpsertWithWhereUniqueWithoutUserInput | StandupUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StandupCreateManyUserInputEnvelope
+    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    update?: StandupUpdateWithWhereUniqueWithoutUserInput | StandupUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StandupUpdateManyWithWhereWithoutUserInput | StandupUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
+  }
+
+  export type FocusSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput> | FocusSessionCreateWithoutUserInput[] | FocusSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FocusSessionCreateOrConnectWithoutUserInput | FocusSessionCreateOrConnectWithoutUserInput[]
+    upsert?: FocusSessionUpsertWithWhereUniqueWithoutUserInput | FocusSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FocusSessionCreateManyUserInputEnvelope
+    set?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    disconnect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    delete?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    connect?: FocusSessionWhereUniqueInput | FocusSessionWhereUniqueInput[]
+    update?: FocusSessionUpdateWithWhereUniqueWithoutUserInput | FocusSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FocusSessionUpdateManyWithWhereWithoutUserInput | FocusSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FocusSessionScalarWhereInput | FocusSessionScalarWhereInput[]
+  }
+
+  export type CodeReviewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput> | CodeReviewCreateWithoutUserInput[] | CodeReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CodeReviewCreateOrConnectWithoutUserInput | CodeReviewCreateOrConnectWithoutUserInput[]
+    upsert?: CodeReviewUpsertWithWhereUniqueWithoutUserInput | CodeReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CodeReviewCreateManyUserInputEnvelope
+    set?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    disconnect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    delete?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    connect?: CodeReviewWhereUniqueInput | CodeReviewWhereUniqueInput[]
+    update?: CodeReviewUpdateWithWhereUniqueWithoutUserInput | CodeReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CodeReviewUpdateManyWithWhereWithoutUserInput | CodeReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CodeReviewScalarWhereInput | CodeReviewScalarWhereInput[]
+  }
+
+  export type SubscriptionUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    upsert?: SubscriptionUpsertWithoutUserInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
   }
 
   export type TeamMemberCreateNestedManyWithoutTeamInput = {
@@ -8006,11 +12313,11 @@ export namespace Prisma {
     connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
   }
 
-  export type StatusUpdateCreateNestedManyWithoutTeamInput = {
-    create?: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput> | StatusUpdateCreateWithoutTeamInput[] | StatusUpdateUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutTeamInput | StatusUpdateCreateOrConnectWithoutTeamInput[]
-    createMany?: StatusUpdateCreateManyTeamInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+  export type RepositoryCreateNestedManyWithoutTeamInput = {
+    create?: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput> | RepositoryCreateWithoutTeamInput[] | RepositoryUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: RepositoryCreateOrConnectWithoutTeamInput | RepositoryCreateOrConnectWithoutTeamInput[]
+    createMany?: RepositoryCreateManyTeamInputEnvelope
+    connect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
   }
 
   export type TeamMemberUncheckedCreateNestedManyWithoutTeamInput = {
@@ -8027,11 +12334,11 @@ export namespace Prisma {
     connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
   }
 
-  export type StatusUpdateUncheckedCreateNestedManyWithoutTeamInput = {
-    create?: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput> | StatusUpdateCreateWithoutTeamInput[] | StatusUpdateUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutTeamInput | StatusUpdateCreateOrConnectWithoutTeamInput[]
-    createMany?: StatusUpdateCreateManyTeamInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+  export type RepositoryUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput> | RepositoryCreateWithoutTeamInput[] | RepositoryUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: RepositoryCreateOrConnectWithoutTeamInput | RepositoryCreateOrConnectWithoutTeamInput[]
+    createMany?: RepositoryCreateManyTeamInputEnvelope
+    connect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
   }
 
   export type TeamMemberUpdateManyWithoutTeamNestedInput = {
@@ -8062,18 +12369,18 @@ export namespace Prisma {
     deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
   }
 
-  export type StatusUpdateUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput> | StatusUpdateCreateWithoutTeamInput[] | StatusUpdateUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutTeamInput | StatusUpdateCreateOrConnectWithoutTeamInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutTeamInput | StatusUpdateUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: StatusUpdateCreateManyTeamInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutTeamInput | StatusUpdateUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutTeamInput | StatusUpdateUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
+  export type RepositoryUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput> | RepositoryCreateWithoutTeamInput[] | RepositoryUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: RepositoryCreateOrConnectWithoutTeamInput | RepositoryCreateOrConnectWithoutTeamInput[]
+    upsert?: RepositoryUpsertWithWhereUniqueWithoutTeamInput | RepositoryUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: RepositoryCreateManyTeamInputEnvelope
+    set?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    disconnect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    delete?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    connect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    update?: RepositoryUpdateWithWhereUniqueWithoutTeamInput | RepositoryUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: RepositoryUpdateManyWithWhereWithoutTeamInput | RepositoryUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: RepositoryScalarWhereInput | RepositoryScalarWhereInput[]
   }
 
   export type TeamMemberUncheckedUpdateManyWithoutTeamNestedInput = {
@@ -8104,18 +12411,18 @@ export namespace Prisma {
     deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
   }
 
-  export type StatusUpdateUncheckedUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput> | StatusUpdateCreateWithoutTeamInput[] | StatusUpdateUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutTeamInput | StatusUpdateCreateOrConnectWithoutTeamInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutTeamInput | StatusUpdateUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: StatusUpdateCreateManyTeamInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutTeamInput | StatusUpdateUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutTeamInput | StatusUpdateUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
+  export type RepositoryUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput> | RepositoryCreateWithoutTeamInput[] | RepositoryUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: RepositoryCreateOrConnectWithoutTeamInput | RepositoryCreateOrConnectWithoutTeamInput[]
+    upsert?: RepositoryUpsertWithWhereUniqueWithoutTeamInput | RepositoryUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: RepositoryCreateManyTeamInputEnvelope
+    set?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    disconnect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    delete?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    connect?: RepositoryWhereUniqueInput | RepositoryWhereUniqueInput[]
+    update?: RepositoryUpdateWithWhereUniqueWithoutTeamInput | RepositoryUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: RepositoryUpdateManyWithWhereWithoutTeamInput | RepositoryUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: RepositoryScalarWhereInput | RepositoryScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutTeamsInput = {
@@ -8174,32 +12481,76 @@ export namespace Prisma {
     update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutStandupsInput, TeamUpdateWithoutStandupsInput>, TeamUncheckedUpdateWithoutStandupsInput>
   }
 
-  export type UserCreateNestedOneWithoutStatusUpdateInput = {
-    create?: XOR<UserCreateWithoutStatusUpdateInput, UserUncheckedCreateWithoutStatusUpdateInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStatusUpdateInput
+  export type UserCreateNestedOneWithoutFocusSessionsInput = {
+    create?: XOR<UserCreateWithoutFocusSessionsInput, UserUncheckedCreateWithoutFocusSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFocusSessionsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type TeamCreateNestedOneWithoutStatusUpdateInput = {
-    create?: XOR<TeamCreateWithoutStatusUpdateInput, TeamUncheckedCreateWithoutStatusUpdateInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutStatusUpdateInput
-    connect?: TeamWhereUniqueInput
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
-  export type UserUpdateOneRequiredWithoutStatusUpdateNestedInput = {
-    create?: XOR<UserCreateWithoutStatusUpdateInput, UserUncheckedCreateWithoutStatusUpdateInput>
-    connectOrCreate?: UserCreateOrConnectWithoutStatusUpdateInput
-    upsert?: UserUpsertWithoutStatusUpdateInput
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutFocusSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutFocusSessionsInput, UserUncheckedCreateWithoutFocusSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFocusSessionsInput
+    upsert?: UserUpsertWithoutFocusSessionsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStatusUpdateInput, UserUpdateWithoutStatusUpdateInput>, UserUncheckedUpdateWithoutStatusUpdateInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFocusSessionsInput, UserUpdateWithoutFocusSessionsInput>, UserUncheckedUpdateWithoutFocusSessionsInput>
   }
 
-  export type TeamUpdateOneRequiredWithoutStatusUpdateNestedInput = {
-    create?: XOR<TeamCreateWithoutStatusUpdateInput, TeamUncheckedCreateWithoutStatusUpdateInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutStatusUpdateInput
-    upsert?: TeamUpsertWithoutStatusUpdateInput
+  export type UserCreateNestedOneWithoutCodeReviewsInput = {
+    create?: XOR<UserCreateWithoutCodeReviewsInput, UserUncheckedCreateWithoutCodeReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCodeReviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCodeReviewsNestedInput = {
+    create?: XOR<UserCreateWithoutCodeReviewsInput, UserUncheckedCreateWithoutCodeReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCodeReviewsInput
+    upsert?: UserUpsertWithoutCodeReviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCodeReviewsInput, UserUpdateWithoutCodeReviewsInput>, UserUncheckedUpdateWithoutCodeReviewsInput>
+  }
+
+  export type TeamCreateNestedOneWithoutRepositoriesInput = {
+    create?: XOR<TeamCreateWithoutRepositoriesInput, TeamUncheckedCreateWithoutRepositoriesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutRepositoriesInput
     connect?: TeamWhereUniqueInput
-    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutStatusUpdateInput, TeamUpdateWithoutStatusUpdateInput>, TeamUncheckedUpdateWithoutStatusUpdateInput>
+  }
+
+  export type TeamUpdateOneRequiredWithoutRepositoriesNestedInput = {
+    create?: XOR<TeamCreateWithoutRepositoriesInput, TeamUncheckedCreateWithoutRepositoriesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutRepositoriesInput
+    upsert?: TeamUpsertWithoutRepositoriesInput
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutRepositoriesInput, TeamUpdateWithoutRepositoriesInput>, TeamUncheckedUpdateWithoutRepositoriesInput>
+  }
+
+  export type UserCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumSubscriptionTierFieldUpdateOperationsInput = {
+    set?: $Enums.SubscriptionTier
+  }
+
+  export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    upsert?: UserUpsertWithoutSubscriptionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8328,44 +12679,110 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StandupCreateWithoutUserInput = {
-    id?: string
-    date: Date | string
-    yesterday: string
-    today: string
-    blockers: string
-    team: TeamCreateNestedOneWithoutStandupsInput
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type StandupUncheckedCreateWithoutUserInput = {
-    id?: string
-    date: Date | string
-    teamId: string
-    yesterday: string
-    today: string
-    blockers: string
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type StandupCreateOrConnectWithoutUserInput = {
-    where: StandupWhereUniqueInput
-    create: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput>
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type StandupCreateManyUserInputEnvelope = {
-    data: StandupCreateManyUserInput | StandupCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumSubscriptionTierFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionTier | EnumSubscriptionTierFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionTierFilter<$PrismaModel> | $Enums.SubscriptionTier
+  }
+
+  export type NestedEnumSubscriptionTierWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionTier | EnumSubscriptionTierFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionTier[] | ListEnumSubscriptionTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionTierWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionTier
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionTierFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionTierFilter<$PrismaModel>
   }
 
   export type TeamMemberCreateWithoutUserInput = {
     id?: string
-    role: string
+    role?: string
+    createdAt?: Date | string
     team: TeamCreateNestedOneWithoutMembersInput
   }
 
   export type TeamMemberUncheckedCreateWithoutUserInput = {
     id?: string
-    role: string
     teamId: string
+    role?: string
+    createdAt?: Date | string
   }
 
   export type TeamMemberCreateOrConnectWithoutUserInput = {
@@ -8378,57 +12795,99 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type StatusUpdateCreateWithoutUserInput = {
+  export type StandupCreateWithoutUserInput = {
     id?: string
-    status: string
-    updatedAt?: Date | string
-    team: TeamCreateNestedOneWithoutStatusUpdateInput
+    content: string
+    createdAt?: Date | string
+    team: TeamCreateNestedOneWithoutStandupsInput
   }
 
-  export type StatusUpdateUncheckedCreateWithoutUserInput = {
+  export type StandupUncheckedCreateWithoutUserInput = {
     id?: string
     teamId: string
-    status: string
-    updatedAt?: Date | string
+    content: string
+    createdAt?: Date | string
   }
 
-  export type StatusUpdateCreateOrConnectWithoutUserInput = {
-    where: StatusUpdateWhereUniqueInput
-    create: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput>
-  }
-
-  export type StatusUpdateCreateManyUserInputEnvelope = {
-    data: StatusUpdateCreateManyUserInput | StatusUpdateCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StandupUpsertWithWhereUniqueWithoutUserInput = {
+  export type StandupCreateOrConnectWithoutUserInput = {
     where: StandupWhereUniqueInput
-    update: XOR<StandupUpdateWithoutUserInput, StandupUncheckedUpdateWithoutUserInput>
     create: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput>
   }
 
-  export type StandupUpdateWithWhereUniqueWithoutUserInput = {
-    where: StandupWhereUniqueInput
-    data: XOR<StandupUpdateWithoutUserInput, StandupUncheckedUpdateWithoutUserInput>
+  export type StandupCreateManyUserInputEnvelope = {
+    data: StandupCreateManyUserInput | StandupCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
-  export type StandupUpdateManyWithWhereWithoutUserInput = {
-    where: StandupScalarWhereInput
-    data: XOR<StandupUpdateManyMutationInput, StandupUncheckedUpdateManyWithoutUserInput>
+  export type FocusSessionCreateWithoutUserInput = {
+    id?: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
   }
 
-  export type StandupScalarWhereInput = {
-    AND?: StandupScalarWhereInput | StandupScalarWhereInput[]
-    OR?: StandupScalarWhereInput[]
-    NOT?: StandupScalarWhereInput | StandupScalarWhereInput[]
-    id?: StringFilter<"Standup"> | string
-    date?: DateTimeFilter<"Standup"> | Date | string
-    userId?: StringFilter<"Standup"> | string
-    teamId?: StringFilter<"Standup"> | string
-    yesterday?: StringFilter<"Standup"> | string
-    today?: StringFilter<"Standup"> | string
-    blockers?: StringFilter<"Standup"> | string
+  export type FocusSessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
+  }
+
+  export type FocusSessionCreateOrConnectWithoutUserInput = {
+    where: FocusSessionWhereUniqueInput
+    create: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type FocusSessionCreateManyUserInputEnvelope = {
+    data: FocusSessionCreateManyUserInput | FocusSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CodeReviewCreateWithoutUserInput = {
+    id?: string
+    prUrl: string
+    status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CodeReviewUncheckedCreateWithoutUserInput = {
+    id?: string
+    prUrl: string
+    status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CodeReviewCreateOrConnectWithoutUserInput = {
+    where: CodeReviewWhereUniqueInput
+    create: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type CodeReviewCreateManyUserInputEnvelope = {
+    data: CodeReviewCreateManyUserInput | CodeReviewCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubscriptionCreateWithoutUserInput = {
+    id?: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date | string
+    endDate?: Date | string | null
+  }
+
+  export type SubscriptionUncheckedCreateWithoutUserInput = {
+    id?: string
+    tier: $Enums.SubscriptionTier
+    startDate: Date | string
+    endDate?: Date | string | null
+  }
+
+  export type SubscriptionCreateOrConnectWithoutUserInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
   }
 
   export type TeamMemberUpsertWithWhereUniqueWithoutUserInput = {
@@ -8452,48 +12911,132 @@ export namespace Prisma {
     OR?: TeamMemberScalarWhereInput[]
     NOT?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
     id?: StringFilter<"TeamMember"> | string
-    role?: StringFilter<"TeamMember"> | string
     userId?: StringFilter<"TeamMember"> | string
     teamId?: StringFilter<"TeamMember"> | string
+    role?: StringFilter<"TeamMember"> | string
+    createdAt?: DateTimeFilter<"TeamMember"> | Date | string
   }
 
-  export type StatusUpdateUpsertWithWhereUniqueWithoutUserInput = {
-    where: StatusUpdateWhereUniqueInput
-    update: XOR<StatusUpdateUpdateWithoutUserInput, StatusUpdateUncheckedUpdateWithoutUserInput>
-    create: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput>
+  export type StandupUpsertWithWhereUniqueWithoutUserInput = {
+    where: StandupWhereUniqueInput
+    update: XOR<StandupUpdateWithoutUserInput, StandupUncheckedUpdateWithoutUserInput>
+    create: XOR<StandupCreateWithoutUserInput, StandupUncheckedCreateWithoutUserInput>
   }
 
-  export type StatusUpdateUpdateWithWhereUniqueWithoutUserInput = {
-    where: StatusUpdateWhereUniqueInput
-    data: XOR<StatusUpdateUpdateWithoutUserInput, StatusUpdateUncheckedUpdateWithoutUserInput>
+  export type StandupUpdateWithWhereUniqueWithoutUserInput = {
+    where: StandupWhereUniqueInput
+    data: XOR<StandupUpdateWithoutUserInput, StandupUncheckedUpdateWithoutUserInput>
   }
 
-  export type StatusUpdateUpdateManyWithWhereWithoutUserInput = {
-    where: StatusUpdateScalarWhereInput
-    data: XOR<StatusUpdateUpdateManyMutationInput, StatusUpdateUncheckedUpdateManyWithoutUserInput>
+  export type StandupUpdateManyWithWhereWithoutUserInput = {
+    where: StandupScalarWhereInput
+    data: XOR<StandupUpdateManyMutationInput, StandupUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type StatusUpdateScalarWhereInput = {
-    AND?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
-    OR?: StatusUpdateScalarWhereInput[]
-    NOT?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
-    id?: StringFilter<"StatusUpdate"> | string
-    userId?: StringFilter<"StatusUpdate"> | string
-    teamId?: StringFilter<"StatusUpdate"> | string
-    status?: StringFilter<"StatusUpdate"> | string
-    updatedAt?: DateTimeFilter<"StatusUpdate"> | Date | string
+  export type StandupScalarWhereInput = {
+    AND?: StandupScalarWhereInput | StandupScalarWhereInput[]
+    OR?: StandupScalarWhereInput[]
+    NOT?: StandupScalarWhereInput | StandupScalarWhereInput[]
+    id?: StringFilter<"Standup"> | string
+    userId?: StringFilter<"Standup"> | string
+    teamId?: StringFilter<"Standup"> | string
+    content?: StringFilter<"Standup"> | string
+    createdAt?: DateTimeFilter<"Standup"> | Date | string
+  }
+
+  export type FocusSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: FocusSessionWhereUniqueInput
+    update: XOR<FocusSessionUpdateWithoutUserInput, FocusSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<FocusSessionCreateWithoutUserInput, FocusSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type FocusSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: FocusSessionWhereUniqueInput
+    data: XOR<FocusSessionUpdateWithoutUserInput, FocusSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FocusSessionUpdateManyWithWhereWithoutUserInput = {
+    where: FocusSessionScalarWhereInput
+    data: XOR<FocusSessionUpdateManyMutationInput, FocusSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FocusSessionScalarWhereInput = {
+    AND?: FocusSessionScalarWhereInput | FocusSessionScalarWhereInput[]
+    OR?: FocusSessionScalarWhereInput[]
+    NOT?: FocusSessionScalarWhereInput | FocusSessionScalarWhereInput[]
+    id?: StringFilter<"FocusSession"> | string
+    userId?: StringFilter<"FocusSession"> | string
+    startTime?: DateTimeFilter<"FocusSession"> | Date | string
+    endTime?: DateTimeNullableFilter<"FocusSession"> | Date | string | null
+    duration?: IntFilter<"FocusSession"> | number
+  }
+
+  export type CodeReviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: CodeReviewWhereUniqueInput
+    update: XOR<CodeReviewUpdateWithoutUserInput, CodeReviewUncheckedUpdateWithoutUserInput>
+    create: XOR<CodeReviewCreateWithoutUserInput, CodeReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type CodeReviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: CodeReviewWhereUniqueInput
+    data: XOR<CodeReviewUpdateWithoutUserInput, CodeReviewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CodeReviewUpdateManyWithWhereWithoutUserInput = {
+    where: CodeReviewScalarWhereInput
+    data: XOR<CodeReviewUpdateManyMutationInput, CodeReviewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CodeReviewScalarWhereInput = {
+    AND?: CodeReviewScalarWhereInput | CodeReviewScalarWhereInput[]
+    OR?: CodeReviewScalarWhereInput[]
+    NOT?: CodeReviewScalarWhereInput | CodeReviewScalarWhereInput[]
+    id?: StringFilter<"CodeReview"> | string
+    userId?: StringFilter<"CodeReview"> | string
+    prUrl?: StringFilter<"CodeReview"> | string
+    status?: StringFilter<"CodeReview"> | string
+    comments?: JsonFilter<"CodeReview">
+    createdAt?: DateTimeFilter<"CodeReview"> | Date | string
+    updatedAt?: DateTimeFilter<"CodeReview"> | Date | string
+  }
+
+  export type SubscriptionUpsertWithoutUserInput = {
+    update: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
+    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutUserInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SubscriptionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tier?: EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TeamMemberCreateWithoutTeamInput = {
     id?: string
-    role: string
+    role?: string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutTeamsInput
   }
 
   export type TeamMemberUncheckedCreateWithoutTeamInput = {
     id?: string
-    role: string
     userId: string
+    role?: string
+    createdAt?: Date | string
   }
 
   export type TeamMemberCreateOrConnectWithoutTeamInput = {
@@ -8508,20 +13051,16 @@ export namespace Prisma {
 
   export type StandupCreateWithoutTeamInput = {
     id?: string
-    date: Date | string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutStandupsInput
   }
 
   export type StandupUncheckedCreateWithoutTeamInput = {
     id?: string
-    date: Date | string
     userId: string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
   }
 
   export type StandupCreateOrConnectWithoutTeamInput = {
@@ -8534,27 +13073,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type StatusUpdateCreateWithoutTeamInput = {
+  export type RepositoryCreateWithoutTeamInput = {
     id?: string
-    status: string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutStatusUpdateInput
+    url: string
+    name: string
+    createdAt?: Date | string
   }
 
-  export type StatusUpdateUncheckedCreateWithoutTeamInput = {
+  export type RepositoryUncheckedCreateWithoutTeamInput = {
     id?: string
-    userId: string
-    status: string
-    updatedAt?: Date | string
+    url: string
+    name: string
+    createdAt?: Date | string
   }
 
-  export type StatusUpdateCreateOrConnectWithoutTeamInput = {
-    where: StatusUpdateWhereUniqueInput
-    create: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput>
+  export type RepositoryCreateOrConnectWithoutTeamInput = {
+    where: RepositoryWhereUniqueInput
+    create: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput>
   }
 
-  export type StatusUpdateCreateManyTeamInputEnvelope = {
-    data: StatusUpdateCreateManyTeamInput | StatusUpdateCreateManyTeamInput[]
+  export type RepositoryCreateManyTeamInputEnvelope = {
+    data: RepositoryCreateManyTeamInput | RepositoryCreateManyTeamInput[]
     skipDuplicates?: boolean
   }
 
@@ -8590,20 +13129,31 @@ export namespace Prisma {
     data: XOR<StandupUpdateManyMutationInput, StandupUncheckedUpdateManyWithoutTeamInput>
   }
 
-  export type StatusUpdateUpsertWithWhereUniqueWithoutTeamInput = {
-    where: StatusUpdateWhereUniqueInput
-    update: XOR<StatusUpdateUpdateWithoutTeamInput, StatusUpdateUncheckedUpdateWithoutTeamInput>
-    create: XOR<StatusUpdateCreateWithoutTeamInput, StatusUpdateUncheckedCreateWithoutTeamInput>
+  export type RepositoryUpsertWithWhereUniqueWithoutTeamInput = {
+    where: RepositoryWhereUniqueInput
+    update: XOR<RepositoryUpdateWithoutTeamInput, RepositoryUncheckedUpdateWithoutTeamInput>
+    create: XOR<RepositoryCreateWithoutTeamInput, RepositoryUncheckedCreateWithoutTeamInput>
   }
 
-  export type StatusUpdateUpdateWithWhereUniqueWithoutTeamInput = {
-    where: StatusUpdateWhereUniqueInput
-    data: XOR<StatusUpdateUpdateWithoutTeamInput, StatusUpdateUncheckedUpdateWithoutTeamInput>
+  export type RepositoryUpdateWithWhereUniqueWithoutTeamInput = {
+    where: RepositoryWhereUniqueInput
+    data: XOR<RepositoryUpdateWithoutTeamInput, RepositoryUncheckedUpdateWithoutTeamInput>
   }
 
-  export type StatusUpdateUpdateManyWithWhereWithoutTeamInput = {
-    where: StatusUpdateScalarWhereInput
-    data: XOR<StatusUpdateUpdateManyMutationInput, StatusUpdateUncheckedUpdateManyWithoutTeamInput>
+  export type RepositoryUpdateManyWithWhereWithoutTeamInput = {
+    where: RepositoryScalarWhereInput
+    data: XOR<RepositoryUpdateManyMutationInput, RepositoryUncheckedUpdateManyWithoutTeamInput>
+  }
+
+  export type RepositoryScalarWhereInput = {
+    AND?: RepositoryScalarWhereInput | RepositoryScalarWhereInput[]
+    OR?: RepositoryScalarWhereInput[]
+    NOT?: RepositoryScalarWhereInput | RepositoryScalarWhereInput[]
+    id?: StringFilter<"Repository"> | string
+    teamId?: StringFilter<"Repository"> | string
+    url?: StringFilter<"Repository"> | string
+    name?: StringFilter<"Repository"> | string
+    createdAt?: DateTimeFilter<"Repository"> | Date | string
   }
 
   export type UserCreateWithoutTeamsInput = {
@@ -8615,7 +13165,9 @@ export namespace Prisma {
     provider: $Enums.Provider
     createdAt?: Date | string
     standups?: StandupCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTeamsInput = {
@@ -8627,7 +13179,9 @@ export namespace Prisma {
     provider: $Enums.Provider
     createdAt?: Date | string
     standups?: StandupUncheckedCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionUncheckedCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTeamsInput = {
@@ -8640,7 +13194,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     standups?: StandupCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutMembersInput = {
@@ -8648,7 +13202,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutMembersInput = {
@@ -8676,7 +13230,9 @@ export namespace Prisma {
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     standups?: StandupUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamsInput = {
@@ -8688,7 +13244,9 @@ export namespace Prisma {
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUncheckedUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TeamUpsertWithoutMembersInput = {
@@ -8707,7 +13265,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     standups?: StandupUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutMembersInput = {
@@ -8715,7 +13273,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type UserCreateWithoutStandupsInput = {
@@ -8727,7 +13285,9 @@ export namespace Prisma {
     provider: $Enums.Provider
     createdAt?: Date | string
     teams?: TeamMemberCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStandupsInput = {
@@ -8739,7 +13299,9 @@ export namespace Prisma {
     provider: $Enums.Provider
     createdAt?: Date | string
     teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionUncheckedCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStandupsInput = {
@@ -8752,7 +13314,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     members?: TeamMemberCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutStandupsInput = {
@@ -8760,7 +13322,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
-    StatusUpdate?: StatusUpdateUncheckedCreateNestedManyWithoutTeamInput
+    repositories?: RepositoryUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutStandupsInput = {
@@ -8788,7 +13350,9 @@ export namespace Prisma {
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teams?: TeamMemberUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStandupsInput = {
@@ -8800,7 +13364,9 @@ export namespace Prisma {
     provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUncheckedUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TeamUpsertWithoutStandupsInput = {
@@ -8819,7 +13385,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutStandupsInput = {
@@ -8827,10 +13393,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
-    StatusUpdate?: StatusUpdateUncheckedUpdateManyWithoutTeamNestedInput
+    repositories?: RepositoryUncheckedUpdateManyWithoutTeamNestedInput
   }
 
-  export type UserCreateWithoutStatusUpdateInput = {
+  export type UserCreateWithoutFocusSessionsInput = {
     id?: string
     email: string
     name?: string | null
@@ -8838,11 +13404,13 @@ export namespace Prisma {
     avatarUrl?: string | null
     provider: $Enums.Provider
     createdAt?: Date | string
-    standups?: StandupCreateNestedManyWithoutUserInput
     teams?: TeamMemberCreateNestedManyWithoutUserInput
+    standups?: StandupCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutStatusUpdateInput = {
+  export type UserUncheckedCreateWithoutFocusSessionsInput = {
     id?: string
     email: string
     name?: string | null
@@ -8850,16 +13418,129 @@ export namespace Prisma {
     avatarUrl?: string | null
     provider: $Enums.Provider
     createdAt?: Date | string
-    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutStatusUpdateInput = {
+  export type UserCreateOrConnectWithoutFocusSessionsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutStatusUpdateInput, UserUncheckedCreateWithoutStatusUpdateInput>
+    create: XOR<UserCreateWithoutFocusSessionsInput, UserUncheckedCreateWithoutFocusSessionsInput>
   }
 
-  export type TeamCreateWithoutStatusUpdateInput = {
+  export type UserUpsertWithoutFocusSessionsInput = {
+    update: XOR<UserUpdateWithoutFocusSessionsInput, UserUncheckedUpdateWithoutFocusSessionsInput>
+    create: XOR<UserCreateWithoutFocusSessionsInput, UserUncheckedCreateWithoutFocusSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFocusSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFocusSessionsInput, UserUncheckedUpdateWithoutFocusSessionsInput>
+  }
+
+  export type UserUpdateWithoutFocusSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUpdateManyWithoutUserNestedInput
+    standups?: StandupUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFocusSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutCodeReviewsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    provider: $Enums.Provider
+    createdAt?: Date | string
+    teams?: TeamMemberCreateNestedManyWithoutUserInput
+    standups?: StandupCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCodeReviewsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    provider: $Enums.Provider
+    createdAt?: Date | string
+    teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCodeReviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCodeReviewsInput, UserUncheckedCreateWithoutCodeReviewsInput>
+  }
+
+  export type UserUpsertWithoutCodeReviewsInput = {
+    update: XOR<UserUpdateWithoutCodeReviewsInput, UserUncheckedUpdateWithoutCodeReviewsInput>
+    create: XOR<UserCreateWithoutCodeReviewsInput, UserUncheckedCreateWithoutCodeReviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCodeReviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCodeReviewsInput, UserUncheckedUpdateWithoutCodeReviewsInput>
+  }
+
+  export type UserUpdateWithoutCodeReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUpdateManyWithoutUserNestedInput
+    standups?: StandupUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCodeReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type TeamCreateWithoutRepositoriesInput = {
     id?: string
     name: string
     createdAt?: Date | string
@@ -8867,7 +13548,7 @@ export namespace Prisma {
     standups?: StandupCreateNestedManyWithoutTeamInput
   }
 
-  export type TeamUncheckedCreateWithoutStatusUpdateInput = {
+  export type TeamUncheckedCreateWithoutRepositoriesInput = {
     id?: string
     name: string
     createdAt?: Date | string
@@ -8875,58 +13556,23 @@ export namespace Prisma {
     standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
   }
 
-  export type TeamCreateOrConnectWithoutStatusUpdateInput = {
+  export type TeamCreateOrConnectWithoutRepositoriesInput = {
     where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutStatusUpdateInput, TeamUncheckedCreateWithoutStatusUpdateInput>
+    create: XOR<TeamCreateWithoutRepositoriesInput, TeamUncheckedCreateWithoutRepositoriesInput>
   }
 
-  export type UserUpsertWithoutStatusUpdateInput = {
-    update: XOR<UserUpdateWithoutStatusUpdateInput, UserUncheckedUpdateWithoutStatusUpdateInput>
-    create: XOR<UserCreateWithoutStatusUpdateInput, UserUncheckedCreateWithoutStatusUpdateInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutStatusUpdateInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutStatusUpdateInput, UserUncheckedUpdateWithoutStatusUpdateInput>
-  }
-
-  export type UserUpdateWithoutStatusUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    standups?: StandupUpdateManyWithoutUserNestedInput
-    teams?: TeamMemberUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutStatusUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
-    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TeamUpsertWithoutStatusUpdateInput = {
-    update: XOR<TeamUpdateWithoutStatusUpdateInput, TeamUncheckedUpdateWithoutStatusUpdateInput>
-    create: XOR<TeamCreateWithoutStatusUpdateInput, TeamUncheckedCreateWithoutStatusUpdateInput>
+  export type TeamUpsertWithoutRepositoriesInput = {
+    update: XOR<TeamUpdateWithoutRepositoriesInput, TeamUncheckedUpdateWithoutRepositoriesInput>
+    create: XOR<TeamCreateWithoutRepositoriesInput, TeamUncheckedCreateWithoutRepositoriesInput>
     where?: TeamWhereInput
   }
 
-  export type TeamUpdateToOneWithWhereWithoutStatusUpdateInput = {
+  export type TeamUpdateToOneWithWhereWithoutRepositoriesInput = {
     where?: TeamWhereInput
-    data: XOR<TeamUpdateWithoutStatusUpdateInput, TeamUncheckedUpdateWithoutStatusUpdateInput>
+    data: XOR<TeamUpdateWithoutRepositoriesInput, TeamUncheckedUpdateWithoutRepositoriesInput>
   }
 
-  export type TeamUpdateWithoutStatusUpdateInput = {
+  export type TeamUpdateWithoutRepositoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8934,7 +13580,7 @@ export namespace Prisma {
     standups?: StandupUpdateManyWithoutTeamNestedInput
   }
 
-  export type TeamUncheckedUpdateWithoutStatusUpdateInput = {
+  export type TeamUncheckedUpdateWithoutRepositoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8942,180 +13588,280 @@ export namespace Prisma {
     standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
   }
 
-  export type StandupCreateManyUserInput = {
+  export type UserCreateWithoutSubscriptionInput = {
     id?: string
-    date: Date | string
-    teamId: string
-    yesterday: string
-    today: string
-    blockers: string
+    email: string
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    provider: $Enums.Provider
+    createdAt?: Date | string
+    teams?: TeamMemberCreateNestedManyWithoutUserInput
+    standups?: StandupCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSubscriptionInput = {
+    id?: string
+    email: string
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    provider: $Enums.Provider
+    createdAt?: Date | string
+    teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    standups?: StandupUncheckedCreateNestedManyWithoutUserInput
+    focusSessions?: FocusSessionUncheckedCreateNestedManyWithoutUserInput
+    codeReviews?: CodeReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSubscriptionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type UserUpsertWithoutSubscriptionInput = {
+    update: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type UserUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUpdateManyWithoutUserNestedInput
+    standups?: StandupUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutUserNestedInput
+    focusSessions?: FocusSessionUncheckedUpdateManyWithoutUserNestedInput
+    codeReviews?: CodeReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TeamMemberCreateManyUserInput = {
     id?: string
-    role: string
     teamId: string
+    role?: string
+    createdAt?: Date | string
   }
 
-  export type StatusUpdateCreateManyUserInput = {
+  export type StandupCreateManyUserInput = {
     id?: string
     teamId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type FocusSessionCreateManyUserInput = {
+    id?: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration: number
+  }
+
+  export type CodeReviewCreateManyUserInput = {
+    id?: string
+    prUrl: string
     status: string
+    comments: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type StandupUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
-    team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
-  }
-
-  export type StandupUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type StandupUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
   }
 
   export type TeamMemberUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     team?: TeamUpdateOneRequiredWithoutMembersNestedInput
   }
 
   export type TeamMemberUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
     teamId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamMemberUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUpdateWithoutUserInput = {
+  export type StandupUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
+  }
+
+  export type StandupUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StandupUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FocusSessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FocusSessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FocusSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CodeReviewUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    team?: TeamUpdateOneRequiredWithoutStatusUpdateNestedInput
   }
 
-  export type StatusUpdateUncheckedUpdateWithoutUserInput = {
+  export type CodeReviewUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUncheckedUpdateManyWithoutUserInput = {
+  export type CodeReviewUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
+    prUrl?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    comments?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamMemberCreateManyTeamInput = {
     id?: string
-    role: string
     userId: string
+    role?: string
+    createdAt?: Date | string
   }
 
   export type StandupCreateManyTeamInput = {
     id?: string
-    date: Date | string
     userId: string
-    yesterday: string
-    today: string
-    blockers: string
+    content: string
+    createdAt?: Date | string
   }
 
-  export type StatusUpdateCreateManyTeamInput = {
+  export type RepositoryCreateManyTeamInput = {
     id?: string
-    userId: string
-    status: string
-    updatedAt?: Date | string
+    url: string
+    name: string
+    createdAt?: Date | string
   }
 
   export type TeamMemberUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTeamsNestedInput
   }
 
   export type TeamMemberUncheckedUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamMemberUncheckedUpdateManyWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StandupUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStandupsNestedInput
   }
 
   export type StandupUncheckedUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StandupUncheckedUpdateManyWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    yesterday?: StringFieldUpdateOperationsInput | string
-    today?: StringFieldUpdateOperationsInput | string
-    blockers?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUpdateWithoutTeamInput = {
+  export type RepositoryUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutStatusUpdateNestedInput
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUncheckedUpdateWithoutTeamInput = {
+  export type RepositoryUncheckedUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StatusUpdateUncheckedUpdateManyWithoutTeamInput = {
+  export type RepositoryUncheckedUpdateManyWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

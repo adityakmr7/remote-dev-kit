@@ -19,55 +19,92 @@ enum Provider {
   email
 }
 
+enum SubscriptionTier {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
 model User {
   id           String         @id @default(cuid())
   email        String         @unique
   name         String?
-  password     String? // null for GitHub users
+  password     String?        // null for GitHub users
   avatarUrl    String?
-  provider     Provider // 'github' or 'manual'
+  provider     Provider
   createdAt    DateTime       @default(now())
-  standups     Standup[]
   teams        TeamMember[]
-  StatusUpdate StatusUpdate[]
+  standups     Standup[]
+  focusSessions FocusSession[]
+  codeReviews  CodeReview[]
+  subscription Subscription?
 }
 
 model Team {
-  id           String         @id @default(cuid())
-  name         String
-  createdAt    DateTime       @default(now())
-  members      TeamMember[]
-  standups     Standup[]
-  StatusUpdate StatusUpdate[]
+  id          String       @id @default(cuid())
+  name        String
+  createdAt   DateTime     @default(now())
+  members     TeamMember[]
+  standups    Standup[]
+  repositories Repository[]
 }
 
 model TeamMember {
-  id     String @id @default(cuid())
-  role   String // owner, admin, member
-  userId String
-  teamId String
-  user   User   @relation(fields: [userId], references: [id])
-  team   Team   @relation(fields: [teamId], references: [id])
+  id        String   @id @default(cuid())
+  userId    String
+  teamId    String
+  role      String   @default("MEMBER") // MEMBER, ADMIN
+  user      User     @relation(fields: [userId], references: [id])
+  team      Team     @relation(fields: [teamId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, teamId])
 }
 
 model Standup {
   id        String   @id @default(cuid())
-  date      DateTime
   userId    String
   teamId    String
-  yesterday String
-  today     String
-  blockers  String
+  content   String
   user      User     @relation(fields: [userId], references: [id])
   team      Team     @relation(fields: [teamId], references: [id])
+  createdAt DateTime @default(now())
 }
 
-model StatusUpdate {
+model FocusSession {
   id        String   @id @default(cuid())
   userId    String
-  teamId    String
-  status    String // coding, meeting, afk, etc
-  updatedAt DateTime @updatedAt
+  startTime DateTime
+  endTime   DateTime?
+  duration  Int      // in minutes
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model CodeReview {
+  id          String   @id @default(cuid())
+  userId      String
+  prUrl       String
+  status      String   // PENDING, IN_PROGRESS, COMPLETED
+  comments    Json
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Repository {
+  id        String   @id @default(cuid())
+  teamId    String
+  url       String
+  name      String
   team      Team     @relation(fields: [teamId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id        String          @id @default(cuid())
+  userId    String         @unique
+  tier      SubscriptionTier
+  startDate DateTime
+  endDate   DateTime?
+  user      User           @relation(fields: [userId], references: [id])
 }

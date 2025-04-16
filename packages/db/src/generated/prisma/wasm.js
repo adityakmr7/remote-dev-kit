@@ -135,32 +135,61 @@ exports.Prisma.TeamScalarFieldEnum = {
 
 exports.Prisma.TeamMemberScalarFieldEnum = {
   id: 'id',
-  role: 'role',
   userId: 'userId',
-  teamId: 'teamId'
+  teamId: 'teamId',
+  role: 'role',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.StandupScalarFieldEnum = {
   id: 'id',
-  date: 'date',
   userId: 'userId',
   teamId: 'teamId',
-  yesterday: 'yesterday',
-  today: 'today',
-  blockers: 'blockers'
+  content: 'content',
+  createdAt: 'createdAt'
 };
 
-exports.Prisma.StatusUpdateScalarFieldEnum = {
+exports.Prisma.FocusSessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  teamId: 'teamId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  duration: 'duration'
+};
+
+exports.Prisma.CodeReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  prUrl: 'prUrl',
   status: 'status',
+  comments: 'comments',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RepositoryScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  url: 'url',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tier: 'tier',
+  startDate: 'startDate',
+  endDate: 'endDate'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -172,9 +201,21 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.Provider = exports.$Enums.Provider = {
   github: 'github',
   email: 'email'
+};
+
+exports.SubscriptionTier = exports.$Enums.SubscriptionTier = {
+  FREE: 'FREE',
+  PRO: 'PRO',
+  ENTERPRISE: 'ENTERPRISE'
 };
 
 exports.Prisma.ModelName = {
@@ -182,7 +223,10 @@ exports.Prisma.ModelName = {
   Team: 'Team',
   TeamMember: 'TeamMember',
   Standup: 'Standup',
-  StatusUpdate: 'StatusUpdate'
+  FocusSession: 'FocusSession',
+  CodeReview: 'CodeReview',
+  Repository: 'Repository',
+  Subscription: 'Subscription'
 };
 
 /**
