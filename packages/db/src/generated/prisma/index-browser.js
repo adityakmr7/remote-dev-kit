@@ -212,6 +212,12 @@ exports.Provider = exports.$Enums.Provider = {
   email: 'email'
 };
 
+exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
+  MEMBER: 'MEMBER',
+  ADMIN: 'ADMIN'
+};
+
 exports.SubscriptionTier = exports.$Enums.SubscriptionTier = {
   FREE: 'FREE',
   PRO: 'PRO',

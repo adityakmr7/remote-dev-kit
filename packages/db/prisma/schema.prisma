@@ -26,34 +26,40 @@ enum SubscriptionTier {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  email        String         @unique
-  name         String?
-  password     String?        // null for GitHub users
-  avatarUrl    String?
-  provider     Provider
-  createdAt    DateTime       @default(now())
-  teams        TeamMember[]
-  standups     Standup[]
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  password      String? // null for GitHub users
+  avatarUrl     String?
+  provider      Provider
+  createdAt     DateTime       @default(now())
+  teams         TeamMember[]
+  standups      Standup[]
   focusSessions FocusSession[]
-  codeReviews  CodeReview[]
-  subscription Subscription?
+  codeReviews   CodeReview[]
+  subscription  Subscription?
 }
 
 model Team {
-  id          String       @id @default(cuid())
-  name        String
-  createdAt   DateTime     @default(now())
-  members     TeamMember[]
-  standups    Standup[]
+  id           String       @id @default(cuid())
+  name         String
+  createdAt    DateTime     @default(now())
+  members      TeamMember[]
+  standups     Standup[]
   repositories Repository[]
+}
+
+enum Role {
+  OWNER
+  MEMBER
+  ADMIN
 }
 
 model TeamMember {
   id        String   @id @default(cuid())
   userId    String
   teamId    String
-  role      String   @default("MEMBER") // MEMBER, ADMIN
+  role      Role     @default(OWNER)
   user      User     @relation(fields: [userId], references: [id])
   team      Team     @relation(fields: [teamId], references: [id])
   createdAt DateTime @default(now())
@@ -72,23 +78,23 @@ model Standup {
 }
 
 model FocusSession {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
   startTime DateTime
   endTime   DateTime?
-  duration  Int      // in minutes
-  user      User     @relation(fields: [userId], references: [id])
+  duration  Int // in minutes
+  user      User      @relation(fields: [userId], references: [id])
 }
 
 model CodeReview {
-  id          String   @id @default(cuid())
-  userId      String
-  prUrl       String
-  status      String   // PENDING, IN_PROGRESS, COMPLETED
-  comments    Json
-  user        User     @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String
+  prUrl     String
+  status    String // PENDING, IN_PROGRESS, COMPLETED
+  comments  Json
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Repository {
@@ -101,10 +107,10 @@ model Repository {
 }
 
 model Subscription {
-  id        String          @id @default(cuid())
-  userId    String         @unique
+  id        String           @id @default(cuid())
+  userId    String           @unique
   tier      SubscriptionTier
   startDate DateTime
   endDate   DateTime?
-  user      User           @relation(fields: [userId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
 }

@@ -1,12 +1,11 @@
-import { Router } from 'express';
+import {type RequestHandler, Router} from 'express';
 import { authenticateToken } from '../middleware/auth';
 import {
     createTeam,
-    getTeam,
+    getTeamDetail,
     updateTeam,
     addTeamMember,
     removeTeamMember,
-    getUserTeam
 } from '../controllers/team.controller';
 
 const router = Router();
@@ -14,18 +13,16 @@ const router = Router();
 // Create a new team
 router.post('/', authenticateToken, createTeam);
 
-// Get all teams of the user
-router.get('/', authenticateToken, getUserTeam);
 // Get team details
-router.get('/:teamId', authenticateToken, getTeam);
+router.get('/:teamId', authenticateToken, getTeamDetail);
 
 // Update team
-router.put('/:teamId', authenticateToken, updateTeam);
+router.put('/:teamId', authenticateToken, updateTeam as RequestHandler);
 
 // Add member to team
-router.post('/:teamId/members', authenticateToken, addTeamMember);
+router.post('/:teamId/members', authenticateToken, addTeamMember as RequestHandler);
 
 // Remove member from team
-router.delete('/:teamId/members/:userId', authenticateToken, removeTeamMember);
+router.delete('/:teamId/members/:userId', authenticateToken, removeTeamMember as RequestHandler);
 
 export default router;
