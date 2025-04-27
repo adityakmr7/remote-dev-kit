@@ -9,7 +9,6 @@ declare global {
     interface Request {
       user?: {
         id: string;
-        email?: string;
       };
     }
   }
@@ -26,32 +25,40 @@ export const authenticate = async (
     const token = authHeader && authHeader.split(" ")[1]; // Bearer TOKEN
 
     if (!token) {
+      console.log("Authentication failed: No token provided");
       throw new ApiError(401, "Authentication required");
     }
 
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-      userId: string;
-    };
+    try {
+      // Verify token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        userId: string;
+      };
 
-    // Check if user exists
-    const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
-    });
+      // Check if user exists
+      const user = await prisma.user.findUnique({
+        where: { id: decoded.userId },
+      });
 
-    if (!user) {
-      throw new ApiError(401, "Invalid token");
+      if (!user) {
+        console.log("Authentication failed: User not found for token");
+        throw new ApiError(401, "Invalid token");
+      }
+
+      // Attach user to request
+      req.user = { id: user.id };
+
+      next();
+    } catch (jwtError: any) {
+      console.log("JWT verification failed:", jwtError.message);
+      // Check if token is expired
+      if (jwtError.name === "TokenExpiredError") {
+        throw new ApiError(401, "Token expired");
+      } else {
+        throw new ApiError(401, "Invalid token");
+      }
     }
-
-    // Attach user to request
-    req.user = { id: user.id };
-
-    next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      next(new ApiError(401, "Invalid token"));
-    } else {
-      next(error);
-    }
+    next(error);
   }
 };

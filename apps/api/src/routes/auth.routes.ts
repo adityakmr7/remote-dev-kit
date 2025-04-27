@@ -17,6 +17,7 @@ import {
   registerSchema,
   resetPasswordSchema,
 } from "../schemas/auth.schema";
+import { authenticate } from "../middleware/auth.middleware";
 
 const router = express.Router();
 
@@ -40,5 +41,8 @@ router.post("/reset-password", validate(resetPasswordSchema), resetPassword);
 
 // Logout
 router.post("/logout", logout);
-
+// Add a token validation endpoint
+router.get("/validate", authenticate, (req, res) => {
+  res.status(200).json({ valid: true });
+});
 export default router;

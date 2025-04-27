@@ -120,76 +120,109 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  name: 'name',
   password: 'password',
+  name: 'name',
   avatarUrl: 'avatarUrl',
   provider: 'provider',
-  createdAt: 'createdAt'
+  status: 'status',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.TeamScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createdAt: 'createdAt'
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.TeamMemberScalarFieldEnum = {
+exports.Prisma.UserTeamScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   teamId: 'teamId',
   role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.StandupScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  teamId: 'teamId',
-  content: 'content',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.FocusSessionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  duration: 'duration'
-};
-
-exports.Prisma.CodeReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  prUrl: 'prUrl',
-  status: 'status',
-  comments: 'comments',
+  yesterday: 'yesterday',
+  today: 'today',
+  blockers: 'blockers',
+  audioUrl: 'audioUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.RepositoryScalarFieldEnum = {
+exports.Prisma.StandupTagScalarFieldEnum = {
   id: 'id',
-  teamId: 'teamId',
-  url: 'url',
   name: 'name',
-  createdAt: 'createdAt'
+  standupId: 'standupId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PairProgrammingSessionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  teamId: 'teamId',
+  status: 'status',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  recordingUrl: 'recordingUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PairSessionParticipantScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PullRequestScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  number: 'number',
+  url: 'url',
+  status: 'status',
+  userId: 'userId',
+  teamId: 'teamId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FocusTimeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  minutes: 'minutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  tier: 'tier',
+  plan: 'plan',
+  status: 'status',
   startDate: 'startDate',
-  endDate: 'endDate'
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -202,36 +235,17 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
-exports.Provider = exports.$Enums.Provider = {
-  github: 'github',
-  email: 'email'
-};
-
-exports.Role = exports.$Enums.Role = {
-  OWNER: 'OWNER',
-  MEMBER: 'MEMBER',
-  ADMIN: 'ADMIN'
-};
-
-exports.SubscriptionTier = exports.$Enums.SubscriptionTier = {
-  FREE: 'FREE',
-  PRO: 'PRO',
-  ENTERPRISE: 'ENTERPRISE'
-};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Team: 'Team',
-  TeamMember: 'TeamMember',
+  UserTeam: 'UserTeam',
   Standup: 'Standup',
-  FocusSession: 'FocusSession',
-  CodeReview: 'CodeReview',
-  Repository: 'Repository',
+  StandupTag: 'StandupTag',
+  PairProgrammingSession: 'PairProgrammingSession',
+  PairSessionParticipant: 'PairSessionParticipant',
+  PullRequest: 'PullRequest',
+  FocusTime: 'FocusTime',
   Subscription: 'Subscription'
 };
 

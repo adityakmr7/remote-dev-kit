@@ -43,7 +43,7 @@ export async function register(
     });
 
     console.log("Registration response:", response.data);
-    
+
     const { user, accessToken, refreshToken } = response.data;
 
     // Set cookies for server-side auth check
@@ -196,5 +196,16 @@ export async function resetPassword(
         error.response?.data?.error?.message ||
         "Failed to reset password. Please try again.",
     };
+  }
+}
+
+// Add a function to check token validity
+export async function validateToken(): Promise<boolean> {
+  try {
+    // Make a lightweight API call to validate the token
+    await apiClient.get("/auth/validate");
+    return true;
+  } catch (error) {
+    return false;
   }
 }

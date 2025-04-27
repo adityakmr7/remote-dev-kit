@@ -11,12 +11,13 @@ export const errorHandler = (
   console.error(err);
 
   if (err instanceof ApiError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       error: {
         message: err.message,
         status: err.statusCode,
       },
     });
+    return;
   }
   // Log the error
   logger.error(`Error: ${err.message}`, {
@@ -26,16 +27,17 @@ export const errorHandler = (
   });
   // Handle Prisma errors
   if (err.name === "PrismaClientKnownRequestError") {
-    return res.status(400).json({
+    res.status(400).json({
       error: {
         message: "Database operation failed",
         status: 400,
       },
     });
+    return;
   }
 
   // Default error
-  return res.status(500).json({
+  res.status(500).json({
     error: {
       message: "Internal server error",
       status: 500,

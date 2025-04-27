@@ -6,10 +6,10 @@ import logger from "./utils/logger";
 
 // Import routes
 import authRoutes from "./routes/auth.routes";
-import standupRoutes from "./routes/standup.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
-import teamRoutes from "./routes/team.routes";
-import userRoutes from "./routes/user.routes"; // Add missing user routes
+import userRoutes from "./routes/user.routes";
+import { errorHandler } from "./middleware/error.middleware"; // Add missing user routes
+import { prismaClient as prisma } from "@repo/db/client";
 
 dotenv.config();
 const app = express();
@@ -26,18 +26,21 @@ app.use(
 
 // Mount routes
 app.use('/api/auth', authRoutes);
-app.use('/api/standups', standupRoutes);
-app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/teams', teamRoutes);
+
 app.use('/api/users', userRoutes); // Mount user routes
+app.use('/api/dashboard', dashboardRoutes);
 
-// 404 handler
-// app.use('*', (req: Request, res: Response) => {
-//     res.status(404).json({ status: 'error', message: 'Route not found' });
-// });
+// app.use('/api/standups', standupRoutes);
+// app.use('/api/dashboard', dashboardRoutes);
+// app.use('/api/teams', teamRoutes);
 
-// Error handler - should be the last middleware
-// app.use(errorHandler);
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" })
+})
+// Error handling middleware
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
@@ -45,13 +48,15 @@ app.listen(PORT, () => {
 });
 
 // Handle uncaught exceptions
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', async(error) => {
     logger.error('Uncaught Exception', { error: error.stack });
+    await prisma.$disconnect()
     process.exit(1);
 });
 
 // Handle unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', async(reason, promise) => {
     logger.error('Unhandled Rejection', { reason, promise });
+  await prisma.$disconnect()
     process.exit(1);
 });

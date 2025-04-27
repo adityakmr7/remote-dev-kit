@@ -14,103 +14,151 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Provider {
-  github
-  email
-}
-
-enum SubscriptionTier {
-  FREE
-  PRO
-  ENTERPRISE
-}
-
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  name          String?
-  password      String? // null for GitHub users
-  avatarUrl     String?
-  provider      Provider
-  createdAt     DateTime       @default(now())
-  teams         TeamMember[]
-  standups      Standup[]
-  focusSessions FocusSession[]
-  codeReviews   CodeReview[]
-  subscription  Subscription?
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String?
+  name      String?
+  avatarUrl String?
+  provider  String   @default("email") // "email", "github", etc.
+  status    String?  @default("offline") // "online", "offline", "away"
+  role      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  teams        UserTeam[]
+  standups     Standup[]
+  pairSessions PairSessionParticipant[]
+  pullRequests PullRequest[]
+  focusTimes   FocusTime[]
+  subscription Subscription?
 }
 
 model Team {
-  id           String       @id @default(cuid())
-  name         String
-  createdAt    DateTime     @default(now())
-  members      TeamMember[]
-  standups     Standup[]
-  repositories Repository[]
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  members      UserTeam[]
+  pairSessions PairProgrammingSession[]
+  pullRequests PullRequest[]
 }
 
-enum Role {
-  OWNER
-  MEMBER
-  ADMIN
-}
-
-model TeamMember {
-  id        String   @id @default(cuid())
+model UserTeam {
+  id        String   @id @default(uuid())
   userId    String
   teamId    String
-  role      Role     @default(OWNER)
-  user      User     @relation(fields: [userId], references: [id])
-  team      Team     @relation(fields: [teamId], references: [id])
+  role      String   @default("member") // "admin", "member"
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   @@unique([userId, teamId])
 }
 
 model Standup {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String
-  teamId    String
-  content   String
-  user      User     @relation(fields: [userId], references: [id])
-  team      Team     @relation(fields: [teamId], references: [id])
-  createdAt DateTime @default(now())
-}
-
-model FocusSession {
-  id        String    @id @default(cuid())
-  userId    String
-  startTime DateTime
-  endTime   DateTime?
-  duration  Int // in minutes
-  user      User      @relation(fields: [userId], references: [id])
-}
-
-model CodeReview {
-  id        String   @id @default(cuid())
-  userId    String
-  prUrl     String
-  status    String // PENDING, IN_PROGRESS, COMPLETED
-  comments  Json
-  user      User     @relation(fields: [userId], references: [id])
+  yesterday String?
+  today     String?
+  blockers  String?
+  audioUrl  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags StandupTag[]
 }
 
-model Repository {
-  id        String   @id @default(cuid())
-  teamId    String
-  url       String
+model StandupTag {
+  id        String   @id @default(uuid())
   name      String
-  team      Team     @relation(fields: [teamId], references: [id])
+  standupId String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  standup Standup @relation(fields: [standupId], references: [id], onDelete: Cascade)
+}
+
+model PairProgrammingSession {
+  id           String    @id @default(uuid())
+  title        String
+  description  String?
+  teamId       String
+  status       String    @default("SCHEDULED") // "SCHEDULED", "ACTIVE", "COMPLETED"
+  startTime    DateTime
+  endTime      DateTime?
+  recordingUrl String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  team         Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  participants PairSessionParticipant[]
+}
+
+model PairSessionParticipant {
+  id        String   @id @default(uuid())
+  sessionId String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  session PairProgrammingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user    User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, userId])
+}
+
+model PullRequest {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  number      Int
+  url         String
+  status      String   @default("OPEN") // "OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED", "READY_TO_MERGE", "MERGED", "CLOSED"
+  userId      String
+  teamId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model FocusTime {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @default(now())
+  minutes   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
-  id        String           @id @default(cuid())
-  userId    String           @unique
-  tier      SubscriptionTier
-  startDate DateTime
+  id        String    @id @default(uuid())
+  userId    String    @unique
+  plan      String    @default("FREE") // "FREE", "PRO", "TEAM"
+  status    String    @default("ACTIVE") // "ACTIVE", "CANCELED", "PAST_DUE"
+  startDate DateTime  @default(now())
   endDate   DateTime?
-  user      User             @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

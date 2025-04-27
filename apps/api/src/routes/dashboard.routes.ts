@@ -1,51 +1,27 @@
-import { Router } from "express";
-import { authenticate } from "../middleware/auth.middleware.ts";
-import { prismaClient } from "@repo/db/client";
+import express from "express";
+import {
+  getActivePairSessions,
+  getDashboardStats,
+  getTeamMembers,
+  getTodayStandups,
+} from "../controllers/dashboard.controller";
+import { authenticate } from "../middleware/auth.middleware";
 
-const router = Router();
+const router = express.Router();
 
-// Get user's teams
-router.get("/teams", authenticate, async (req, res) => {
-  try {
-    const teams = await prismaClient.teamMember.findMany({
-      where: { userId: req.user!.id },
-      include: { team: true },
-    });
-    res.json(teams);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch teams" });
-  }
-});
+// All dashboard routes require authentication
+router.use(authenticate);
 
-// Get user's focus sessions for today
-router.get("/focus-sessions", authenticate, async (req, res) => {
-  try {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+// Get dashboard statistics
+router.get("/stats", getDashboardStats);
 
-    const sessions = await prismaClient.focusSession.findMany({
-      where: {
-        userId: req.user!.id,
-        startTime: { gte: today },
-      },
-    });
-    res.json(sessions);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch focus sessions" });
-  }
-});
+// Get today's standups
+router.get("/standups/today", getTodayStandups);
 
-// Get user's code reviews
-router.get("/code-reviews", authenticate, async (req, res) => {
-  try {
-    const reviews = await prismaClient.codeReview.findMany({
-      where: { userId: req.user!.id },
-      orderBy: { createdAt: "desc" },
-    });
-    res.json(reviews);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch code reviews" });
-  }
-});
+// Get active pair programming sessions
+router.get("/pair-sessions/active", getActivePairSessions);
+
+// Get team members
+router.get("/team-members", getTeamMembers);
 
 export default router;
