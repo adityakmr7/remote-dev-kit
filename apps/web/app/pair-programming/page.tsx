@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowLeft, MessageSquare, Plus, Video } from "lucide-react";
 import Link from "next/link";
 
@@ -13,13 +15,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import AppSideBar from "@/components/AppSideBar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function PairProgrammingPage() {
   return (
     <SidebarProvider>
       <div className="flex w-screen min-h-screen bg-slate-50 dark:bg-slate-950">
-        <AppSideBar />
+        <AppSidebar />
         <div className="flex-1">
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
@@ -30,7 +33,8 @@ export default function PairProgrammingPage() {
               </Link>
             </Button>
             <h1 className="text-xl font-semibold">Pair Programming</h1>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-4">
+              <ThemeToggle />
               <Button>
                 <Plus className="mr-2 h-4 w-4" />
                 New Session

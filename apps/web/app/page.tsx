@@ -1,5 +1,8 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,28 +13,38 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import AppSideBar from "@/components/AppSideBar";
-import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
-  DashboardStats,
+  type DashboardStats,
   getActivePairSessions,
   getDashboardStats,
   getTodayStandups,
-  PairSession,
-  Standup,
+  type PairSession,
+  type Standup,
 } from "@/lib/dashboard-api";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [standups, setStandups] = useState<Standup[] | null>(null);
   const [pairSessions, setPairSessions] = useState<PairSession[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchDashboardData() {
       setIsLoading(true);
       try {
+        // Check if user is authenticated before making API calls
+        // const isAuthenticated = await isUserAuthenticated();
+
+        // if (!isAuthenticated) {
+        //   console.error("User not authenticated, redirecting to login");
+        //   router.push("/login");
+        //   return;
+        // }
+
         // Fetch all data in parallel
         const [statsData, standupsData, pairSessionsData] = await Promise.all([
           getDashboardStats(),
@@ -44,23 +57,41 @@ export default function Dashboard() {
         setPairSessions(pairSessionsData);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
+        // Show error toast or notification here
       } finally {
         setIsLoading(false);
       }
     }
 
     fetchDashboardData();
-  }, []);
+  }, [router]);
+
+  // Helper function to check authentication
+  // async function isUserAuthenticated() {
+  //   // First check localStorage for tokens
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   if (!accessToken) return false;
+  //
+  //   try {
+  //     // Make a lightweight API call to validate the token
+  //     await apiClient.get("/auth/validate");
+  //     return true;
+  //   } catch (error) {
+  //     console.error("Authentication validation failed:", error);
+  //     return false;
+  //   }
+  // }
 
   return (
     <SidebarProvider>
       <div className="flex w-screen min-h-screen bg-slate-50 dark:bg-slate-950">
-        <AppSideBar />
+        <AppSidebar />
         <div className="flex-1">
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
             <h1 className="text-xl font-semibold">Dashboard</h1>
             <div className="ml-auto flex items-center gap-4">
+              <ThemeToggle />
               <Button variant="outline" size="sm">
                 Invite Team
               </Button>
@@ -90,7 +121,9 @@ export default function Dashboard() {
                       <div className="text-2xl font-bold">
                         {stats?.focusTime.average || 0} hrs
                       </div>
-                      <p className="text-xs text-emerald-500">
+                      <p
+                        className={`text-xs ${stats?.focusTime.changePercentage && stats.focusTime.changePercentage > 0 ? "text-emerald-500" : "text-rose-500"}`}
+                      >
                         {stats?.focusTime.changePercentage &&
                         stats.focusTime.changePercentage > 0
                           ? "↑"
@@ -113,7 +146,9 @@ export default function Dashboard() {
                       <div className="text-2xl font-bold">
                         {stats?.standupCompletion.rate || 0}%
                       </div>
-                      <p className="text-xs text-emerald-500">
+                      <p
+                        className={`text-xs ${stats?.standupCompletion.changePercentage && stats.standupCompletion.changePercentage > 0 ? "text-emerald-500" : "text-rose-500"}`}
+                      >
                         {stats?.standupCompletion.changePercentage &&
                         stats.standupCompletion.changePercentage > 0
                           ? "↑"
@@ -137,11 +172,9 @@ export default function Dashboard() {
                         {stats?.openPRs.count || 0}
                       </div>
                       <p
-                        className={`text-xs ${stats?.openPRs && stats?.openPRs.change > 0 ? "text-rose-500" : "text-emerald-500"}`}
+                        className={`text-xs ${stats && stats?.openPRs.change > 0 ? "text-rose-500" : "text-emerald-500"}`}
                       >
-                        {stats?.openPRs && stats?.openPRs.change > 0
-                          ? "↑"
-                          : "↓"}{" "}
+                        {stats && stats?.openPRs.change > 0 ? "↑" : "↓"}{" "}
                         {Math.abs(stats?.openPRs.change || 0)}{" "}
                         {Math.abs(stats?.openPRs.change || 0) === 1
                           ? "new"
@@ -334,6 +367,7 @@ function getTimeElapsed(startTime: Date): string {
     return `${hours} hour${hours !== 1 ? "s" : ""} ${mins > 0 ? `${mins} minute${mins !== 1 ? "s" : ""}` : ""}`;
   }
 }
+
 // Skeleton loaders
 function StatCardSkeleton() {
   return (
@@ -349,6 +383,7 @@ function StatCardSkeleton() {
     </Card>
   );
 }
+
 function StandupCardSkeleton() {
   return (
     <Card>

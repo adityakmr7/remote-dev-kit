@@ -1,4 +1,6 @@
-import { ArrowLeft, Plus, Send } from "lucide-react";
+"use client";
+
+import { ArrowLeft, Mic, Plus, Send } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -12,14 +14,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
-import AppSideBar from "@/components/AppSideBar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function StandupsPage() {
   return (
     <SidebarProvider>
       <div className="flex w-screen min-h-screen bg-slate-50 dark:bg-slate-950">
-        <AppSideBar />
+        <AppSidebar />
         <div className="flex-1">
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
@@ -30,7 +32,8 @@ export default function StandupsPage() {
               </Link>
             </Button>
             <h1 className="text-xl font-semibold">Async Standups</h1>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-4">
+              <ThemeToggle />
               <Button>
                 <Plus className="mr-2 h-4 w-4" />
                 New Standup
@@ -71,7 +74,11 @@ export default function StandupsPage() {
                           <div className="font-medium">Any blockers?</div>
                           <Input placeholder="I'm blocked by..." />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2">
+                          <Button variant="outline" className="w-full">
+                            <Mic className="mr-2 h-4 w-4" />
+                            Record Voice
+                          </Button>
                           <Button className="w-full">
                             <Send className="mr-2 h-4 w-4" />
                             Submit Standup

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowLeft,
   Mail,
@@ -35,20 +37,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function TeamDetailsPage({
   params,
@@ -176,72 +167,7 @@ export default function TeamDetailsPage({
   return (
     <SidebarProvider>
       <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
-        <Sidebar>
-          <SidebarHeader className="border-b">
-            <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
-                <code className="font-bold text-primary-foreground">R</code>
-              </div>
-              <span className="text-lg font-semibold">RemoteDevKit</span>
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel>Main</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/">Dashboard</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/standups">Async Standups</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/pair-programming">Pair Programming</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/pr-feedback">PR Feedback</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel>Team</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive asChild>
-                      <Link href="/teams">Teams</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter className="border-t p-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-slate-200">
-                <img
-                  src="/placeholder.svg?height=32&width=32"
-                  alt="User avatar"
-                  className="h-full w-full rounded-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">Sarah Chen</span>
-                <span className="text-xs text-muted-foreground">Tech Lead</span>
-              </div>
-            </div>
-          </SidebarFooter>
-        </Sidebar>
+        <AppSidebar />
         <div className="flex-1">
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
@@ -252,7 +178,8 @@ export default function TeamDetailsPage({
               </Link>
             </Button>
             <h1 className="text-xl font-semibold">{teamData.name}</h1>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-4">
+              <ThemeToggle />
               <Dialog>
                 <DialogTrigger asChild>
                   <Button>
