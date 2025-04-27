@@ -1,14 +1,21 @@
 // apps/api/src/routes/standup.routes.ts
-import { Router } from 'express';
-import { createStandup, getTeamStandups } from '../controllers/standup.controller';
-import { authenticateToken } from '../middleware/auth';
+import { Router } from "express";
+import {
+  createStandup,
+  getTeamStandups,
+  getUserStandupHistory,
+} from "../controllers/standup.controller";
+import { authenticate } from "../middleware/auth.middleware.ts";
 
 const router = Router();
 
 // Create a new standup
-router.post('/', authenticateToken, createStandup);             // POST /api/standups
+router.post('/', authenticate, createStandup);
 
 // Get team's standups for today
-router.get('/team/:teamId', authenticateToken, getTeamStandups);     // GET  /api/standups/:teamId
+router.get('/team/:teamId', authenticate, getTeamStandups);
+
+// Get user's standup history (with pagination)
+router.get('/user/:userId/history', authenticate, getUserStandupHistory);
 
 export default router;

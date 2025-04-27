@@ -1,60 +1,44 @@
-import { Router, type Request, type Response, type RequestHandler } from 'express';
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
-import { prismaClient } from '@repo/db/client';
+import express from "express";
+import {
+  forgotPassword,
+  login,
+  logout,
+  refreshToken,
+  register,
+  resetPassword,
+} from "../controllers/auth.controller";
+import { githubAuth } from "../controllers/github.controller";
+import { validate } from "../middleware/validation.middleware";
+import {
+  forgotPasswordSchema,
+  githubAuthSchema,
+  loginSchema,
+  refreshTokenSchema,
+  registerSchema,
+  resetPasswordSchema,
+} from "../schemas/auth.schema";
 
-const router = Router();
+const router = express.Router();
 
-router.get('/github', (req, res) => {
-    const redirect = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user`;
-    res.redirect(redirect);
-});
+// Register
+router.post("/register", validate(registerSchema), register);
 
-router.get('/github/callback', (async (req:Request, res:Response) => {
-    const code = req.query.code as string;
-    if (!code) return res.status(400).json({ error: 'No code provided' });
+// Login
+router.post("/login", validate(loginSchema), login);
 
-    try {
-        // 1. Exchange code for access_token
-        const tokenRes = await axios.post(`https://github.com/login/oauth/access_token`, {
-            client_id: process.env.GITHUB_CLIENT_ID,
-            client_secret: process.env.GITHUB_CLIENT_SECRET,
-            code,
-        }, {
-            headers: { Accept: 'application/json' },
-        });
+// GitHub authentication
+router.post("/github", validate(githubAuthSchema), githubAuth);
 
-        const accessToken = tokenRes.data.access_token;
+// Refresh token
+router.post("/refresh-token", validate(refreshTokenSchema), refreshToken);
 
-        // 2. Fetch user info
-        const userRes = await axios.get('https://api.github.com/user', {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+// Forgot password
+router.post("/forgot-password", validate(forgotPasswordSchema), forgotPassword);
 
-        const { login, id, avatar_url, email, name } = userRes.data;
+// Reset password
+router.post("/reset-password", validate(resetPasswordSchema), resetPassword);
 
-        // 3. Create or find user in DB
-        const user = await prismaClient.user.upsert({
-            where: { email: email ?? `${id}@github.local` },
-            update: {},
-            create: {
-                email: email ?? `${id}@github.local`,
-                name: name || login,
-                avatarUrl: avatar_url,
-                provider: 'github',
-            },
-        });
-
-        // 4. Create JWT token
-        const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET!, {
-            expiresIn: '7d',
-        });
-
-        // 5. Redirect to frontend with token
-        res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
-    } catch (err) {
-        res.status(500).json({ error: 'GitHub OAuth failed' });
-    }
-}) as RequestHandler);
+// Logout
+router.post("/logout", logout);
 
 export default router;
