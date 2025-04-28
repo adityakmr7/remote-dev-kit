@@ -46,6 +46,7 @@ model Team {
   members      UserTeam[]
   pairSessions PairProgrammingSession[]
   pullRequests PullRequest[]
+  standups     Standup[]
 }
 
 model UserTeam {
@@ -66,6 +67,7 @@ model UserTeam {
 model Standup {
   id        String   @id @default(uuid())
   userId    String
+  teamId    String
   yesterday String?
   today     String?
   blockers  String?
@@ -74,19 +76,19 @@ model Standup {
   updatedAt DateTime @updatedAt
 
   // Relations
-  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tags StandupTag[]
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  tags Tag[]
 }
 
-model StandupTag {
+model Tag {
   id        String   @id @default(uuid())
-  name      String
-  standupId String
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  standup Standup @relation(fields: [standupId], references: [id], onDelete: Cascade)
+  standups Standup[]
 }
 
 model PairProgrammingSession {

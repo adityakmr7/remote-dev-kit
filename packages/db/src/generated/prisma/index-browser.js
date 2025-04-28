@@ -150,6 +150,7 @@ exports.Prisma.UserTeamScalarFieldEnum = {
 exports.Prisma.StandupScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  teamId: 'teamId',
   yesterday: 'yesterday',
   today: 'today',
   blockers: 'blockers',
@@ -158,10 +159,9 @@ exports.Prisma.StandupScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.StandupTagScalarFieldEnum = {
+exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  standupId: 'standupId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -241,7 +241,7 @@ exports.Prisma.ModelName = {
   Team: 'Team',
   UserTeam: 'UserTeam',
   Standup: 'Standup',
-  StandupTag: 'StandupTag',
+  Tag: 'Tag',
   PairProgrammingSession: 'PairProgrammingSession',
   PairSessionParticipant: 'PairSessionParticipant',
   PullRequest: 'PullRequest',

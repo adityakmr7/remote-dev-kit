@@ -34,10 +34,10 @@ export type UserTeam = $Result.DefaultSelection<Prisma.$UserTeamPayload>
  */
 export type Standup = $Result.DefaultSelection<Prisma.$StandupPayload>
 /**
- * Model StandupTag
+ * Model Tag
  * 
  */
-export type StandupTag = $Result.DefaultSelection<Prisma.$StandupTagPayload>
+export type Tag = $Result.DefaultSelection<Prisma.$TagPayload>
 /**
  * Model PairProgrammingSession
  * 
@@ -230,14 +230,14 @@ export class PrismaClient<
   get standup(): Prisma.StandupDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.standupTag`: Exposes CRUD operations for the **StandupTag** model.
+   * `prisma.tag`: Exposes CRUD operations for the **Tag** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more StandupTags
-    * const standupTags = await prisma.standupTag.findMany()
+    * // Fetch zero or more Tags
+    * const tags = await prisma.tag.findMany()
     * ```
     */
-  get standupTag(): Prisma.StandupTagDelegate<ExtArgs, ClientOptions>;
+  get tag(): Prisma.TagDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.pairProgrammingSession`: Exposes CRUD operations for the **PairProgrammingSession** model.
@@ -732,7 +732,7 @@ export namespace Prisma {
     Team: 'Team',
     UserTeam: 'UserTeam',
     Standup: 'Standup',
-    StandupTag: 'StandupTag',
+    Tag: 'Tag',
     PairProgrammingSession: 'PairProgrammingSession',
     PairSessionParticipant: 'PairSessionParticipant',
     PullRequest: 'PullRequest',
@@ -756,7 +756,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "team" | "userTeam" | "standup" | "standupTag" | "pairProgrammingSession" | "pairSessionParticipant" | "pullRequest" | "focusTime" | "subscription"
+      modelProps: "user" | "team" | "userTeam" | "standup" | "tag" | "pairProgrammingSession" | "pairSessionParticipant" | "pullRequest" | "focusTime" | "subscription"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1056,77 +1056,77 @@ export namespace Prisma {
           }
         }
       }
-      StandupTag: {
-        payload: Prisma.$StandupTagPayload<ExtArgs>
-        fields: Prisma.StandupTagFieldRefs
+      Tag: {
+        payload: Prisma.$TagPayload<ExtArgs>
+        fields: Prisma.TagFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.StandupTagFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload> | null
+            args: Prisma.TagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.StandupTagFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           findFirst: {
-            args: Prisma.StandupTagFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload> | null
+            args: Prisma.TagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.StandupTagFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           findMany: {
-            args: Prisma.StandupTagFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>[]
+            args: Prisma.TagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
           }
           create: {
-            args: Prisma.StandupTagCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           createMany: {
-            args: Prisma.StandupTagCreateManyArgs<ExtArgs>
+            args: Prisma.TagCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.StandupTagCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>[]
+            args: Prisma.TagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
           }
           delete: {
-            args: Prisma.StandupTagDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           update: {
-            args: Prisma.StandupTagUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           deleteMany: {
-            args: Prisma.StandupTagDeleteManyArgs<ExtArgs>
+            args: Prisma.TagDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.StandupTagUpdateManyArgs<ExtArgs>
+            args: Prisma.TagUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.StandupTagUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>[]
+            args: Prisma.TagUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
           }
           upsert: {
-            args: Prisma.StandupTagUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StandupTagPayload>
+            args: Prisma.TagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
           }
           aggregate: {
-            args: Prisma.StandupTagAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateStandupTag>
+            args: Prisma.TagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTag>
           }
           groupBy: {
-            args: Prisma.StandupTagGroupByArgs<ExtArgs>
-            result: $Utils.Optional<StandupTagGroupByOutputType>[]
+            args: Prisma.TagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TagGroupByOutputType>[]
           }
           count: {
-            args: Prisma.StandupTagCountArgs<ExtArgs>
-            result: $Utils.Optional<StandupTagCountAggregateOutputType> | number
+            args: Prisma.TagCountArgs<ExtArgs>
+            result: $Utils.Optional<TagCountAggregateOutputType> | number
           }
         }
       }
@@ -1588,7 +1588,7 @@ export namespace Prisma {
     team?: TeamOmit
     userTeam?: UserTeamOmit
     standup?: StandupOmit
-    standupTag?: StandupTagOmit
+    tag?: TagOmit
     pairProgrammingSession?: PairProgrammingSessionOmit
     pairSessionParticipant?: PairSessionParticipantOmit
     pullRequest?: PullRequestOmit
@@ -1758,12 +1758,14 @@ export namespace Prisma {
     members: number
     pairSessions: number
     pullRequests: number
+    standups: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | TeamCountOutputTypeCountMembersArgs
     pairSessions?: boolean | TeamCountOutputTypeCountPairSessionsArgs
     pullRequests?: boolean | TeamCountOutputTypeCountPullRequestsArgs
+    standups?: boolean | TeamCountOutputTypeCountStandupsArgs
   }
 
   // Custom InputTypes
@@ -1798,6 +1800,13 @@ export namespace Prisma {
     where?: PullRequestWhereInput
   }
 
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountStandupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StandupWhereInput
+  }
+
 
   /**
    * Count Type StandupCountOutputType
@@ -1826,7 +1835,38 @@ export namespace Prisma {
    * StandupCountOutputType without action
    */
   export type StandupCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
+  }
+
+
+  /**
+   * Count Type TagCountOutputType
+   */
+
+  export type TagCountOutputType = {
+    standups: number
+  }
+
+  export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    standups?: boolean | TagCountOutputTypeCountStandupsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TagCountOutputType
+     */
+    select?: TagCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountStandupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StandupWhereInput
   }
 
 
@@ -3302,6 +3342,7 @@ export namespace Prisma {
     members?: boolean | Team$membersArgs<ExtArgs>
     pairSessions?: boolean | Team$pairSessionsArgs<ExtArgs>
     pullRequests?: boolean | Team$pullRequestsArgs<ExtArgs>
+    standups?: boolean | Team$standupsArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -3334,6 +3375,7 @@ export namespace Prisma {
     members?: boolean | Team$membersArgs<ExtArgs>
     pairSessions?: boolean | Team$pairSessionsArgs<ExtArgs>
     pullRequests?: boolean | Team$pullRequestsArgs<ExtArgs>
+    standups?: boolean | Team$standupsArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3345,6 +3387,7 @@ export namespace Prisma {
       members: Prisma.$UserTeamPayload<ExtArgs>[]
       pairSessions: Prisma.$PairProgrammingSessionPayload<ExtArgs>[]
       pullRequests: Prisma.$PullRequestPayload<ExtArgs>[]
+      standups: Prisma.$StandupPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3749,6 +3792,7 @@ export namespace Prisma {
     members<T extends Team$membersArgs<ExtArgs> = {}>(args?: Subset<T, Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pairSessions<T extends Team$pairSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Team$pairSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PairProgrammingSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pullRequests<T extends Team$pullRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Team$pullRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PullRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    standups<T extends Team$standupsArgs<ExtArgs> = {}>(args?: Subset<T, Team$standupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4240,6 +4284,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PullRequestScalarFieldEnum | PullRequestScalarFieldEnum[]
+  }
+
+  /**
+   * Team.standups
+   */
+  export type Team$standupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Standup
+     */
+    select?: StandupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Standup
+     */
+    omit?: StandupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StandupInclude<ExtArgs> | null
+    where?: StandupWhereInput
+    orderBy?: StandupOrderByWithRelationInput | StandupOrderByWithRelationInput[]
+    cursor?: StandupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StandupScalarFieldEnum | StandupScalarFieldEnum[]
   }
 
   /**
@@ -5353,6 +5421,7 @@ export namespace Prisma {
   export type StandupMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    teamId: string | null
     yesterday: string | null
     today: string | null
     blockers: string | null
@@ -5364,6 +5433,7 @@ export namespace Prisma {
   export type StandupMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    teamId: string | null
     yesterday: string | null
     today: string | null
     blockers: string | null
@@ -5375,6 +5445,7 @@ export namespace Prisma {
   export type StandupCountAggregateOutputType = {
     id: number
     userId: number
+    teamId: number
     yesterday: number
     today: number
     blockers: number
@@ -5388,6 +5459,7 @@ export namespace Prisma {
   export type StandupMinAggregateInputType = {
     id?: true
     userId?: true
+    teamId?: true
     yesterday?: true
     today?: true
     blockers?: true
@@ -5399,6 +5471,7 @@ export namespace Prisma {
   export type StandupMaxAggregateInputType = {
     id?: true
     userId?: true
+    teamId?: true
     yesterday?: true
     today?: true
     blockers?: true
@@ -5410,6 +5483,7 @@ export namespace Prisma {
   export type StandupCountAggregateInputType = {
     id?: true
     userId?: true
+    teamId?: true
     yesterday?: true
     today?: true
     blockers?: true
@@ -5494,6 +5568,7 @@ export namespace Prisma {
   export type StandupGroupByOutputType = {
     id: string
     userId: string
+    teamId: string
     yesterday: string | null
     today: string | null
     blockers: string | null
@@ -5522,6 +5597,7 @@ export namespace Prisma {
   export type StandupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    teamId?: boolean
     yesterday?: boolean
     today?: boolean
     blockers?: boolean
@@ -5529,6 +5605,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
     tags?: boolean | Standup$tagsArgs<ExtArgs>
     _count?: boolean | StandupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
@@ -5536,6 +5613,7 @@ export namespace Prisma {
   export type StandupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    teamId?: boolean
     yesterday?: boolean
     today?: boolean
     blockers?: boolean
@@ -5543,11 +5621,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
 
   export type StandupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    teamId?: boolean
     yesterday?: boolean
     today?: boolean
     blockers?: boolean
@@ -5555,11 +5635,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["standup"]>
 
   export type StandupSelectScalar = {
     id?: boolean
     userId?: boolean
+    teamId?: boolean
     yesterday?: boolean
     today?: boolean
     blockers?: boolean
@@ -5568,28 +5650,33 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type StandupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "yesterday" | "today" | "blockers" | "audioUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["standup"]>
+  export type StandupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "teamId" | "yesterday" | "today" | "blockers" | "audioUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["standup"]>
   export type StandupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
     tags?: boolean | Standup$tagsArgs<ExtArgs>
     _count?: boolean | StandupCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StandupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
   }
   export type StandupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
   }
 
   export type $StandupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Standup"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      tags: Prisma.$StandupTagPayload<ExtArgs>[]
+      team: Prisma.$TeamPayload<ExtArgs>
+      tags: Prisma.$TagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      teamId: string
       yesterday: string | null
       today: string | null
       blockers: string | null
@@ -5991,7 +6078,8 @@ export namespace Prisma {
   export interface Prisma__StandupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tags<T extends Standup$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Standup$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tags<T extends Standup$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Standup$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6023,6 +6111,7 @@ export namespace Prisma {
   interface StandupFieldRefs {
     readonly id: FieldRef<"Standup", 'String'>
     readonly userId: FieldRef<"Standup", 'String'>
+    readonly teamId: FieldRef<"Standup", 'String'>
     readonly yesterday: FieldRef<"Standup", 'String'>
     readonly today: FieldRef<"Standup", 'String'>
     readonly blockers: FieldRef<"Standup", 'String'>
@@ -6429,23 +6518,23 @@ export namespace Prisma {
    */
   export type Standup$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
-    where?: StandupTagWhereInput
-    orderBy?: StandupTagOrderByWithRelationInput | StandupTagOrderByWithRelationInput[]
-    cursor?: StandupTagWhereUniqueInput
+    include?: TagInclude<ExtArgs> | null
+    where?: TagWhereInput
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
+    cursor?: TagWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: StandupTagScalarFieldEnum | StandupTagScalarFieldEnum[]
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
   /**
@@ -6468,350 +6557,334 @@ export namespace Prisma {
 
 
   /**
-   * Model StandupTag
+   * Model Tag
    */
 
-  export type AggregateStandupTag = {
-    _count: StandupTagCountAggregateOutputType | null
-    _min: StandupTagMinAggregateOutputType | null
-    _max: StandupTagMaxAggregateOutputType | null
+  export type AggregateTag = {
+    _count: TagCountAggregateOutputType | null
+    _min: TagMinAggregateOutputType | null
+    _max: TagMaxAggregateOutputType | null
   }
 
-  export type StandupTagMinAggregateOutputType = {
+  export type TagMinAggregateOutputType = {
     id: string | null
     name: string | null
-    standupId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type StandupTagMaxAggregateOutputType = {
+  export type TagMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    standupId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type StandupTagCountAggregateOutputType = {
+  export type TagCountAggregateOutputType = {
     id: number
     name: number
-    standupId: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type StandupTagMinAggregateInputType = {
+  export type TagMinAggregateInputType = {
     id?: true
     name?: true
-    standupId?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type StandupTagMaxAggregateInputType = {
+  export type TagMaxAggregateInputType = {
     id?: true
     name?: true
-    standupId?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type StandupTagCountAggregateInputType = {
+  export type TagCountAggregateInputType = {
     id?: true
     name?: true
-    standupId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type StandupTagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which StandupTag to aggregate.
+     * Filter which Tag to aggregate.
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StandupTags to fetch.
+     * Determine the order of Tags to fetch.
      */
-    orderBy?: StandupTagOrderByWithRelationInput | StandupTagOrderByWithRelationInput[]
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: StandupTagWhereUniqueInput
+    cursor?: TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StandupTags from the position of the cursor.
+     * Take `±n` Tags from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StandupTags.
+     * Skip the first `n` Tags.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned StandupTags
+     * Count returned Tags
     **/
-    _count?: true | StandupTagCountAggregateInputType
+    _count?: true | TagCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: StandupTagMinAggregateInputType
+    _min?: TagMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: StandupTagMaxAggregateInputType
+    _max?: TagMaxAggregateInputType
   }
 
-  export type GetStandupTagAggregateType<T extends StandupTagAggregateArgs> = {
-        [P in keyof T & keyof AggregateStandupTag]: P extends '_count' | 'count'
+  export type GetTagAggregateType<T extends TagAggregateArgs> = {
+        [P in keyof T & keyof AggregateTag]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateStandupTag[P]>
-      : GetScalarType<T[P], AggregateStandupTag[P]>
+        : GetScalarType<T[P], AggregateTag[P]>
+      : GetScalarType<T[P], AggregateTag[P]>
   }
 
 
 
 
-  export type StandupTagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StandupTagWhereInput
-    orderBy?: StandupTagOrderByWithAggregationInput | StandupTagOrderByWithAggregationInput[]
-    by: StandupTagScalarFieldEnum[] | StandupTagScalarFieldEnum
-    having?: StandupTagScalarWhereWithAggregatesInput
+  export type TagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TagWhereInput
+    orderBy?: TagOrderByWithAggregationInput | TagOrderByWithAggregationInput[]
+    by: TagScalarFieldEnum[] | TagScalarFieldEnum
+    having?: TagScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: StandupTagCountAggregateInputType | true
-    _min?: StandupTagMinAggregateInputType
-    _max?: StandupTagMaxAggregateInputType
+    _count?: TagCountAggregateInputType | true
+    _min?: TagMinAggregateInputType
+    _max?: TagMaxAggregateInputType
   }
 
-  export type StandupTagGroupByOutputType = {
+  export type TagGroupByOutputType = {
     id: string
     name: string
-    standupId: string
     createdAt: Date
     updatedAt: Date
-    _count: StandupTagCountAggregateOutputType | null
-    _min: StandupTagMinAggregateOutputType | null
-    _max: StandupTagMaxAggregateOutputType | null
+    _count: TagCountAggregateOutputType | null
+    _min: TagMinAggregateOutputType | null
+    _max: TagMaxAggregateOutputType | null
   }
 
-  type GetStandupTagGroupByPayload<T extends StandupTagGroupByArgs> = Prisma.PrismaPromise<
+  type GetTagGroupByPayload<T extends TagGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<StandupTagGroupByOutputType, T['by']> &
+      PickEnumerable<TagGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof StandupTagGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TagGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], StandupTagGroupByOutputType[P]>
-            : GetScalarType<T[P], StandupTagGroupByOutputType[P]>
+              : GetScalarType<T[P], TagGroupByOutputType[P]>
+            : GetScalarType<T[P], TagGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type StandupTagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    standupId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["standupTag"]>
+    standups?: boolean | Tag$standupsArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tag"]>
 
-  export type StandupTagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    standupId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["standupTag"]>
+  }, ExtArgs["result"]["tag"]>
 
-  export type StandupTagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    standupId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["standupTag"]>
+  }, ExtArgs["result"]["tag"]>
 
-  export type StandupTagSelectScalar = {
+  export type TagSelectScalar = {
     id?: boolean
     name?: boolean
-    standupId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StandupTagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "standupId" | "createdAt" | "updatedAt", ExtArgs["result"]["standupTag"]>
-  export type StandupTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
+  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["tag"]>
+  export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    standups?: boolean | Tag$standupsArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type StandupTagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
-  }
-  export type StandupTagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    standup?: boolean | StandupDefaultArgs<ExtArgs>
-  }
+  export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
-  export type $StandupTagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "StandupTag"
+  export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tag"
     objects: {
-      standup: Prisma.$StandupPayload<ExtArgs>
+      standups: Prisma.$StandupPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      standupId: string
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["standupTag"]>
+    }, ExtArgs["result"]["tag"]>
     composites: {}
   }
 
-  type StandupTagGetPayload<S extends boolean | null | undefined | StandupTagDefaultArgs> = $Result.GetResult<Prisma.$StandupTagPayload, S>
+  type TagGetPayload<S extends boolean | null | undefined | TagDefaultArgs> = $Result.GetResult<Prisma.$TagPayload, S>
 
-  type StandupTagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<StandupTagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: StandupTagCountAggregateInputType | true
+  type TagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TagCountAggregateInputType | true
     }
 
-  export interface StandupTagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StandupTag'], meta: { name: 'StandupTag' } }
+  export interface TagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tag'], meta: { name: 'Tag' } }
     /**
-     * Find zero or one StandupTag that matches the filter.
-     * @param {StandupTagFindUniqueArgs} args - Arguments to find a StandupTag
+     * Find zero or one Tag that matches the filter.
+     * @param {TagFindUniqueArgs} args - Arguments to find a Tag
      * @example
-     * // Get one StandupTag
-     * const standupTag = await prisma.standupTag.findUnique({
+     * // Get one Tag
+     * const tag = await prisma.tag.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends StandupTagFindUniqueArgs>(args: SelectSubset<T, StandupTagFindUniqueArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends TagFindUniqueArgs>(args: SelectSubset<T, TagFindUniqueArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one StandupTag that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Tag that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {StandupTagFindUniqueOrThrowArgs} args - Arguments to find a StandupTag
+     * @param {TagFindUniqueOrThrowArgs} args - Arguments to find a Tag
      * @example
-     * // Get one StandupTag
-     * const standupTag = await prisma.standupTag.findUniqueOrThrow({
+     * // Get one Tag
+     * const tag = await prisma.tag.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends StandupTagFindUniqueOrThrowArgs>(args: SelectSubset<T, StandupTagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends TagFindUniqueOrThrowArgs>(args: SelectSubset<T, TagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StandupTag that matches the filter.
+     * Find the first Tag that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagFindFirstArgs} args - Arguments to find a StandupTag
+     * @param {TagFindFirstArgs} args - Arguments to find a Tag
      * @example
-     * // Get one StandupTag
-     * const standupTag = await prisma.standupTag.findFirst({
+     * // Get one Tag
+     * const tag = await prisma.tag.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends StandupTagFindFirstArgs>(args?: SelectSubset<T, StandupTagFindFirstArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends TagFindFirstArgs>(args?: SelectSubset<T, TagFindFirstArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StandupTag that matches the filter or
+     * Find the first Tag that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagFindFirstOrThrowArgs} args - Arguments to find a StandupTag
+     * @param {TagFindFirstOrThrowArgs} args - Arguments to find a Tag
      * @example
-     * // Get one StandupTag
-     * const standupTag = await prisma.standupTag.findFirstOrThrow({
+     * // Get one Tag
+     * const tag = await prisma.tag.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends StandupTagFindFirstOrThrowArgs>(args?: SelectSubset<T, StandupTagFindFirstOrThrowArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends TagFindFirstOrThrowArgs>(args?: SelectSubset<T, TagFindFirstOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more StandupTags that matches the filter.
+     * Find zero or more Tags that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {TagFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all StandupTags
-     * const standupTags = await prisma.standupTag.findMany()
+     * // Get all Tags
+     * const tags = await prisma.tag.findMany()
      * 
-     * // Get first 10 StandupTags
-     * const standupTags = await prisma.standupTag.findMany({ take: 10 })
+     * // Get first 10 Tags
+     * const tags = await prisma.tag.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const standupTagWithIdOnly = await prisma.standupTag.findMany({ select: { id: true } })
+     * const tagWithIdOnly = await prisma.tag.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends StandupTagFindManyArgs>(args?: SelectSubset<T, StandupTagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends TagFindManyArgs>(args?: SelectSubset<T, TagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a StandupTag.
-     * @param {StandupTagCreateArgs} args - Arguments to create a StandupTag.
+     * Create a Tag.
+     * @param {TagCreateArgs} args - Arguments to create a Tag.
      * @example
-     * // Create one StandupTag
-     * const StandupTag = await prisma.standupTag.create({
+     * // Create one Tag
+     * const Tag = await prisma.tag.create({
      *   data: {
-     *     // ... data to create a StandupTag
+     *     // ... data to create a Tag
      *   }
      * })
      * 
      */
-    create<T extends StandupTagCreateArgs>(args: SelectSubset<T, StandupTagCreateArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends TagCreateArgs>(args: SelectSubset<T, TagCreateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many StandupTags.
-     * @param {StandupTagCreateManyArgs} args - Arguments to create many StandupTags.
+     * Create many Tags.
+     * @param {TagCreateManyArgs} args - Arguments to create many Tags.
      * @example
-     * // Create many StandupTags
-     * const standupTag = await prisma.standupTag.createMany({
+     * // Create many Tags
+     * const tag = await prisma.tag.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends StandupTagCreateManyArgs>(args?: SelectSubset<T, StandupTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends TagCreateManyArgs>(args?: SelectSubset<T, TagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many StandupTags and returns the data saved in the database.
-     * @param {StandupTagCreateManyAndReturnArgs} args - Arguments to create many StandupTags.
+     * Create many Tags and returns the data saved in the database.
+     * @param {TagCreateManyAndReturnArgs} args - Arguments to create many Tags.
      * @example
-     * // Create many StandupTags
-     * const standupTag = await prisma.standupTag.createManyAndReturn({
+     * // Create many Tags
+     * const tag = await prisma.tag.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many StandupTags and only return the `id`
-     * const standupTagWithIdOnly = await prisma.standupTag.createManyAndReturn({
+     * // Create many Tags and only return the `id`
+     * const tagWithIdOnly = await prisma.tag.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6821,28 +6894,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends StandupTagCreateManyAndReturnArgs>(args?: SelectSubset<T, StandupTagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends TagCreateManyAndReturnArgs>(args?: SelectSubset<T, TagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a StandupTag.
-     * @param {StandupTagDeleteArgs} args - Arguments to delete one StandupTag.
+     * Delete a Tag.
+     * @param {TagDeleteArgs} args - Arguments to delete one Tag.
      * @example
-     * // Delete one StandupTag
-     * const StandupTag = await prisma.standupTag.delete({
+     * // Delete one Tag
+     * const Tag = await prisma.tag.delete({
      *   where: {
-     *     // ... filter to delete one StandupTag
+     *     // ... filter to delete one Tag
      *   }
      * })
      * 
      */
-    delete<T extends StandupTagDeleteArgs>(args: SelectSubset<T, StandupTagDeleteArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends TagDeleteArgs>(args: SelectSubset<T, TagDeleteArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one StandupTag.
-     * @param {StandupTagUpdateArgs} args - Arguments to update one StandupTag.
+     * Update one Tag.
+     * @param {TagUpdateArgs} args - Arguments to update one Tag.
      * @example
-     * // Update one StandupTag
-     * const standupTag = await prisma.standupTag.update({
+     * // Update one Tag
+     * const tag = await prisma.tag.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6852,30 +6925,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends StandupTagUpdateArgs>(args: SelectSubset<T, StandupTagUpdateArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends TagUpdateArgs>(args: SelectSubset<T, TagUpdateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more StandupTags.
-     * @param {StandupTagDeleteManyArgs} args - Arguments to filter StandupTags to delete.
+     * Delete zero or more Tags.
+     * @param {TagDeleteManyArgs} args - Arguments to filter Tags to delete.
      * @example
-     * // Delete a few StandupTags
-     * const { count } = await prisma.standupTag.deleteMany({
+     * // Delete a few Tags
+     * const { count } = await prisma.tag.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends StandupTagDeleteManyArgs>(args?: SelectSubset<T, StandupTagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends TagDeleteManyArgs>(args?: SelectSubset<T, TagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StandupTags.
+     * Update zero or more Tags.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TagUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many StandupTags
-     * const standupTag = await prisma.standupTag.updateMany({
+     * // Update many Tags
+     * const tag = await prisma.tag.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6885,14 +6958,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends StandupTagUpdateManyArgs>(args: SelectSubset<T, StandupTagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends TagUpdateManyArgs>(args: SelectSubset<T, TagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StandupTags and returns the data updated in the database.
-     * @param {StandupTagUpdateManyAndReturnArgs} args - Arguments to update many StandupTags.
+     * Update zero or more Tags and returns the data updated in the database.
+     * @param {TagUpdateManyAndReturnArgs} args - Arguments to update many Tags.
      * @example
-     * // Update many StandupTags
-     * const standupTag = await prisma.standupTag.updateManyAndReturn({
+     * // Update many Tags
+     * const tag = await prisma.tag.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6901,8 +6974,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more StandupTags and only return the `id`
-     * const standupTagWithIdOnly = await prisma.standupTag.updateManyAndReturn({
+     * // Update zero or more Tags and only return the `id`
+     * const tagWithIdOnly = await prisma.tag.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -6915,56 +6988,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends StandupTagUpdateManyAndReturnArgs>(args: SelectSubset<T, StandupTagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends TagUpdateManyAndReturnArgs>(args: SelectSubset<T, TagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one StandupTag.
-     * @param {StandupTagUpsertArgs} args - Arguments to update or create a StandupTag.
+     * Create or update one Tag.
+     * @param {TagUpsertArgs} args - Arguments to update or create a Tag.
      * @example
-     * // Update or create a StandupTag
-     * const standupTag = await prisma.standupTag.upsert({
+     * // Update or create a Tag
+     * const tag = await prisma.tag.upsert({
      *   create: {
-     *     // ... data to create a StandupTag
+     *     // ... data to create a Tag
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the StandupTag we want to update
+     *     // ... the filter for the Tag we want to update
      *   }
      * })
      */
-    upsert<T extends StandupTagUpsertArgs>(args: SelectSubset<T, StandupTagUpsertArgs<ExtArgs>>): Prisma__StandupTagClient<$Result.GetResult<Prisma.$StandupTagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends TagUpsertArgs>(args: SelectSubset<T, TagUpsertArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of StandupTags.
+     * Count the number of Tags.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagCountArgs} args - Arguments to filter StandupTags to count.
+     * @param {TagCountArgs} args - Arguments to filter Tags to count.
      * @example
-     * // Count the number of StandupTags
-     * const count = await prisma.standupTag.count({
+     * // Count the number of Tags
+     * const count = await prisma.tag.count({
      *   where: {
-     *     // ... the filter for the StandupTags we want to count
+     *     // ... the filter for the Tags we want to count
      *   }
      * })
     **/
-    count<T extends StandupTagCountArgs>(
-      args?: Subset<T, StandupTagCountArgs>,
+    count<T extends TagCountArgs>(
+      args?: Subset<T, TagCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], StandupTagCountAggregateOutputType>
+          : GetScalarType<T['select'], TagCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a StandupTag.
+     * Allows you to perform aggregations operations on a Tag.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6984,13 +7057,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends StandupTagAggregateArgs>(args: Subset<T, StandupTagAggregateArgs>): Prisma.PrismaPromise<GetStandupTagAggregateType<T>>
+    aggregate<T extends TagAggregateArgs>(args: Subset<T, TagAggregateArgs>): Prisma.PrismaPromise<GetTagAggregateType<T>>
 
     /**
-     * Group by StandupTag.
+     * Group by Tag.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StandupTagGroupByArgs} args - Group by arguments.
+     * @param {TagGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7005,14 +7078,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends StandupTagGroupByArgs,
+      T extends TagGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: StandupTagGroupByArgs['orderBy'] }
-        : { orderBy?: StandupTagGroupByArgs['orderBy'] },
+        ? { orderBy: TagGroupByArgs['orderBy'] }
+        : { orderBy?: TagGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7061,22 +7134,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, StandupTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStandupTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the StandupTag model
+   * Fields of the Tag model
    */
-  readonly fields: StandupTagFieldRefs;
+  readonly fields: TagFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for StandupTag.
+   * The delegate class that acts as a "Promise-like" for Tag.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__StandupTagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    standup<T extends StandupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StandupDefaultArgs<ExtArgs>>): Prisma__StandupClient<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    standups<T extends Tag$standupsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$standupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StandupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7103,425 +7176,440 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the StandupTag model
+   * Fields of the Tag model
    */
-  interface StandupTagFieldRefs {
-    readonly id: FieldRef<"StandupTag", 'String'>
-    readonly name: FieldRef<"StandupTag", 'String'>
-    readonly standupId: FieldRef<"StandupTag", 'String'>
-    readonly createdAt: FieldRef<"StandupTag", 'DateTime'>
-    readonly updatedAt: FieldRef<"StandupTag", 'DateTime'>
+  interface TagFieldRefs {
+    readonly id: FieldRef<"Tag", 'String'>
+    readonly name: FieldRef<"Tag", 'String'>
+    readonly createdAt: FieldRef<"Tag", 'DateTime'>
+    readonly updatedAt: FieldRef<"Tag", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * StandupTag findUnique
+   * Tag findUnique
    */
-  export type StandupTagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * Filter, which StandupTag to fetch.
+     * Filter, which Tag to fetch.
      */
-    where: StandupTagWhereUniqueInput
+    where: TagWhereUniqueInput
   }
 
   /**
-   * StandupTag findUniqueOrThrow
+   * Tag findUniqueOrThrow
    */
-  export type StandupTagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * Filter, which StandupTag to fetch.
+     * Filter, which Tag to fetch.
      */
-    where: StandupTagWhereUniqueInput
+    where: TagWhereUniqueInput
   }
 
   /**
-   * StandupTag findFirst
+   * Tag findFirst
    */
-  export type StandupTagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * Filter, which StandupTag to fetch.
+     * Filter, which Tag to fetch.
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StandupTags to fetch.
+     * Determine the order of Tags to fetch.
      */
-    orderBy?: StandupTagOrderByWithRelationInput | StandupTagOrderByWithRelationInput[]
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StandupTags.
+     * Sets the position for searching for Tags.
      */
-    cursor?: StandupTagWhereUniqueInput
+    cursor?: TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StandupTags from the position of the cursor.
+     * Take `±n` Tags from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StandupTags.
+     * Skip the first `n` Tags.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StandupTags.
+     * Filter by unique combinations of Tags.
      */
-    distinct?: StandupTagScalarFieldEnum | StandupTagScalarFieldEnum[]
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
   /**
-   * StandupTag findFirstOrThrow
+   * Tag findFirstOrThrow
    */
-  export type StandupTagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * Filter, which StandupTag to fetch.
+     * Filter, which Tag to fetch.
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StandupTags to fetch.
+     * Determine the order of Tags to fetch.
      */
-    orderBy?: StandupTagOrderByWithRelationInput | StandupTagOrderByWithRelationInput[]
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StandupTags.
+     * Sets the position for searching for Tags.
      */
-    cursor?: StandupTagWhereUniqueInput
+    cursor?: TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StandupTags from the position of the cursor.
+     * Take `±n` Tags from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StandupTags.
+     * Skip the first `n` Tags.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StandupTags.
+     * Filter by unique combinations of Tags.
      */
-    distinct?: StandupTagScalarFieldEnum | StandupTagScalarFieldEnum[]
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
   /**
-   * StandupTag findMany
+   * Tag findMany
    */
-  export type StandupTagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * Filter, which StandupTags to fetch.
+     * Filter, which Tags to fetch.
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StandupTags to fetch.
+     * Determine the order of Tags to fetch.
      */
-    orderBy?: StandupTagOrderByWithRelationInput | StandupTagOrderByWithRelationInput[]
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing StandupTags.
+     * Sets the position for listing Tags.
      */
-    cursor?: StandupTagWhereUniqueInput
+    cursor?: TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StandupTags from the position of the cursor.
+     * Take `±n` Tags from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StandupTags.
+     * Skip the first `n` Tags.
      */
     skip?: number
-    distinct?: StandupTagScalarFieldEnum | StandupTagScalarFieldEnum[]
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
   }
 
   /**
-   * StandupTag create
+   * Tag create
    */
-  export type StandupTagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * The data needed to create a StandupTag.
+     * The data needed to create a Tag.
      */
-    data: XOR<StandupTagCreateInput, StandupTagUncheckedCreateInput>
+    data: XOR<TagCreateInput, TagUncheckedCreateInput>
   }
 
   /**
-   * StandupTag createMany
+   * Tag createMany
    */
-  export type StandupTagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many StandupTags.
+     * The data used to create many Tags.
      */
-    data: StandupTagCreateManyInput | StandupTagCreateManyInput[]
+    data: TagCreateManyInput | TagCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * StandupTag createManyAndReturn
+   * Tag createManyAndReturn
    */
-  export type StandupTagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelectCreateManyAndReturn<ExtArgs> | null
+    select?: TagSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
-     * The data used to create many StandupTags.
+     * The data used to create many Tags.
      */
-    data: StandupTagCreateManyInput | StandupTagCreateManyInput[]
+    data: TagCreateManyInput | TagCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StandupTagIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * StandupTag update
+   * Tag update
    */
-  export type StandupTagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
     /**
-     * The data needed to update a StandupTag.
+     * The data needed to update a Tag.
      */
-    data: XOR<StandupTagUpdateInput, StandupTagUncheckedUpdateInput>
+    data: XOR<TagUpdateInput, TagUncheckedUpdateInput>
     /**
-     * Choose, which StandupTag to update.
+     * Choose, which Tag to update.
      */
-    where: StandupTagWhereUniqueInput
+    where: TagWhereUniqueInput
   }
 
   /**
-   * StandupTag updateMany
+   * Tag updateMany
    */
-  export type StandupTagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update StandupTags.
+     * The data used to update Tags.
      */
-    data: XOR<StandupTagUpdateManyMutationInput, StandupTagUncheckedUpdateManyInput>
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyInput>
     /**
-     * Filter which StandupTags to update
+     * Filter which Tags to update
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
-     * Limit how many StandupTags to update.
+     * Limit how many Tags to update.
      */
     limit?: number
   }
 
   /**
-   * StandupTag updateManyAndReturn
+   * Tag updateManyAndReturn
    */
-  export type StandupTagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: TagSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
-     * The data used to update StandupTags.
+     * The data used to update Tags.
      */
-    data: XOR<StandupTagUpdateManyMutationInput, StandupTagUncheckedUpdateManyInput>
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyInput>
     /**
-     * Filter which StandupTags to update
+     * Filter which Tags to update
      */
-    where?: StandupTagWhereInput
+    where?: TagWhereInput
     /**
-     * Limit how many StandupTags to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StandupTagIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * StandupTag upsert
-   */
-  export type StandupTagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StandupTag
-     */
-    select?: StandupTagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StandupTag
-     */
-    omit?: StandupTagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StandupTagInclude<ExtArgs> | null
-    /**
-     * The filter to search for the StandupTag to update in case it exists.
-     */
-    where: StandupTagWhereUniqueInput
-    /**
-     * In case the StandupTag found by the `where` argument doesn't exist, create a new StandupTag with this data.
-     */
-    create: XOR<StandupTagCreateInput, StandupTagUncheckedCreateInput>
-    /**
-     * In case the StandupTag was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<StandupTagUpdateInput, StandupTagUncheckedUpdateInput>
-  }
-
-  /**
-   * StandupTag delete
-   */
-  export type StandupTagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StandupTag
-     */
-    select?: StandupTagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StandupTag
-     */
-    omit?: StandupTagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StandupTagInclude<ExtArgs> | null
-    /**
-     * Filter which StandupTag to delete.
-     */
-    where: StandupTagWhereUniqueInput
-  }
-
-  /**
-   * StandupTag deleteMany
-   */
-  export type StandupTagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which StandupTags to delete
-     */
-    where?: StandupTagWhereInput
-    /**
-     * Limit how many StandupTags to delete.
+     * Limit how many Tags to update.
      */
     limit?: number
   }
 
   /**
-   * StandupTag without action
+   * Tag upsert
    */
-  export type StandupTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StandupTag
+     * Select specific fields to fetch from the Tag
      */
-    select?: StandupTagSelect<ExtArgs> | null
+    select?: TagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StandupTag
+     * Omit specific fields from the Tag
      */
-    omit?: StandupTagOmit<ExtArgs> | null
+    omit?: TagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StandupTagInclude<ExtArgs> | null
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tag to update in case it exists.
+     */
+    where: TagWhereUniqueInput
+    /**
+     * In case the Tag found by the `where` argument doesn't exist, create a new Tag with this data.
+     */
+    create: XOR<TagCreateInput, TagUncheckedCreateInput>
+    /**
+     * In case the Tag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TagUpdateInput, TagUncheckedUpdateInput>
+  }
+
+  /**
+   * Tag delete
+   */
+  export type TagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter which Tag to delete.
+     */
+    where: TagWhereUniqueInput
+  }
+
+  /**
+   * Tag deleteMany
+   */
+  export type TagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tags to delete
+     */
+    where?: TagWhereInput
+    /**
+     * Limit how many Tags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tag.standups
+   */
+  export type Tag$standupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Standup
+     */
+    select?: StandupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Standup
+     */
+    omit?: StandupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StandupInclude<ExtArgs> | null
+    where?: StandupWhereInput
+    orderBy?: StandupOrderByWithRelationInput | StandupOrderByWithRelationInput[]
+    cursor?: StandupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StandupScalarFieldEnum | StandupScalarFieldEnum[]
+  }
+
+  /**
+   * Tag without action
+   */
+  export type TagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
   }
 
 
@@ -13167,6 +13255,7 @@ export namespace Prisma {
   export const StandupScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    teamId: 'teamId',
     yesterday: 'yesterday',
     today: 'today',
     blockers: 'blockers',
@@ -13178,15 +13267,14 @@ export namespace Prisma {
   export type StandupScalarFieldEnum = (typeof StandupScalarFieldEnum)[keyof typeof StandupScalarFieldEnum]
 
 
-  export const StandupTagScalarFieldEnum: {
+  export const TagScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    standupId: 'standupId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type StandupTagScalarFieldEnum = (typeof StandupTagScalarFieldEnum)[keyof typeof StandupTagScalarFieldEnum]
+  export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
   export const PairProgrammingSessionScalarFieldEnum: {
@@ -13453,6 +13541,7 @@ export namespace Prisma {
     members?: UserTeamListRelationFilter
     pairSessions?: PairProgrammingSessionListRelationFilter
     pullRequests?: PullRequestListRelationFilter
+    standups?: StandupListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -13464,6 +13553,7 @@ export namespace Prisma {
     members?: UserTeamOrderByRelationAggregateInput
     pairSessions?: PairProgrammingSessionOrderByRelationAggregateInput
     pullRequests?: PullRequestOrderByRelationAggregateInput
+    standups?: StandupOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -13478,6 +13568,7 @@ export namespace Prisma {
     members?: UserTeamListRelationFilter
     pairSessions?: PairProgrammingSessionListRelationFilter
     pullRequests?: PullRequestListRelationFilter
+    standups?: StandupListRelationFilter
   }, "id">
 
   export type TeamOrderByWithAggregationInput = {
@@ -13572,6 +13663,7 @@ export namespace Prisma {
     NOT?: StandupWhereInput | StandupWhereInput[]
     id?: StringFilter<"Standup"> | string
     userId?: StringFilter<"Standup"> | string
+    teamId?: StringFilter<"Standup"> | string
     yesterday?: StringNullableFilter<"Standup"> | string | null
     today?: StringNullableFilter<"Standup"> | string | null
     blockers?: StringNullableFilter<"Standup"> | string | null
@@ -13579,12 +13671,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Standup"> | Date | string
     updatedAt?: DateTimeFilter<"Standup"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    tags?: StandupTagListRelationFilter
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+    tags?: TagListRelationFilter
   }
 
   export type StandupOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     yesterday?: SortOrderInput | SortOrder
     today?: SortOrderInput | SortOrder
     blockers?: SortOrderInput | SortOrder
@@ -13592,7 +13686,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    tags?: StandupTagOrderByRelationAggregateInput
+    team?: TeamOrderByWithRelationInput
+    tags?: TagOrderByRelationAggregateInput
   }
 
   export type StandupWhereUniqueInput = Prisma.AtLeast<{
@@ -13601,6 +13696,7 @@ export namespace Prisma {
     OR?: StandupWhereInput[]
     NOT?: StandupWhereInput | StandupWhereInput[]
     userId?: StringFilter<"Standup"> | string
+    teamId?: StringFilter<"Standup"> | string
     yesterday?: StringNullableFilter<"Standup"> | string | null
     today?: StringNullableFilter<"Standup"> | string | null
     blockers?: StringNullableFilter<"Standup"> | string | null
@@ -13608,12 +13704,14 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Standup"> | Date | string
     updatedAt?: DateTimeFilter<"Standup"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    tags?: StandupTagListRelationFilter
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+    tags?: TagListRelationFilter
   }, "id">
 
   export type StandupOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     yesterday?: SortOrderInput | SortOrder
     today?: SortOrderInput | SortOrder
     blockers?: SortOrderInput | SortOrder
@@ -13631,6 +13729,7 @@ export namespace Prisma {
     NOT?: StandupScalarWhereWithAggregatesInput | StandupScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Standup"> | string
     userId?: StringWithAggregatesFilter<"Standup"> | string
+    teamId?: StringWithAggregatesFilter<"Standup"> | string
     yesterday?: StringNullableWithAggregatesFilter<"Standup"> | string | null
     today?: StringNullableWithAggregatesFilter<"Standup"> | string | null
     blockers?: StringNullableWithAggregatesFilter<"Standup"> | string | null
@@ -13639,59 +13738,54 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Standup"> | Date | string
   }
 
-  export type StandupTagWhereInput = {
-    AND?: StandupTagWhereInput | StandupTagWhereInput[]
-    OR?: StandupTagWhereInput[]
-    NOT?: StandupTagWhereInput | StandupTagWhereInput[]
-    id?: StringFilter<"StandupTag"> | string
-    name?: StringFilter<"StandupTag"> | string
-    standupId?: StringFilter<"StandupTag"> | string
-    createdAt?: DateTimeFilter<"StandupTag"> | Date | string
-    updatedAt?: DateTimeFilter<"StandupTag"> | Date | string
-    standup?: XOR<StandupScalarRelationFilter, StandupWhereInput>
+  export type TagWhereInput = {
+    AND?: TagWhereInput | TagWhereInput[]
+    OR?: TagWhereInput[]
+    NOT?: TagWhereInput | TagWhereInput[]
+    id?: StringFilter<"Tag"> | string
+    name?: StringFilter<"Tag"> | string
+    createdAt?: DateTimeFilter<"Tag"> | Date | string
+    updatedAt?: DateTimeFilter<"Tag"> | Date | string
+    standups?: StandupListRelationFilter
   }
 
-  export type StandupTagOrderByWithRelationInput = {
+  export type TagOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    standupId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    standup?: StandupOrderByWithRelationInput
+    standups?: StandupOrderByRelationAggregateInput
   }
 
-  export type StandupTagWhereUniqueInput = Prisma.AtLeast<{
+  export type TagWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: StandupTagWhereInput | StandupTagWhereInput[]
-    OR?: StandupTagWhereInput[]
-    NOT?: StandupTagWhereInput | StandupTagWhereInput[]
-    name?: StringFilter<"StandupTag"> | string
-    standupId?: StringFilter<"StandupTag"> | string
-    createdAt?: DateTimeFilter<"StandupTag"> | Date | string
-    updatedAt?: DateTimeFilter<"StandupTag"> | Date | string
-    standup?: XOR<StandupScalarRelationFilter, StandupWhereInput>
-  }, "id">
+    name?: string
+    AND?: TagWhereInput | TagWhereInput[]
+    OR?: TagWhereInput[]
+    NOT?: TagWhereInput | TagWhereInput[]
+    createdAt?: DateTimeFilter<"Tag"> | Date | string
+    updatedAt?: DateTimeFilter<"Tag"> | Date | string
+    standups?: StandupListRelationFilter
+  }, "id" | "name">
 
-  export type StandupTagOrderByWithAggregationInput = {
+  export type TagOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    standupId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: StandupTagCountOrderByAggregateInput
-    _max?: StandupTagMaxOrderByAggregateInput
-    _min?: StandupTagMinOrderByAggregateInput
+    _count?: TagCountOrderByAggregateInput
+    _max?: TagMaxOrderByAggregateInput
+    _min?: TagMinOrderByAggregateInput
   }
 
-  export type StandupTagScalarWhereWithAggregatesInput = {
-    AND?: StandupTagScalarWhereWithAggregatesInput | StandupTagScalarWhereWithAggregatesInput[]
-    OR?: StandupTagScalarWhereWithAggregatesInput[]
-    NOT?: StandupTagScalarWhereWithAggregatesInput | StandupTagScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"StandupTag"> | string
-    name?: StringWithAggregatesFilter<"StandupTag"> | string
-    standupId?: StringWithAggregatesFilter<"StandupTag"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"StandupTag"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"StandupTag"> | Date | string
+  export type TagScalarWhereWithAggregatesInput = {
+    AND?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
+    OR?: TagScalarWhereWithAggregatesInput[]
+    NOT?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tag"> | string
+    name?: StringWithAggregatesFilter<"Tag"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Tag"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Tag"> | Date | string
   }
 
   export type PairProgrammingSessionWhereInput = {
@@ -14177,6 +14271,7 @@ export namespace Prisma {
     members?: UserTeamCreateNestedManyWithoutTeamInput
     pairSessions?: PairProgrammingSessionCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestCreateNestedManyWithoutTeamInput
+    standups?: StandupCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -14188,6 +14283,7 @@ export namespace Prisma {
     members?: UserTeamUncheckedCreateNestedManyWithoutTeamInput
     pairSessions?: PairProgrammingSessionUncheckedCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestUncheckedCreateNestedManyWithoutTeamInput
+    standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
@@ -14199,6 +14295,7 @@ export namespace Prisma {
     members?: UserTeamUpdateManyWithoutTeamNestedInput
     pairSessions?: PairProgrammingSessionUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUpdateManyWithoutTeamNestedInput
+    standups?: StandupUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -14210,6 +14307,7 @@ export namespace Prisma {
     members?: UserTeamUncheckedUpdateManyWithoutTeamNestedInput
     pairSessions?: PairProgrammingSessionUncheckedUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUncheckedUpdateManyWithoutTeamNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -14306,19 +14404,21 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStandupsInput
-    tags?: StandupTagCreateNestedManyWithoutStandupInput
+    team: TeamCreateNestedOneWithoutStandupsInput
+    tags?: TagCreateNestedManyWithoutStandupsInput
   }
 
   export type StandupUncheckedCreateInput = {
     id?: string
     userId: string
+    teamId: string
     yesterday?: string | null
     today?: string | null
     blockers?: string | null
     audioUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    tags?: StandupTagUncheckedCreateNestedManyWithoutStandupInput
+    tags?: TagUncheckedCreateNestedManyWithoutStandupsInput
   }
 
   export type StandupUpdateInput = {
@@ -14330,24 +14430,27 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStandupsNestedInput
-    tags?: StandupTagUpdateManyWithoutStandupNestedInput
+    team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
+    tags?: TagUpdateManyWithoutStandupsNestedInput
   }
 
   export type StandupUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
     yesterday?: NullableStringFieldUpdateOperationsInput | string | null
     today?: NullableStringFieldUpdateOperationsInput | string | null
     blockers?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tags?: StandupTagUncheckedUpdateManyWithoutStandupNestedInput
+    tags?: TagUncheckedUpdateManyWithoutStandupsNestedInput
   }
 
   export type StandupCreateManyInput = {
     id?: string
     userId: string
+    teamId: string
     yesterday?: string | null
     today?: string | null
     blockers?: string | null
@@ -14369,6 +14472,7 @@ export namespace Prisma {
   export type StandupUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
     yesterday?: NullableStringFieldUpdateOperationsInput | string | null
     today?: NullableStringFieldUpdateOperationsInput | string | null
     blockers?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14377,57 +14481,55 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StandupTagCreateInput = {
+  export type TagCreateInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    standup: StandupCreateNestedOneWithoutTagsInput
+    standups?: StandupCreateNestedManyWithoutTagsInput
   }
 
-  export type StandupTagUncheckedCreateInput = {
+  export type TagUncheckedCreateInput = {
     id?: string
     name: string
-    standupId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    standups?: StandupUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type TagUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    standups?: StandupUpdateManyWithoutTagsNestedInput
+  }
+
+  export type TagUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    standups?: StandupUncheckedUpdateManyWithoutTagsNestedInput
+  }
+
+  export type TagCreateManyInput = {
+    id?: string
+    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type StandupTagUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    standup?: StandupUpdateOneRequiredWithoutTagsNestedInput
-  }
-
-  export type StandupTagUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    standupId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type StandupTagCreateManyInput = {
-    id?: string
-    name: string
-    standupId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type StandupTagUpdateManyMutationInput = {
+  export type TagUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StandupTagUncheckedUpdateManyInput = {
+  export type TagUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    standupId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15073,19 +15175,20 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StandupTagListRelationFilter = {
-    every?: StandupTagWhereInput
-    some?: StandupTagWhereInput
-    none?: StandupTagWhereInput
+  export type TagListRelationFilter = {
+    every?: TagWhereInput
+    some?: TagWhereInput
+    none?: TagWhereInput
   }
 
-  export type StandupTagOrderByRelationAggregateInput = {
+  export type TagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type StandupCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     yesterday?: SortOrder
     today?: SortOrder
     blockers?: SortOrder
@@ -15097,6 +15200,7 @@ export namespace Prisma {
   export type StandupMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     yesterday?: SortOrder
     today?: SortOrder
     blockers?: SortOrder
@@ -15108,6 +15212,7 @@ export namespace Prisma {
   export type StandupMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     yesterday?: SortOrder
     today?: SortOrder
     blockers?: SortOrder
@@ -15116,31 +15221,23 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StandupScalarRelationFilter = {
-    is?: StandupWhereInput
-    isNot?: StandupWhereInput
-  }
-
-  export type StandupTagCountOrderByAggregateInput = {
+  export type TagCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    standupId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StandupTagMaxOrderByAggregateInput = {
+  export type TagMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    standupId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type StandupTagMinOrderByAggregateInput = {
+  export type TagMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    standupId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15660,6 +15757,13 @@ export namespace Prisma {
     connect?: PullRequestWhereUniqueInput | PullRequestWhereUniqueInput[]
   }
 
+  export type StandupCreateNestedManyWithoutTeamInput = {
+    create?: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput> | StandupCreateWithoutTeamInput[] | StandupUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTeamInput | StandupCreateOrConnectWithoutTeamInput[]
+    createMany?: StandupCreateManyTeamInputEnvelope
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  }
+
   export type UserTeamUncheckedCreateNestedManyWithoutTeamInput = {
     create?: XOR<UserTeamCreateWithoutTeamInput, UserTeamUncheckedCreateWithoutTeamInput> | UserTeamCreateWithoutTeamInput[] | UserTeamUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: UserTeamCreateOrConnectWithoutTeamInput | UserTeamCreateOrConnectWithoutTeamInput[]
@@ -15679,6 +15783,13 @@ export namespace Prisma {
     connectOrCreate?: PullRequestCreateOrConnectWithoutTeamInput | PullRequestCreateOrConnectWithoutTeamInput[]
     createMany?: PullRequestCreateManyTeamInputEnvelope
     connect?: PullRequestWhereUniqueInput | PullRequestWhereUniqueInput[]
+  }
+
+  export type StandupUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput> | StandupCreateWithoutTeamInput[] | StandupUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTeamInput | StandupCreateOrConnectWithoutTeamInput[]
+    createMany?: StandupCreateManyTeamInputEnvelope
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
   }
 
   export type UserTeamUpdateManyWithoutTeamNestedInput = {
@@ -15723,6 +15834,20 @@ export namespace Prisma {
     deleteMany?: PullRequestScalarWhereInput | PullRequestScalarWhereInput[]
   }
 
+  export type StandupUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput> | StandupCreateWithoutTeamInput[] | StandupUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTeamInput | StandupCreateOrConnectWithoutTeamInput[]
+    upsert?: StandupUpsertWithWhereUniqueWithoutTeamInput | StandupUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: StandupCreateManyTeamInputEnvelope
+    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    update?: StandupUpdateWithWhereUniqueWithoutTeamInput | StandupUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: StandupUpdateManyWithWhereWithoutTeamInput | StandupUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
+  }
+
   export type UserTeamUncheckedUpdateManyWithoutTeamNestedInput = {
     create?: XOR<UserTeamCreateWithoutTeamInput, UserTeamUncheckedCreateWithoutTeamInput> | UserTeamCreateWithoutTeamInput[] | UserTeamUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: UserTeamCreateOrConnectWithoutTeamInput | UserTeamCreateOrConnectWithoutTeamInput[]
@@ -15765,6 +15890,20 @@ export namespace Prisma {
     deleteMany?: PullRequestScalarWhereInput | PullRequestScalarWhereInput[]
   }
 
+  export type StandupUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput> | StandupCreateWithoutTeamInput[] | StandupUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTeamInput | StandupCreateOrConnectWithoutTeamInput[]
+    upsert?: StandupUpsertWithWhereUniqueWithoutTeamInput | StandupUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: StandupCreateManyTeamInputEnvelope
+    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    update?: StandupUpdateWithWhereUniqueWithoutTeamInput | StandupUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: StandupUpdateManyWithWhereWithoutTeamInput | StandupUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutTeamsInput = {
     create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTeamsInput
@@ -15799,18 +15938,22 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type StandupTagCreateNestedManyWithoutStandupInput = {
-    create?: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput> | StandupTagCreateWithoutStandupInput[] | StandupTagUncheckedCreateWithoutStandupInput[]
-    connectOrCreate?: StandupTagCreateOrConnectWithoutStandupInput | StandupTagCreateOrConnectWithoutStandupInput[]
-    createMany?: StandupTagCreateManyStandupInputEnvelope
-    connect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
+  export type TeamCreateNestedOneWithoutStandupsInput = {
+    create?: XOR<TeamCreateWithoutStandupsInput, TeamUncheckedCreateWithoutStandupsInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutStandupsInput
+    connect?: TeamWhereUniqueInput
   }
 
-  export type StandupTagUncheckedCreateNestedManyWithoutStandupInput = {
-    create?: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput> | StandupTagCreateWithoutStandupInput[] | StandupTagUncheckedCreateWithoutStandupInput[]
-    connectOrCreate?: StandupTagCreateOrConnectWithoutStandupInput | StandupTagCreateOrConnectWithoutStandupInput[]
-    createMany?: StandupTagCreateManyStandupInputEnvelope
-    connect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
+  export type TagCreateNestedManyWithoutStandupsInput = {
+    create?: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput> | TagCreateWithoutStandupsInput[] | TagUncheckedCreateWithoutStandupsInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutStandupsInput | TagCreateOrConnectWithoutStandupsInput[]
+    connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+  }
+
+  export type TagUncheckedCreateNestedManyWithoutStandupsInput = {
+    create?: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput> | TagCreateWithoutStandupsInput[] | TagUncheckedCreateWithoutStandupsInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutStandupsInput | TagCreateOrConnectWithoutStandupsInput[]
+    connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutStandupsNestedInput = {
@@ -15821,46 +15964,76 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStandupsInput, UserUpdateWithoutStandupsInput>, UserUncheckedUpdateWithoutStandupsInput>
   }
 
-  export type StandupTagUpdateManyWithoutStandupNestedInput = {
-    create?: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput> | StandupTagCreateWithoutStandupInput[] | StandupTagUncheckedCreateWithoutStandupInput[]
-    connectOrCreate?: StandupTagCreateOrConnectWithoutStandupInput | StandupTagCreateOrConnectWithoutStandupInput[]
-    upsert?: StandupTagUpsertWithWhereUniqueWithoutStandupInput | StandupTagUpsertWithWhereUniqueWithoutStandupInput[]
-    createMany?: StandupTagCreateManyStandupInputEnvelope
-    set?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    disconnect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    delete?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    connect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    update?: StandupTagUpdateWithWhereUniqueWithoutStandupInput | StandupTagUpdateWithWhereUniqueWithoutStandupInput[]
-    updateMany?: StandupTagUpdateManyWithWhereWithoutStandupInput | StandupTagUpdateManyWithWhereWithoutStandupInput[]
-    deleteMany?: StandupTagScalarWhereInput | StandupTagScalarWhereInput[]
+  export type TeamUpdateOneRequiredWithoutStandupsNestedInput = {
+    create?: XOR<TeamCreateWithoutStandupsInput, TeamUncheckedCreateWithoutStandupsInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutStandupsInput
+    upsert?: TeamUpsertWithoutStandupsInput
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutStandupsInput, TeamUpdateWithoutStandupsInput>, TeamUncheckedUpdateWithoutStandupsInput>
   }
 
-  export type StandupTagUncheckedUpdateManyWithoutStandupNestedInput = {
-    create?: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput> | StandupTagCreateWithoutStandupInput[] | StandupTagUncheckedCreateWithoutStandupInput[]
-    connectOrCreate?: StandupTagCreateOrConnectWithoutStandupInput | StandupTagCreateOrConnectWithoutStandupInput[]
-    upsert?: StandupTagUpsertWithWhereUniqueWithoutStandupInput | StandupTagUpsertWithWhereUniqueWithoutStandupInput[]
-    createMany?: StandupTagCreateManyStandupInputEnvelope
-    set?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    disconnect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    delete?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    connect?: StandupTagWhereUniqueInput | StandupTagWhereUniqueInput[]
-    update?: StandupTagUpdateWithWhereUniqueWithoutStandupInput | StandupTagUpdateWithWhereUniqueWithoutStandupInput[]
-    updateMany?: StandupTagUpdateManyWithWhereWithoutStandupInput | StandupTagUpdateManyWithWhereWithoutStandupInput[]
-    deleteMany?: StandupTagScalarWhereInput | StandupTagScalarWhereInput[]
+  export type TagUpdateManyWithoutStandupsNestedInput = {
+    create?: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput> | TagCreateWithoutStandupsInput[] | TagUncheckedCreateWithoutStandupsInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutStandupsInput | TagCreateOrConnectWithoutStandupsInput[]
+    upsert?: TagUpsertWithWhereUniqueWithoutStandupsInput | TagUpsertWithWhereUniqueWithoutStandupsInput[]
+    set?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    disconnect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    delete?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    update?: TagUpdateWithWhereUniqueWithoutStandupsInput | TagUpdateWithWhereUniqueWithoutStandupsInput[]
+    updateMany?: TagUpdateManyWithWhereWithoutStandupsInput | TagUpdateManyWithWhereWithoutStandupsInput[]
+    deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
   }
 
-  export type StandupCreateNestedOneWithoutTagsInput = {
-    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput>
-    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput
-    connect?: StandupWhereUniqueInput
+  export type TagUncheckedUpdateManyWithoutStandupsNestedInput = {
+    create?: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput> | TagCreateWithoutStandupsInput[] | TagUncheckedCreateWithoutStandupsInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutStandupsInput | TagCreateOrConnectWithoutStandupsInput[]
+    upsert?: TagUpsertWithWhereUniqueWithoutStandupsInput | TagUpsertWithWhereUniqueWithoutStandupsInput[]
+    set?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    disconnect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    delete?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
+    update?: TagUpdateWithWhereUniqueWithoutStandupsInput | TagUpdateWithWhereUniqueWithoutStandupsInput[]
+    updateMany?: TagUpdateManyWithWhereWithoutStandupsInput | TagUpdateManyWithWhereWithoutStandupsInput[]
+    deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
   }
 
-  export type StandupUpdateOneRequiredWithoutTagsNestedInput = {
-    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput>
-    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput
-    upsert?: StandupUpsertWithoutTagsInput
-    connect?: StandupWhereUniqueInput
-    update?: XOR<XOR<StandupUpdateToOneWithWhereWithoutTagsInput, StandupUpdateWithoutTagsInput>, StandupUncheckedUpdateWithoutTagsInput>
+  export type StandupCreateNestedManyWithoutTagsInput = {
+    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput> | StandupCreateWithoutTagsInput[] | StandupUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput | StandupCreateOrConnectWithoutTagsInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  }
+
+  export type StandupUncheckedCreateNestedManyWithoutTagsInput = {
+    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput> | StandupCreateWithoutTagsInput[] | StandupUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput | StandupCreateOrConnectWithoutTagsInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+  }
+
+  export type StandupUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput> | StandupCreateWithoutTagsInput[] | StandupUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput | StandupCreateOrConnectWithoutTagsInput[]
+    upsert?: StandupUpsertWithWhereUniqueWithoutTagsInput | StandupUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    update?: StandupUpdateWithWhereUniqueWithoutTagsInput | StandupUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: StandupUpdateManyWithWhereWithoutTagsInput | StandupUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
+  }
+
+  export type StandupUncheckedUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput> | StandupCreateWithoutTagsInput[] | StandupUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: StandupCreateOrConnectWithoutTagsInput | StandupCreateOrConnectWithoutTagsInput[]
+    upsert?: StandupUpsertWithWhereUniqueWithoutTagsInput | StandupUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    disconnect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    delete?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    connect?: StandupWhereUniqueInput | StandupWhereUniqueInput[]
+    update?: StandupUpdateWithWhereUniqueWithoutTagsInput | StandupUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: StandupUpdateManyWithWhereWithoutTagsInput | StandupUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: StandupScalarWhereInput | StandupScalarWhereInput[]
   }
 
   export type TeamCreateNestedOneWithoutPairSessionsInput = {
@@ -16210,18 +16383,20 @@ export namespace Prisma {
     audioUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    tags?: StandupTagCreateNestedManyWithoutStandupInput
+    team: TeamCreateNestedOneWithoutStandupsInput
+    tags?: TagCreateNestedManyWithoutStandupsInput
   }
 
   export type StandupUncheckedCreateWithoutUserInput = {
     id?: string
+    teamId: string
     yesterday?: string | null
     today?: string | null
     blockers?: string | null
     audioUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    tags?: StandupTagUncheckedCreateNestedManyWithoutStandupInput
+    tags?: TagUncheckedCreateNestedManyWithoutStandupsInput
   }
 
   export type StandupCreateOrConnectWithoutUserInput = {
@@ -16393,6 +16568,7 @@ export namespace Prisma {
     NOT?: StandupScalarWhereInput | StandupScalarWhereInput[]
     id?: StringFilter<"Standup"> | string
     userId?: StringFilter<"Standup"> | string
+    teamId?: StringFilter<"Standup"> | string
     yesterday?: StringNullableFilter<"Standup"> | string | null
     today?: StringNullableFilter<"Standup"> | string | null
     blockers?: StringNullableFilter<"Standup"> | string | null
@@ -16615,6 +16791,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StandupCreateWithoutTeamInput = {
+    id?: string
+    yesterday?: string | null
+    today?: string | null
+    blockers?: string | null
+    audioUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStandupsInput
+    tags?: TagCreateNestedManyWithoutStandupsInput
+  }
+
+  export type StandupUncheckedCreateWithoutTeamInput = {
+    id?: string
+    userId: string
+    yesterday?: string | null
+    today?: string | null
+    blockers?: string | null
+    audioUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: TagUncheckedCreateNestedManyWithoutStandupsInput
+  }
+
+  export type StandupCreateOrConnectWithoutTeamInput = {
+    where: StandupWhereUniqueInput
+    create: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput>
+  }
+
+  export type StandupCreateManyTeamInputEnvelope = {
+    data: StandupCreateManyTeamInput | StandupCreateManyTeamInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserTeamUpsertWithWhereUniqueWithoutTeamInput = {
     where: UserTeamWhereUniqueInput
     update: XOR<UserTeamUpdateWithoutTeamInput, UserTeamUncheckedUpdateWithoutTeamInput>
@@ -16679,6 +16889,22 @@ export namespace Prisma {
     data: XOR<PullRequestUpdateManyMutationInput, PullRequestUncheckedUpdateManyWithoutTeamInput>
   }
 
+  export type StandupUpsertWithWhereUniqueWithoutTeamInput = {
+    where: StandupWhereUniqueInput
+    update: XOR<StandupUpdateWithoutTeamInput, StandupUncheckedUpdateWithoutTeamInput>
+    create: XOR<StandupCreateWithoutTeamInput, StandupUncheckedCreateWithoutTeamInput>
+  }
+
+  export type StandupUpdateWithWhereUniqueWithoutTeamInput = {
+    where: StandupWhereUniqueInput
+    data: XOR<StandupUpdateWithoutTeamInput, StandupUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type StandupUpdateManyWithWhereWithoutTeamInput = {
+    where: StandupScalarWhereInput
+    data: XOR<StandupUpdateManyMutationInput, StandupUncheckedUpdateManyWithoutTeamInput>
+  }
+
   export type UserCreateWithoutTeamsInput = {
     id?: string
     email: string
@@ -16728,6 +16954,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     pairSessions?: PairProgrammingSessionCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestCreateNestedManyWithoutTeamInput
+    standups?: StandupCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutMembersInput = {
@@ -16738,6 +16965,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     pairSessions?: PairProgrammingSessionUncheckedCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestUncheckedCreateNestedManyWithoutTeamInput
+    standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutMembersInput = {
@@ -16811,6 +17039,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pairSessions?: PairProgrammingSessionUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUpdateManyWithoutTeamNestedInput
+    standups?: StandupUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutMembersInput = {
@@ -16821,6 +17050,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pairSessions?: PairProgrammingSessionUncheckedUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUncheckedUpdateManyWithoutTeamNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type UserCreateWithoutStandupsInput = {
@@ -16864,28 +17094,50 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutStandupsInput, UserUncheckedCreateWithoutStandupsInput>
   }
 
-  export type StandupTagCreateWithoutStandupInput = {
+  export type TeamCreateWithoutStandupsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserTeamCreateNestedManyWithoutTeamInput
+    pairSessions?: PairProgrammingSessionCreateNestedManyWithoutTeamInput
+    pullRequests?: PullRequestCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutStandupsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserTeamUncheckedCreateNestedManyWithoutTeamInput
+    pairSessions?: PairProgrammingSessionUncheckedCreateNestedManyWithoutTeamInput
+    pullRequests?: PullRequestUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutStandupsInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutStandupsInput, TeamUncheckedCreateWithoutStandupsInput>
+  }
+
+  export type TagCreateWithoutStandupsInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type StandupTagUncheckedCreateWithoutStandupInput = {
+  export type TagUncheckedCreateWithoutStandupsInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type StandupTagCreateOrConnectWithoutStandupInput = {
-    where: StandupTagWhereUniqueInput
-    create: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput>
-  }
-
-  export type StandupTagCreateManyStandupInputEnvelope = {
-    data: StandupTagCreateManyStandupInput | StandupTagCreateManyStandupInput[]
-    skipDuplicates?: boolean
+  export type TagCreateOrConnectWithoutStandupsInput = {
+    where: TagWhereUniqueInput
+    create: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput>
   }
 
   export type UserUpsertWithoutStandupsInput = {
@@ -16935,31 +17187,63 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type StandupTagUpsertWithWhereUniqueWithoutStandupInput = {
-    where: StandupTagWhereUniqueInput
-    update: XOR<StandupTagUpdateWithoutStandupInput, StandupTagUncheckedUpdateWithoutStandupInput>
-    create: XOR<StandupTagCreateWithoutStandupInput, StandupTagUncheckedCreateWithoutStandupInput>
+  export type TeamUpsertWithoutStandupsInput = {
+    update: XOR<TeamUpdateWithoutStandupsInput, TeamUncheckedUpdateWithoutStandupsInput>
+    create: XOR<TeamCreateWithoutStandupsInput, TeamUncheckedCreateWithoutStandupsInput>
+    where?: TeamWhereInput
   }
 
-  export type StandupTagUpdateWithWhereUniqueWithoutStandupInput = {
-    where: StandupTagWhereUniqueInput
-    data: XOR<StandupTagUpdateWithoutStandupInput, StandupTagUncheckedUpdateWithoutStandupInput>
+  export type TeamUpdateToOneWithWhereWithoutStandupsInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutStandupsInput, TeamUncheckedUpdateWithoutStandupsInput>
   }
 
-  export type StandupTagUpdateManyWithWhereWithoutStandupInput = {
-    where: StandupTagScalarWhereInput
-    data: XOR<StandupTagUpdateManyMutationInput, StandupTagUncheckedUpdateManyWithoutStandupInput>
+  export type TeamUpdateWithoutStandupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserTeamUpdateManyWithoutTeamNestedInput
+    pairSessions?: PairProgrammingSessionUpdateManyWithoutTeamNestedInput
+    pullRequests?: PullRequestUpdateManyWithoutTeamNestedInput
   }
 
-  export type StandupTagScalarWhereInput = {
-    AND?: StandupTagScalarWhereInput | StandupTagScalarWhereInput[]
-    OR?: StandupTagScalarWhereInput[]
-    NOT?: StandupTagScalarWhereInput | StandupTagScalarWhereInput[]
-    id?: StringFilter<"StandupTag"> | string
-    name?: StringFilter<"StandupTag"> | string
-    standupId?: StringFilter<"StandupTag"> | string
-    createdAt?: DateTimeFilter<"StandupTag"> | Date | string
-    updatedAt?: DateTimeFilter<"StandupTag"> | Date | string
+  export type TeamUncheckedUpdateWithoutStandupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserTeamUncheckedUpdateManyWithoutTeamNestedInput
+    pairSessions?: PairProgrammingSessionUncheckedUpdateManyWithoutTeamNestedInput
+    pullRequests?: PullRequestUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TagUpsertWithWhereUniqueWithoutStandupsInput = {
+    where: TagWhereUniqueInput
+    update: XOR<TagUpdateWithoutStandupsInput, TagUncheckedUpdateWithoutStandupsInput>
+    create: XOR<TagCreateWithoutStandupsInput, TagUncheckedCreateWithoutStandupsInput>
+  }
+
+  export type TagUpdateWithWhereUniqueWithoutStandupsInput = {
+    where: TagWhereUniqueInput
+    data: XOR<TagUpdateWithoutStandupsInput, TagUncheckedUpdateWithoutStandupsInput>
+  }
+
+  export type TagUpdateManyWithWhereWithoutStandupsInput = {
+    where: TagScalarWhereInput
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyWithoutStandupsInput>
+  }
+
+  export type TagScalarWhereInput = {
+    AND?: TagScalarWhereInput | TagScalarWhereInput[]
+    OR?: TagScalarWhereInput[]
+    NOT?: TagScalarWhereInput | TagScalarWhereInput[]
+    id?: StringFilter<"Tag"> | string
+    name?: StringFilter<"Tag"> | string
+    createdAt?: DateTimeFilter<"Tag"> | Date | string
+    updatedAt?: DateTimeFilter<"Tag"> | Date | string
   }
 
   export type StandupCreateWithoutTagsInput = {
@@ -16971,11 +17255,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStandupsInput
+    team: TeamCreateNestedOneWithoutStandupsInput
   }
 
   export type StandupUncheckedCreateWithoutTagsInput = {
     id?: string
     userId: string
+    teamId: string
     yesterday?: string | null
     today?: string | null
     blockers?: string | null
@@ -16989,37 +17275,20 @@ export namespace Prisma {
     create: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput>
   }
 
-  export type StandupUpsertWithoutTagsInput = {
+  export type StandupUpsertWithWhereUniqueWithoutTagsInput = {
+    where: StandupWhereUniqueInput
     update: XOR<StandupUpdateWithoutTagsInput, StandupUncheckedUpdateWithoutTagsInput>
     create: XOR<StandupCreateWithoutTagsInput, StandupUncheckedCreateWithoutTagsInput>
-    where?: StandupWhereInput
   }
 
-  export type StandupUpdateToOneWithWhereWithoutTagsInput = {
-    where?: StandupWhereInput
+  export type StandupUpdateWithWhereUniqueWithoutTagsInput = {
+    where: StandupWhereUniqueInput
     data: XOR<StandupUpdateWithoutTagsInput, StandupUncheckedUpdateWithoutTagsInput>
   }
 
-  export type StandupUpdateWithoutTagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
-    today?: NullableStringFieldUpdateOperationsInput | string | null
-    blockers?: NullableStringFieldUpdateOperationsInput | string | null
-    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutStandupsNestedInput
-  }
-
-  export type StandupUncheckedUpdateWithoutTagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
-    today?: NullableStringFieldUpdateOperationsInput | string | null
-    blockers?: NullableStringFieldUpdateOperationsInput | string | null
-    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type StandupUpdateManyWithWhereWithoutTagsInput = {
+    where: StandupScalarWhereInput
+    data: XOR<StandupUpdateManyMutationInput, StandupUncheckedUpdateManyWithoutTagsInput>
   }
 
   export type TeamCreateWithoutPairSessionsInput = {
@@ -17030,6 +17299,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserTeamCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestCreateNestedManyWithoutTeamInput
+    standups?: StandupCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutPairSessionsInput = {
@@ -17040,6 +17310,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserTeamUncheckedCreateNestedManyWithoutTeamInput
     pullRequests?: PullRequestUncheckedCreateNestedManyWithoutTeamInput
+    standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutPairSessionsInput = {
@@ -17090,6 +17361,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserTeamUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUpdateManyWithoutTeamNestedInput
+    standups?: StandupUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutPairSessionsInput = {
@@ -17100,6 +17372,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserTeamUncheckedUpdateManyWithoutTeamNestedInput
     pullRequests?: PullRequestUncheckedUpdateManyWithoutTeamNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type PairSessionParticipantUpsertWithWhereUniqueWithoutSessionInput = {
@@ -17323,6 +17596,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserTeamCreateNestedManyWithoutTeamInput
     pairSessions?: PairProgrammingSessionCreateNestedManyWithoutTeamInput
+    standups?: StandupCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutPullRequestsInput = {
@@ -17333,6 +17607,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: UserTeamUncheckedCreateNestedManyWithoutTeamInput
     pairSessions?: PairProgrammingSessionUncheckedCreateNestedManyWithoutTeamInput
+    standups?: StandupUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutPullRequestsInput = {
@@ -17406,6 +17681,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserTeamUpdateManyWithoutTeamNestedInput
     pairSessions?: PairProgrammingSessionUpdateManyWithoutTeamNestedInput
+    standups?: StandupUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutPullRequestsInput = {
@@ -17416,6 +17692,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserTeamUncheckedUpdateManyWithoutTeamNestedInput
     pairSessions?: PairProgrammingSessionUncheckedUpdateManyWithoutTeamNestedInput
+    standups?: StandupUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type UserCreateWithoutFocusTimesInput = {
@@ -17604,6 +17881,7 @@ export namespace Prisma {
 
   export type StandupCreateManyUserInput = {
     id?: string
+    teamId: string
     yesterday?: string | null
     today?: string | null
     blockers?: string | null
@@ -17671,22 +17949,25 @@ export namespace Prisma {
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tags?: StandupTagUpdateManyWithoutStandupNestedInput
+    team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
+    tags?: TagUpdateManyWithoutStandupsNestedInput
   }
 
   export type StandupUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
     yesterday?: NullableStringFieldUpdateOperationsInput | string | null
     today?: NullableStringFieldUpdateOperationsInput | string | null
     blockers?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tags?: StandupTagUncheckedUpdateManyWithoutStandupNestedInput
+    tags?: TagUncheckedUpdateManyWithoutStandupsNestedInput
   }
 
   export type StandupUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
     yesterday?: NullableStringFieldUpdateOperationsInput | string | null
     today?: NullableStringFieldUpdateOperationsInput | string | null
     blockers?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17808,6 +18089,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type StandupCreateManyTeamInput = {
+    id?: string
+    userId: string
+    yesterday?: string | null
+    today?: string | null
+    blockers?: string | null
+    audioUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserTeamUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -17906,30 +18198,94 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StandupTagCreateManyStandupInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type StandupUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStandupsNestedInput
+    tags?: TagUpdateManyWithoutStandupsNestedInput
   }
 
-  export type StandupTagUpdateWithoutStandupInput = {
+  export type StandupUncheckedUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: TagUncheckedUpdateManyWithoutStandupsNestedInput
+  }
+
+  export type StandupUncheckedUpdateManyWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TagUpdateWithoutStandupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StandupTagUncheckedUpdateWithoutStandupInput = {
+  export type TagUncheckedUpdateWithoutStandupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StandupTagUncheckedUpdateManyWithoutStandupInput = {
+  export type TagUncheckedUpdateManyWithoutStandupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StandupUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStandupsNestedInput
+    team?: TeamUpdateOneRequiredWithoutStandupsNestedInput
+  }
+
+  export type StandupUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StandupUncheckedUpdateManyWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    teamId?: StringFieldUpdateOperationsInput | string
+    yesterday?: NullableStringFieldUpdateOperationsInput | string | null
+    today?: NullableStringFieldUpdateOperationsInput | string | null
+    blockers?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

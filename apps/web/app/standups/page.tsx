@@ -1,23 +1,78 @@
 "use client";
 
-import { ArrowLeft, Mic, Plus, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Plus } from "lucide-react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { StandupForm } from "@/components/standup-form";
+import { StandupCard } from "@/components/standup-card";
+import { StandupHistory } from "@/components/standup-history";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  getStandupsByDate,
+  getTodayStandups,
+  type Standup,
+} from "@/lib/standup-api";
+import { toast } from "sonner";
 
 export default function StandupsPage() {
+  const [activeTab, setActiveTab] = useState("today");
+  const [todayStandups, setTodayStandups] = useState<Standup[]>([]);
+  const [dateStandups, setDateStandups] = useState<Standup[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [dateLoading, setDateLoading] = useState(false);
+
+  const fetchTodayStandups = async () => {
+    setLoading(true);
+    try {
+      const standups = await getTodayStandups();
+      setTodayStandups(standups);
+    } catch (error) {
+      console.error("Error fetching today's standups:", error);
+      toast("Failed to load standups", {
+        description: "There was an error loading today's standups.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchDateStandups = async (date: string) => {
+    setDateLoading(true);
+    try {
+      const standups = await getStandupsByDate(date);
+      setDateStandups(standups);
+      setSelectedDate(date);
+    } catch (error) {
+      console.error(`Error fetching standups for date ${date}:`, error);
+      toast("Failed to load standups", {
+        description: `There was an error loading standups for ${format(new Date(date), "MMMM d, yyyy")}.`,
+      });
+    } finally {
+      setDateLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTodayStandups();
+  }, []);
+
+  const handleStandupCreated = () => {
+    fetchTodayStandups();
+  };
+
+  const handleSelectDate = (date: string) => {
+    setActiveTab("date");
+    fetchDateStandups(date);
+  };
+
   return (
     <SidebarProvider>
       <div className="flex w-screen min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -41,370 +96,108 @@ export default function StandupsPage() {
             </div>
           </header>
           <main className="p-6">
-            <Tabs defaultValue="today" className="w-full">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
               <TabsList className="mb-4">
                 <TabsTrigger value="today">Today</TabsTrigger>
-                <TabsTrigger value="yesterday">Yesterday</TabsTrigger>
+                <TabsTrigger value="date" disabled={!selectedDate}>
+                  {selectedDate
+                    ? format(new Date(selectedDate), "MMM d, yyyy")
+                    : "Selected Date"}
+                </TabsTrigger>
                 <TabsTrigger value="history">History</TabsTrigger>
               </TabsList>
               <TabsContent value="today">
                 <div className="mb-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Record Your Standup</CardTitle>
-                      <CardDescription>
-                        Share what you&apos;re working on with your team
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="grid gap-2">
-                          <div className="font-medium">
-                            What did you accomplish yesterday?
-                          </div>
-                          <Input placeholder="I completed..." />
-                        </div>
-                        <div className="grid gap-2">
-                          <div className="font-medium">
-                            What are you working on today?
-                          </div>
-                          <Input placeholder="Today I'll be working on..." />
-                        </div>
-                        <div className="grid gap-2">
-                          <div className="font-medium">Any blockers?</div>
-                          <Input placeholder="I'm blocked by..." />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <Button variant="outline" className="w-full">
-                            <Mic className="mr-2 h-4 w-4" />
-                            Record Voice
-                          </Button>
-                          <Button className="w-full">
-                            <Send className="mr-2 h-4 w-4" />
-                            Submit Standup
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <StandupForm onStandupCreated={handleStandupCreated} />
                 </div>
 
                 <h2 className="mb-4 text-lg font-semibold">Team Standups</h2>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-slate-200">
-                          <img
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                            className="h-full w-full rounded-full object-cover"
-                          />
+                {loading ? (
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="rounded-md border p-4">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Skeleton className="h-8 w-8 rounded-full" />
+                          <Skeleton className="h-4 w-24" />
+                          <Skeleton className="h-3 w-16 ml-auto" />
                         </div>
-                        <CardTitle className="text-sm font-medium">
-                          Alex Kim
-                        </CardTitle>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        10:15 AM
-                      </span>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Yesterday:
-                          </p>
-                          <p className="text-sm">
-                            Completed the authentication flow.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Today:
-                          </p>
-                          <p className="text-sm">Working on API integration.</p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Blockers:
-                          </p>
-                          <p className="text-sm">
-                            Blocked by the backend deployment issue.
-                          </p>
+                        <div className="space-y-3">
+                          <Skeleton className="h-3 w-full" />
+                          <Skeleton className="h-3 w-full" />
+                          <Skeleton className="h-3 w-3/4" />
                         </div>
                       </div>
-                      <div className="mt-2 flex gap-2">
-                        <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                          auth-service
-                        </span>
-                        <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-800 dark:bg-red-900/30 dark:text-red-400">
-                          blocked
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-slate-200">
-                          <img
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                            className="h-full w-full rounded-full object-cover"
-                          />
-                        </div>
-                        <CardTitle className="text-sm font-medium">
-                          Maya Johnson
-                        </CardTitle>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        9:45 AM
-                      </span>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Yesterday:
-                          </p>
-                          <p className="text-sm">
-                            Finished the dashboard UI components.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Today:
-                          </p>
-                          <p className="text-sm">
-                            Starting on the analytics charts.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Blockers:
-                          </p>
-                          <p className="text-sm">No blockers.</p>
-                        </div>
-                      </div>
-                      <div className="mt-2 flex gap-2">
-                        <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                          frontend
-                        </span>
-                        <span className="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
-                          on track
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-slate-200">
-                          <img
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                            className="h-full w-full rounded-full object-cover"
-                          />
-                        </div>
-                        <CardTitle className="text-sm font-medium">
-                          James Wilson
-                        </CardTitle>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        11:30 AM
-                      </span>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Yesterday:
-                          </p>
-                          <p className="text-sm">
-                            Deployed the new API endpoints.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Today:
-                          </p>
-                          <p className="text-sm">
-                            Working on performance optimizations.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Blockers:
-                          </p>
-                          <p className="text-sm">
-                            Need help with the caching strategy.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-2 flex gap-2">
-                        <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                          backend
-                        </span>
-                        <span className="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
-                          needs help
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-              <TabsContent value="yesterday">
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-slate-200">
-                          <img
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                            className="h-full w-full rounded-full object-cover"
-                          />
-                        </div>
-                        <CardTitle className="text-sm font-medium">
-                          Alex Kim
-                        </CardTitle>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        Yesterday
-                      </span>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Yesterday:
-                          </p>
-                          <p className="text-sm">
-                            Set up the project structure and dependencies.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Today:
-                          </p>
-                          <p className="text-sm">
-                            Working on the authentication flow.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Blockers:
-                          </p>
-                          <p className="text-sm">None at the moment.</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-slate-200">
-                          <img
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                            className="h-full w-full rounded-full object-cover"
-                          />
-                        </div>
-                        <CardTitle className="text-sm font-medium">
-                          Maya Johnson
-                        </CardTitle>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        Yesterday
-                      </span>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Yesterday:
-                          </p>
-                          <p className="text-sm">
-                            Researched UI component libraries for the project.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Today:
-                          </p>
-                          <p className="text-sm">
-                            Starting on the dashboard UI components.
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground">
-                            Blockers:
-                          </p>
-                          <p className="text-sm">
-                            Waiting for design approval.
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-              <TabsContent value="history">
-                <div className="rounded-md border">
-                  <div className="p-4">
-                    <h3 className="text-lg font-medium">Standup History</h3>
-                    <p className="text-sm text-muted-foreground">
-                      View past standups by date
+                    ))}
+                  </div>
+                ) : todayStandups.length === 0 ? (
+                  <div className="rounded-md border p-8 text-center">
+                    <p className="text-muted-foreground">
+                      No standups recorded for today
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Be the first to share your update!
                     </p>
                   </div>
-                  <div className="border-t">
-                    <div className="flex items-center justify-between p-4 hover:bg-muted/50">
-                      <div>
-                        <p className="font-medium">April 26, 2025</p>
-                        <p className="text-sm text-muted-foreground">
-                          5 team members participated
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        View
-                      </Button>
-                    </div>
-                    <div className="border-t flex items-center justify-between p-4 hover:bg-muted/50">
-                      <div>
-                        <p className="font-medium">April 25, 2025</p>
-                        <p className="text-sm text-muted-foreground">
-                          4 team members participated
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        View
-                      </Button>
-                    </div>
-                    <div className="border-t flex items-center justify-between p-4 hover:bg-muted/50">
-                      <div>
-                        <p className="font-medium">April 24, 2025</p>
-                        <p className="text-sm text-muted-foreground">
-                          5 team members participated
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        View
-                      </Button>
-                    </div>
-                    <div className="border-t flex items-center justify-between p-4 hover:bg-muted/50">
-                      <div>
-                        <p className="font-medium">April 23, 2025</p>
-                        <p className="text-sm text-muted-foreground">
-                          3 team members participated
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        View
-                      </Button>
-                    </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {todayStandups.map((standup) => (
+                      <StandupCard key={standup.id} standup={standup} />
+                    ))}
                   </div>
-                </div>
+                )}
+              </TabsContent>
+              <TabsContent value="date">
+                {selectedDate ? (
+                  <>
+                    <h2 className="mb-4 text-lg font-semibold">
+                      Standups for{" "}
+                      {format(new Date(selectedDate), "MMMM d, yyyy")}
+                    </h2>
+                    {dateLoading ? (
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {[1, 2, 3].map((i) => (
+                          <div key={i} className="rounded-md border p-4">
+                            <div className="flex items-center gap-2 mb-4">
+                              <Skeleton className="h-8 w-8 rounded-full" />
+                              <Skeleton className="h-4 w-24" />
+                              <Skeleton className="h-3 w-16 ml-auto" />
+                            </div>
+                            <div className="space-y-3">
+                              <Skeleton className="h-3 w-full" />
+                              <Skeleton className="h-3 w-full" />
+                              <Skeleton className="h-3 w-3/4" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : dateStandups.length === 0 ? (
+                      <div className="rounded-md border p-8 text-center">
+                        <p className="text-muted-foreground">
+                          No standups recorded for this date
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {dateStandups.map((standup) => (
+                          <StandupCard key={standup.id} standup={standup} />
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="rounded-md border p-8 text-center">
+                    <p className="text-muted-foreground">
+                      Select a date from the history tab to view standups
+                    </p>
+                  </div>
+                )}
+              </TabsContent>
+              <TabsContent value="history">
+                <StandupHistory onSelectDate={handleSelectDate} />
               </TabsContent>
             </Tabs>
           </main>

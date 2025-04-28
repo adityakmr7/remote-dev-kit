@@ -8,7 +8,7 @@ export const validate = <T>(schema: ZodSchema<T>) => {
       const data = schema.parse(req.body);
       req.body = data;
       next();
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof ZodError) {
         const formattedErrors = error.errors.map((err) => ({
           path: err.path.join("."),

@@ -10,10 +10,12 @@ import dashboardRoutes from "./routes/dashboard.routes";
 import userRoutes from "./routes/user.routes";
 import { errorHandler } from "./middleware/error.middleware"; // Add missing user routes
 import { prismaClient as prisma } from "@repo/db/client";
+import standupRoutes from "./routes/standup.routes.ts";
+import helmet from "helmet";
 
 dotenv.config();
 const app = express();
-
+app.use(helmet())
 // Add JSON body parser middleware
 app.use(express.json());
 
@@ -29,9 +31,7 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/users', userRoutes); // Mount user routes
 app.use('/api/dashboard', dashboardRoutes);
-
-// app.use('/api/standups', standupRoutes);
-// app.use('/api/dashboard', dashboardRoutes);
+app.use("/api/standups", standupRoutes)
 // app.use('/api/teams', teamRoutes);
 
 
