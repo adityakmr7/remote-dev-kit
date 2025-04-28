@@ -1,37 +1,53 @@
-// apps/api/src/routes/team.routes.ts
-import { Router } from "express";
+import express from "express";
 import {
   addTeamMember,
   createTeam,
-  getTeam,
-  getTeamStatistics,
-  getUserTeam,
+  deleteTeam,
+  getMyTeams,
+  getTeamById,
+  getTeamInvitations,
   removeTeamMember,
   updateTeam,
+  updateTeamMemberRole,
 } from "../controllers/team.controller";
 import { authenticate } from "../middleware/auth.middleware";
+import { validate } from "../middleware/validation.middleware";
+import {
+  addTeamMemberSchema,
+  createTeamSchema,
+  updateTeamSchema,
+} from "../schemas/team.schema";
 
-const router = Router();
+const router = express.Router();
+
+// All team routes require authentication
+router.use(authenticate);
+
+// Get all teams for the current user
+router.get("/", getMyTeams);
+
+// Get team invitations
+router.get("/invitations", getTeamInvitations);
+
+// Get team by ID
+router.get("/:id", getTeamById);
 
 // Create a new team
-router.post('/', authenticate, createTeam);
+router.post("/", validate(createTeamSchema), createTeam);
 
-// Get all teams of the user
-router.get('/', authenticate, getUserTeam);
+// Update a team
+router.put("/:id", validate(updateTeamSchema), updateTeam);
 
-// Get team details
-router.get('/:teamId', authenticate, getTeam);
+// Delete a team
+router.delete("/:id", deleteTeam);
 
-// Get team statistics
-router.get('/:teamId/statistics', authenticate, getTeamStatistics);
+// Add a member to a team
+router.post("/:id/members", validate(addTeamMemberSchema), addTeamMember);
 
-// Update team
-router.put('/:teamId', authenticate, updateTeam);
+// Remove a member from a team
+router.delete("/:id/members/:memberId", removeTeamMember);
 
-// Add member to team
-router.post('/:teamId/members', authenticate, addTeamMember);
-
-// Remove member from team
-router.delete('/:teamId/members/:userId', authenticate, removeTeamMember);
+// Update a team member's role
+router.put("/:id/members/:memberId", updateTeamMemberRole);
 
 export default router;

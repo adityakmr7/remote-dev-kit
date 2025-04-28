@@ -2,8 +2,10 @@
 
 import type React from "react";
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
+import { createTeam } from "@/lib/team-api";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,21 +18,65 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { toast } from "sonner";
 
 export function CreateTeamDialog() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [teamName, setTeamName] = useState("");
   const [teamDescription, setTeamDescription] = useState("");
+  const [visibility, setVisibility] = useState<
+    "private" | "organization" | "public"
+  >("private");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send this data to your backend
-    console.log("Creating team:", { teamName, teamDescription });
+    setError(null);
+    setIsLoading(true);
 
-    // Reset form and close dialog
-    setTeamName("");
-    setTeamDescription("");
-    setOpen(false);
+    try {
+      const result = await createTeam({
+        name: teamName,
+        description: teamDescription,
+        visibility,
+      });
+
+      if (result.error) {
+        setError("Failed to create team. Please try again.");
+        toast("Error", {
+          description: "Failed to create team. Please try again.",
+        });
+      } else {
+        toast("Success", {
+          description: "Team created successfully!",
+        });
+
+        // Reset form and close dialog
+        setTeamName("");
+        setTeamDescription("");
+        setVisibility("private");
+        setOpen(false);
+
+        // Refresh the teams page
+        router.refresh();
+      }
+    } catch (err: any) {
+      setError("An unexpected error occurred. Please try again.");
+      toast("Error", {
+        description: "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,6 +96,11 @@ export function CreateTeamDialog() {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
+            {error && (
+              <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                {error}
+              </div>
+            )}
             <div className="grid gap-2">
               <Label htmlFor="team-name">Team Name</Label>
               <Input
@@ -71,22 +122,40 @@ export function CreateTeamDialog() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="team-visibility">Team Visibility</Label>
-              <select
-                id="team-visibility"
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              <Select
+                value={visibility}
+                onValueChange={(value) =>
+                  setVisibility(value as "private" | "organization" | "public")
+                }
               >
-                <option value="private">
-                  Private - Only visible to team members
-                </option>
-                <option value="organization">
-                  Organization - Visible to all organization members
-                </option>
-                <option value="public">Public - Visible to anyone</option>
-              </select>
+                <SelectTrigger id="team-visibility">
+                  <SelectValue placeholder="Select visibility" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="private">
+                    Private - Only visible to team members
+                  </SelectItem>
+                  <SelectItem value="organization">
+                    Organization - Visible to all organization members
+                  </SelectItem>
+                  <SelectItem value="public">
+                    Public - Visible to anyone
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Create Team</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                "Create Team"
+              )}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

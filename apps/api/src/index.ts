@@ -12,6 +12,7 @@ import { errorHandler } from "./middleware/error.middleware"; // Add missing use
 import { prismaClient as prisma } from "@repo/db/client";
 import standupRoutes from "./routes/standup.routes.ts";
 import helmet from "helmet";
+import teamRoutes from "./routes/team.routes.ts";
 
 dotenv.config();
 const app = express();
@@ -32,7 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes); // Mount user routes
 app.use('/api/dashboard', dashboardRoutes);
 app.use("/api/standups", standupRoutes)
-// app.use('/api/teams', teamRoutes);
+app.use('/api/teams', teamRoutes);
 
 
 // Health check endpoint
