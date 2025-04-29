@@ -5,8 +5,11 @@ import {
   deleteTeam,
   getMyTeams,
   getTeamById,
+  getTeamInvitation,
   getTeamInvitations,
+  inviteToTeam,
   removeTeamMember,
+  respondToInvitation,
   updateTeam,
   updateTeamMemberRole,
 } from "../controllers/team.controller";
@@ -15,6 +18,8 @@ import { validate } from "../middleware/validation.middleware";
 import {
   addTeamMemberSchema,
   createTeamSchema,
+  inviteToTeamSchema,
+  respondToInvitationSchema,
   updateTeamSchema,
 } from "../schemas/team.schema";
 
@@ -26,8 +31,18 @@ router.use(authenticate);
 // Get all teams for the current user
 router.get("/", getMyTeams);
 
-// Get team invitations
+// Get team invitations for the current user
 router.get("/invitations", getTeamInvitations);
+
+// Get a specific team invitation
+router.get("/invitations/:id", getTeamInvitation);
+
+// Respond to a team invitation (accept or decline)
+router.post(
+  "/invitations/:id/respond",
+  validate(respondToInvitationSchema),
+  respondToInvitation,
+);
 
 // Get team by ID
 router.get("/:id", getTeamById);
@@ -40,6 +55,9 @@ router.put("/:id", validate(updateTeamSchema), updateTeam);
 
 // Delete a team
 router.delete("/:id", deleteTeam);
+
+// Invite a user to a team
+router.post("/:id/invite", validate(inviteToTeamSchema), inviteToTeam);
 
 // Add a member to a team
 router.post("/:id/members", validate(addTeamMemberSchema), addTeamMember);

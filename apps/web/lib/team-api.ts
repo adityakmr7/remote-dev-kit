@@ -25,11 +25,15 @@ export interface TeamInvitation {
   id: string
   teamId: string
   teamName: string
+  teamDescription?: string | null
+  role: string
+  status: string
+  expiresAt: string
+  createdAt: string
   invitedBy: {
     id: string
     name: string | null
-  }
-  createdAt: string
+  } | null
 }
 
 export interface CreateTeamInput {
@@ -49,11 +53,15 @@ export interface AddTeamMemberInput {
   role?: "ADMIN" | "MEMBER" | "MANAGER"
 }
 
+export interface InviteToTeamInput {
+  email: string
+  role?: "ADMIN" | "MEMBER" | "MANAGER"
+}
+
 // Get all teams for the current user
 export async function getMyTeams(): Promise<{ teams: Team[]; error?: Error }> {
   try {
-    const response = await apiClient.get("/teams");
-    console.log("My teams:", response.data);
+    const response = await apiClient.get("/teams")
     return { teams: response.data.teams || [] }
   } catch (error) {
     console.error("Error fetching teams:", error)
@@ -107,8 +115,8 @@ export async function deleteTeam(id: string): Promise<{ success: boolean; error?
 
 // Add a member to a team
 export async function addTeamMember(
-  teamId: string,
-  data: AddTeamMemberInput,
+    teamId: string,
+    data: AddTeamMemberInput,
 ): Promise<{ member: TeamMember | null; error?: Error }> {
   try {
     const response = await apiClient.post(`/teams/${teamId}/members`, data)
@@ -132,9 +140,9 @@ export async function removeTeamMember(teamId: string, memberId: string): Promis
 
 // Update a team member's role
 export async function updateTeamMemberRole(
-  teamId: string,
-  memberId: string,
-  role: string,
+    teamId: string,
+    memberId: string,
+    role: string,
 ): Promise<{ member: TeamMember | null; error?: Error }> {
   try {
     const response = await apiClient.put(`/teams/${teamId}/members/${memberId}`, { role })
@@ -153,5 +161,48 @@ export async function getTeamInvitations(): Promise<{ invitations: TeamInvitatio
   } catch (error) {
     console.error("Error fetching team invitations:", error)
     return { invitations: [], error: error as Error }
+  }
+}
+
+// Get a specific team invitation
+export async function getTeamInvitation(id: string): Promise<{ invitation: TeamInvitation | null; error?: Error }> {
+  try {
+    const response = await apiClient.get(`/teams/invitations/${id}`)
+    return { invitation: response.data.invitation }
+  } catch (error) {
+    console.error(`Error fetching invitation with ID ${id}:`, error)
+    return { invitation: null, error: error as Error }
+  }
+}
+
+// Invite a user to a team
+export async function inviteToTeam(
+    teamId: string,
+    data: InviteToTeamInput,
+): Promise<{ success: boolean; invitation?: any; error?: Error }> {
+  try {
+    const response = await apiClient.post(`/teams/${teamId}/invite`, data)
+    return { success: true, invitation: response.data.invitation }
+  } catch (error) {
+    console.error(`Error inviting user to team ${teamId}:`, error)
+    return { success: false, error: error as Error }
+  }
+}
+
+// Accept or decline a team invitation
+export async function respondToInvitation(
+    id: string,
+    status: "ACCEPTED" | "DECLINED",
+): Promise<{ success: boolean; message?: string; teamId?: string; error?: Error }> {
+  try {
+    const response = await apiClient.post(`/teams/invitations/${id}/respond`, { status })
+    return {
+      success: true,
+      message: response.data.message,
+      teamId: response.data.teamId,
+    }
+  } catch (error) {
+    console.error(`Error responding to invitation ${id}:`, error)
+    return { success: false, error: error as Error }
   }
 }

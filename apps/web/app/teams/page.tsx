@@ -8,8 +8,10 @@ import {
   MoreHorizontal,
   Search,
   UserPlus,
+  X,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +39,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import {
   getMyTeams,
   getTeamInvitations,
+  respondToInvitation,
   type Team,
   type TeamInvitation,
 } from "@/lib/team-api";
@@ -49,6 +52,10 @@ export default function TeamsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [processingInvitation, setProcessingInvitation] = useState<
+    string | null
+  >(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -60,7 +67,6 @@ export default function TeamsPage() {
           getMyTeams(),
           getTeamInvitations(),
         ]);
-        console.log(teamsResult, invitationsResult);
 
         if (teamsResult.error) {
           setError(teamsResult.error);
@@ -85,7 +91,7 @@ export default function TeamsPage() {
     };
 
     fetchTeams();
-  }, []);
+  }, [toast]);
 
   const filteredTeams = teams.filter(
     (team) =>
@@ -95,23 +101,70 @@ export default function TeamsPage() {
   );
 
   const handleAcceptInvitation = async (invitationId: string) => {
-    // In a real implementation, you would call an API to accept the invitation
-    toast("Invitation Accepted", {
-      description: "You have joined the team successfully.",
-    });
+    setProcessingInvitation(invitationId);
 
-    // Remove the invitation from the list
-    setInvitations(invitations.filter((inv) => inv.id !== invitationId));
+    try {
+      const result = await respondToInvitation(invitationId, "ACCEPTED");
+
+      if (result.success) {
+        toast("Invitation Accepted", {
+          description:
+            result.message || "You have joined the team successfully.",
+        });
+
+        // Remove the invitation from the list
+        setInvitations(invitations.filter((inv) => inv.id !== invitationId));
+
+        // Refresh teams list
+        const teamsResult = await getMyTeams();
+        if (!teamsResult.error) {
+          setTeams(teamsResult.teams);
+        }
+
+        // Redirect to the team page if teamId is provided
+        if (result.teamId) {
+          router.push(`/teams/${result.teamId}`);
+        }
+      } else {
+        toast("Error", {
+          description: "Failed to accept invitation. Please try again.",
+        });
+      }
+    } catch (err: any) {
+      toast("Error", {
+        description: "Failed to accept invitation. Please try again.",
+      });
+    } finally {
+      setProcessingInvitation(null);
+    }
   };
 
   const handleDeclineInvitation = async (invitationId: string) => {
-    // In a real implementation, you would call an API to decline the invitation
-    toast("Invitation Declined", {
-      description: "You have declined the team invitation.",
-    });
+    setProcessingInvitation(invitationId);
 
-    // Remove the invitation from the list
-    setInvitations(invitations.filter((inv) => inv.id !== invitationId));
+    try {
+      const result = await respondToInvitation(invitationId, "DECLINED");
+
+      if (result.success) {
+        toast("Invitation Declined", {
+          description:
+            result.message || "You have declined the team invitation.",
+        });
+
+        // Remove the invitation from the list
+        setInvitations(invitations.filter((inv) => inv.id !== invitationId));
+      } else {
+        toast("Error", {
+          description: "Failed to decline invitation. Please try again.",
+        });
+      }
+    } catch (err: any) {
+      toast("Error", {
+        description: "Failed to decline invitation. Please try again.",
+      });
+    } finally {
+      setProcessingInvitation(null);
+    }
   };
 
   return (
@@ -298,11 +351,17 @@ export default function TeamsPage() {
                           <div>
                             <p className="font-medium">{invitation.teamName}</p>
                             <p className="text-sm text-muted-foreground">
-                              Invited by {invitation.invitedBy.name} •{" "}
+                              Invited by{" "}
+                              {invitation.invitedBy?.name || "Unknown"} •{" "}
                               {new Date(
                                 invitation.createdAt,
                               ).toLocaleDateString()}
                             </p>
+                            {invitation.teamDescription && (
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {invitation.teamDescription}
+                              </p>
+                            )}
                           </div>
                           <div className="flex gap-2">
                             <Button
@@ -311,7 +370,13 @@ export default function TeamsPage() {
                               onClick={() =>
                                 handleDeclineInvitation(invitation.id)
                               }
+                              disabled={processingInvitation === invitation.id}
                             >
+                              {processingInvitation === invitation.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                              ) : (
+                                <X className="h-4 w-4 mr-2" />
+                              )}
                               Decline
                             </Button>
                             <Button
@@ -319,8 +384,13 @@ export default function TeamsPage() {
                               onClick={() =>
                                 handleAcceptInvitation(invitation.id)
                               }
+                              disabled={processingInvitation === invitation.id}
                             >
-                              <Check className="mr-2 h-4 w-4" />
+                              {processingInvitation === invitation.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                              ) : (
+                                <Check className="h-4 w-4 mr-2" />
+                              )}
                               Accept
                             </Button>
                           </div>

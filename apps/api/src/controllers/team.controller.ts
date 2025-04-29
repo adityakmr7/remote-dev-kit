@@ -514,6 +514,124 @@ export const updateTeamMemberRole = async (
   }
 };
 
+// Invite a user to a team
+export const inviteToTeam = async (
+  req: Request<{ id: string }, {}, InviteToTeamInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+    const { id: teamId } = req.params;
+    const { email, role } = req.body;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    // Check if user is an admin of the team
+    const userTeam = await prisma.userTeam.findFirst({
+      where: { userId, teamId, role: "ADMIN" },
+    });
+
+    if (!userTeam) {
+      throw new ApiError(
+        403,
+        "You don't have permission to invite members to this team",
+      );
+    }
+
+    // Check if the team exists
+    const team = await prisma.team.findUnique({
+      where: { id: teamId },
+    });
+
+    if (!team) {
+      throw new ApiError(404, "Team not found");
+    }
+
+    // Check if user is already a member
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      const existingMember = await prisma.userTeam.findFirst({
+        where: { userId: existingUser.id, teamId },
+      });
+
+      if (existingMember) {
+        throw new ApiError(400, "User is already a member of this team");
+      }
+    }
+
+    // Check if there's already a pending invitation
+    const existingInvitation = await prisma.teamInvitation.findFirst({
+      where: {
+        email,
+        teamId,
+        status: "PENDING",
+        expiresAt: { gt: new Date() },
+      },
+    });
+
+    if (existingInvitation) {
+      throw new ApiError(
+        400,
+        "There's already a pending invitation for this email",
+      );
+    }
+
+    // Create expiration date (7 days from now)
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+
+    // Create invitation
+    const invitation = await prisma.teamInvitation.create({
+      data: {
+        email,
+        teamId,
+        role,
+        invitedBy: userId,
+        expiresAt,
+      },
+    });
+
+    // Get inviter's name
+    const inviter = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true, email: true },
+    });
+
+    // Send invitation email
+    try {
+      await sendEmail({
+        to: email,
+        subject: `Invitation to join ${team.name}`,
+        text: `${inviter?.name || inviter?.email || "Someone"} has invited you to join ${team.name}. 
+               Click here to accept: ${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}`,
+        html: `<p>${inviter?.name || inviter?.email || "Someone"} has invited you to join ${team.name}.</p>
+               <p><a href="${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}">Click here to view the invitation</a></p>`,
+      });
+    } catch (error) {
+      console.error("Failed to send invitation email:", error);
+      // Continue even if email fails
+    }
+
+    res.status(201).json({
+      message: "Invitation sent successfully",
+      invitation: {
+        id: invitation.id,
+        email: invitation.email,
+        role: invitation.role,
+        expiresAt: invitation.expiresAt,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Get team invitations for the current user
 export const getTeamInvitations = async (
   req: Request,
@@ -527,32 +645,249 @@ export const getTeamInvitations = async (
       throw new ApiError(401, "Not authenticated");
     }
 
-    // In a real application, you would have a TeamInvitation model
-    // For now, we'll return a mock response
-    const invitations = [
-      {
-        id: "1",
-        teamId: "team-1",
-        teamName: "Product Team",
-        invitedBy: {
-          id: "user-1",
-          name: "John Doe",
-        },
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: "2",
-        teamId: "team-2",
-        teamName: "Design Team",
-        invitedBy: {
-          id: "user-2",
-          name: "Jane Smith",
-        },
-        createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
-      },
-    ];
+    // Get user's email
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true },
+    });
 
-    res.status(200).json({ invitations });
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Get pending invitations for the user's email
+    const invitations = await prisma.teamInvitation.findMany({
+      where: {
+        email: user.email,
+        status: "PENDING",
+        expiresAt: { gt: new Date() },
+      },
+      include: {
+        team: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // Get inviter details for each invitation
+    const invitationsWithInviter = await Promise.all(
+      invitations.map(async (invitation) => {
+        const inviter = await prisma.user.findUnique({
+          where: { id: invitation.invitedBy },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        });
+
+        return {
+          id: invitation.id,
+          teamId: invitation.teamId,
+          teamName: invitation.team.name,
+          teamDescription: invitation.team.description,
+          role: invitation.role,
+          status: invitation.status,
+          expiresAt: invitation.expiresAt,
+          createdAt: invitation.createdAt,
+          invitedBy: inviter
+            ? {
+                id: inviter.id,
+                name: inviter.name || inviter.email,
+              }
+            : null,
+        };
+      }),
+    );
+
+    res.status(200).json({ invitations: invitationsWithInviter });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get a specific team invitation
+export const getTeamInvitation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    // Get user's email
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Get the invitation
+    const invitation = await prisma.teamInvitation.findUnique({
+      where: { id },
+      include: {
+        team: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
+    });
+
+    if (!invitation) {
+      throw new ApiError(404, "Invitation not found");
+    }
+
+    // Check if the invitation is for the current user
+    if (invitation.email !== user.email) {
+      throw new ApiError(403, "This invitation is not for you");
+    }
+
+    // Check if the invitation has expired
+    if (invitation.expiresAt < new Date()) {
+      throw new ApiError(400, "This invitation has expired");
+    }
+
+    // Get inviter details
+    const inviter = await prisma.user.findUnique({
+      where: { id: invitation.invitedBy },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    });
+
+    res.status(200).json({
+      invitation: {
+        id: invitation.id,
+        teamId: invitation.teamId,
+        teamName: invitation.team.name,
+        teamDescription: invitation.team.description,
+        role: invitation.role,
+        status: invitation.status,
+        expiresAt: invitation.expiresAt,
+        createdAt: invitation.createdAt,
+        invitedBy: inviter
+          ? {
+              id: inviter.id,
+              name: inviter.name || inviter.email,
+            }
+          : null,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Accept or decline a team invitation
+export const respondToInvitation = async (
+  req: Request<{ id: string }, {}, RespondToInvitationInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    // Get user's email
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, id: true },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Get the invitation
+    const invitation = await prisma.teamInvitation.findUnique({
+      where: { id },
+      include: {
+        team: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+
+    if (!invitation) {
+      throw new ApiError(404, "Invitation not found");
+    }
+
+    // Check if the invitation is for the current user
+    if (invitation.email !== user.email) {
+      throw new ApiError(403, "This invitation is not for you");
+    }
+
+    // Check if the invitation has expired
+    if (invitation.expiresAt < new Date()) {
+      throw new ApiError(400, "This invitation has expired");
+    }
+
+    // Check if the invitation is still pending
+    if (invitation.status !== "PENDING") {
+      throw new ApiError(400, "This invitation has already been responded to");
+    }
+
+    // Update the invitation status
+    await prisma.teamInvitation.update({
+      where: { id },
+      data: { status },
+    });
+
+    // If accepted, add the user to the team
+    if (status === "ACCEPTED") {
+      // Check if the user is already a member of the team
+      const existingMember = await prisma.userTeam.findFirst({
+        where: { userId: user.id, teamId: invitation.teamId },
+      });
+
+      if (!existingMember) {
+        // Add the user to the team
+        await prisma.userTeam.create({
+          data: {
+            userId: user.id,
+            teamId: invitation.teamId,
+            role: invitation.role,
+          },
+        });
+      }
+
+      res.status(200).json({
+        message: `You have successfully joined ${invitation.team.name}`,
+        teamId: invitation.teamId,
+      });
+    } else {
+      res.status(200).json({
+        message: `You have declined the invitation to join ${invitation.team.name}`,
+      });
+    }
   } catch (error) {
     next(error);
   }

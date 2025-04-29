@@ -179,6 +179,18 @@ exports.Prisma.PairProgrammingSessionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TeamInvitationScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  teamId: 'teamId',
+  status: 'status',
+  role: 'role',
+  invitedBy: 'invitedBy',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PairSessionParticipantScalarFieldEnum = {
   id: 'id',
   sessionId: 'sessionId',
@@ -243,6 +255,7 @@ exports.Prisma.ModelName = {
   Standup: 'Standup',
   Tag: 'Tag',
   PairProgrammingSession: 'PairProgrammingSession',
+  TeamInvitation: 'TeamInvitation',
   PairSessionParticipant: 'PairSessionParticipant',
   PullRequest: 'PullRequest',
   FocusTime: 'FocusTime',

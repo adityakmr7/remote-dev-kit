@@ -43,10 +43,11 @@ model Team {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  members      UserTeam[]
-  pairSessions PairProgrammingSession[]
-  pullRequests PullRequest[]
-  standups     Standup[]
+  members        UserTeam[]
+  pairSessions   PairProgrammingSession[]
+  pullRequests   PullRequest[]
+  standups       Standup[]
+  TeamInvitation TeamInvitation[]
 }
 
 model UserTeam {
@@ -106,6 +107,21 @@ model PairProgrammingSession {
   // Relations
   team         Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   participants PairSessionParticipant[]
+}
+
+model TeamInvitation {
+  id        String   @id @default(uuid())
+  email     String
+  teamId    String
+  status    String   @default("PENDING") // "PENDING", "ACCEPTED", "DECLINED"
+  role      String   @default("MEMBER") // "ADMIN", "MEMBER", "MANAGER"
+  invitedBy String // User ID who sent the invitation
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
 model PairSessionParticipant {
