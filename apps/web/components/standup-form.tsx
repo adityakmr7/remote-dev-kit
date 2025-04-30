@@ -44,10 +44,12 @@ export function StandupForm({ onStandupCreated }: StandupFormProps) {
 
     try {
       const payload = {
-        yesterday: yesterday || null,
-        today: today || null,
-        blockers: blockers || null,
-        tags: tags.length > 0 ? tags : undefined,
+        body: {
+          yesterday: yesterday || null,
+          today: today || null,
+          blockers: blockers || null,
+          tags: tags.length > 0 ? tags : undefined,
+        },
       };
       await createStandup(payload);
 

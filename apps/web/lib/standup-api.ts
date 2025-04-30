@@ -42,14 +42,17 @@ export interface StandupHistoryResponse {
 }
 
 export interface CreateStandupInput {
-
-  yesterday?: string | null
-  today?: string | null
-  blockers?: string | null
-  tags?: string[]
-  audioUrl?: string | null
-  teamId?: string
+  body: {
+    yesterday?: string | null
+    today?: string | null
+    blockers?: string | null
+    tags?: string[]
+    audioUrl?: string | null
+    teamId?: string
+  }
 }
+
+
 
 export interface UpdateStandupInput {
   yesterday?: string | null
