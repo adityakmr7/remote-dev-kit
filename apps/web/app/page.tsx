@@ -23,7 +23,7 @@ import {
   getTodayStandups,
   type PairSession,
   type Standup,
-} from "@/lib/dashboard-api";
+} from "../../../packages/lib/src/dashboard-api";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);

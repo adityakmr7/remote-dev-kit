@@ -123,11 +123,13 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   name: 'name',
   avatarUrl: 'avatarUrl',
+  isAdmin: 'isAdmin',
   provider: 'provider',
   status: 'status',
   role: 'role',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  subscriptionId: 'subscriptionId'
 };
 
 exports.Prisma.TeamScalarFieldEnum = {
@@ -135,7 +137,8 @@ exports.Prisma.TeamScalarFieldEnum = {
   name: 'name',
   description: 'description',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  organizationId: 'organizationId'
 };
 
 exports.Prisma.UserTeamScalarFieldEnum = {
@@ -199,19 +202,6 @@ exports.Prisma.PairSessionParticipantScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PullRequestScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  number: 'number',
-  url: 'url',
-  status: 'status',
-  userId: 'userId',
-  teamId: 'teamId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.FocusTimeScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -221,15 +211,102 @@ exports.Prisma.FocusTimeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  logo: 'logo',
+  website: 'website',
+  isActive: 'isActive',
+  isApproved: 'isApproved',
+  approvedAt: 'approvedAt',
+  approvedBy: 'approvedBy',
+  subscriptionTier: 'subscriptionTier',
+  subscriptionStatus: 'subscriptionStatus',
+  subscriptionStartDate: 'subscriptionStartDate',
+  subscriptionEndDate: 'subscriptionEndDate',
+  maxUsers: 'maxUsers',
+  maxTeams: 'maxTeams',
+  maxProjects: 'maxProjects',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  country: 'country',
+  postalCode: 'postalCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrganizationMemberScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdminActivityLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  adminId: 'adminId',
+  details: 'details',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  plan: 'plan',
+  organizationId: 'organizationId',
+  tier: 'tier',
   status: 'status',
   startDate: 'startDate',
   endDate: 'endDate',
+  billingCycle: 'billingCycle',
+  amount: 'amount',
+  currency: 'currency',
+  paymentMethod: 'paymentMethod',
+  paymentReference: 'paymentReference',
+  lastBillingDate: 'lastBillingDate',
+  nextBillingDate: 'nextBillingDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PullRequestScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  repositoryUrl: 'repositoryUrl',
+  prNumber: 'prNumber',
+  commitsCount: 'commitsCount',
+  filesChanged: 'filesChanged',
+  createdBy: 'createdBy',
+  teamId: 'teamId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PullRequestCommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  pullRequestId: 'pullRequestId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PullRequestReviewerScalarFieldEnum = {
+  id: 'id',
+  pullRequestId: 'pullRequestId',
+  userId: 'userId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -257,9 +334,14 @@ exports.Prisma.ModelName = {
   PairProgrammingSession: 'PairProgrammingSession',
   TeamInvitation: 'TeamInvitation',
   PairSessionParticipant: 'PairSessionParticipant',
-  PullRequest: 'PullRequest',
   FocusTime: 'FocusTime',
-  Subscription: 'Subscription'
+  Organization: 'Organization',
+  OrganizationMember: 'OrganizationMember',
+  AdminActivityLog: 'AdminActivityLog',
+  Subscription: 'Subscription',
+  PullRequest: 'PullRequest',
+  PullRequestComment: 'PullRequestComment',
+  PullRequestReviewer: 'PullRequestReviewer'
 };
 
 /**

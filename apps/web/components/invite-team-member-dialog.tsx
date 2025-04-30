@@ -32,7 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { inviteToTeam } from "@/lib/team-api";
+import { inviteToTeam } from "@repo/lib/team-api";
 import { toast } from "sonner";
 
 // Replace the existing formSchema with this:

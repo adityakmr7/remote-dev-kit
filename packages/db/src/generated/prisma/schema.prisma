@@ -20,6 +20,7 @@ model User {
   password  String?
   name      String?
   avatarUrl String?
+  isAdmin   Boolean  @default(false) // Add this field for admin
   provider  String   @default("email") // "email", "github", etc.
   status    String?  @default("offline") // "online", "offline", "away"
   role      String?
@@ -27,12 +28,16 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  teams        UserTeam[]
-  standups     Standup[]
-  pairSessions PairSessionParticipant[]
-  pullRequests PullRequest[]
-  focusTimes   FocusTime[]
-  subscription Subscription?
+  teams               UserTeam[]
+  standups            Standup[]
+  pairSessions        PairSessionParticipant[]
+  pullRequests        PullRequest[]
+  focusTimes          FocusTime[]
+  subscription        Subscription?            @relation(fields: [subscriptionId], references: [id])
+  organizations       OrganizationMember[]
+  subscriptionId      String?
+  PullRequestComment  PullRequestComment[]
+  PullRequestReviewer PullRequestReviewer[]
 }
 
 model Team {
@@ -48,6 +53,8 @@ model Team {
   pullRequests   PullRequest[]
   standups       Standup[]
   TeamInvitation TeamInvitation[]
+  Organization   Organization?            @relation(fields: [organizationId], references: [id])
+  organizationId String?
 }
 
 model UserTeam {
@@ -138,23 +145,6 @@ model PairSessionParticipant {
   @@unique([sessionId, userId])
 }
 
-model PullRequest {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  number      Int
-  url         String
-  status      String   @default("OPEN") // "OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED", "READY_TO_MERGE", "MERGED", "CLOSED"
-  userId      String
-  teamId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
-}
-
 model FocusTime {
   id        String   @id @default(uuid())
   userId    String
@@ -167,16 +157,131 @@ model FocusTime {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Subscription {
-  id        String    @id @default(uuid())
-  userId    String    @unique
-  plan      String    @default("FREE") // "FREE", "PRO", "TEAM"
-  status    String    @default("ACTIVE") // "ACTIVE", "CANCELED", "PAST_DUE"
-  startDate DateTime  @default(now())
-  endDate   DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model Organization {
+  id                    String    @id @default(uuid())
+  name                  String
+  description           String?
+  logo                  String?
+  website               String?
+  isActive              Boolean   @default(true)
+  isApproved            Boolean   @default(false)
+  approvedAt            DateTime?
+  approvedBy            String?
+  subscriptionTier      String    @default("FREE") // "FREE", "BASIC", "PREMIUM", "ENTERPRISE"
+  subscriptionStatus    String    @default("ACTIVE") // "ACTIVE", "INACTIVE", "PENDING", "CANCELLED"
+  subscriptionStartDate DateTime?
+  subscriptionEndDate   DateTime?
+  maxUsers              Int       @default(5)
+  maxTeams              Int       @default(2)
+  maxProjects           Int       @default(10)
+  contactEmail          String?
+  contactPhone          String?
+  address               String?
+  city                  String?
+  state                 String?
+  country               String?
+  postalCode            String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  members OrganizationMember[]
+  teams   Team[]
+}
+
+model OrganizationMember {
+  id             String   @id @default(uuid())
+  role           String // "ADMIN", "LEAD", "MEMBER"
+  userId         String
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+}
+
+// Add this model for admin activity logging
+model AdminActivityLog {
+  id         String   @id @default(uuid())
+  action     String // "CREATE", "UPDATE", "DELETE", "APPROVE", "REJECT", etc.
+  entityType String // "ORGANIZATION", "USER", "TEAM", etc.
+  entityId   String // ID of the entity being acted upon
+  adminId    String // ID of the admin who performed the action
+  details    String? // JSON string with additional details
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+}
+
+// Add this model for subscription billing
+model Subscription {
+  id               String    @id @default(uuid())
+  organizationId   String    @unique
+  tier             String // "FREE", "BASIC", "PREMIUM", "ENTERPRISE"
+  status           String // "ACTIVE", "INACTIVE", "PENDING", "CANCELLED"
+  startDate        DateTime
+  endDate          DateTime?
+  billingCycle     String // "MONTHLY", "ANNUAL"
+  amount           Float
+  currency         String    @default("USD")
+  paymentMethod    String?
+  paymentReference String?
+  lastBillingDate  DateTime?
+  nextBillingDate  DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  User             User[]
+}
+
+// Add these models to your existing schema.prisma file
+
+model PullRequest {
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  status        String
+  repositoryUrl String?
+  prNumber      Int?
+  commitsCount  Int      @default(0)
+  filesChanged  Int      @default(0)
+  createdBy     String
+  teamId        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user      User                  @relation(fields: [createdBy], references: [id])
+  team      Team?                 @relation(fields: [teamId], references: [id])
+  comments  PullRequestComment[]
+  reviewers PullRequestReviewer[]
+}
+
+model PullRequestComment {
+  id            String   @id @default(uuid())
+  content       String
+  pullRequestId String
+  userId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id])
+}
+
+model PullRequestReviewer {
+  id            String   @id @default(uuid())
+  pullRequestId String
+  userId        String
+  createdAt     DateTime @default(now())
+
+  // Relations
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@unique([pullRequestId, userId])
 }

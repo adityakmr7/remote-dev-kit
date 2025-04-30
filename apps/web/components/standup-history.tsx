@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getStandupHistory, type StandupHistoryItem } from "@/lib/standup-api";
+import {
+  getStandupHistory,
+  type StandupHistoryItem,
+} from "@repo/lib/standup-api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 

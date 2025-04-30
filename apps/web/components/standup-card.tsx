@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { Standup } from "@/lib/standup-api";
+import { Standup } from "@repo/lib/standup-api";
 
 interface StandupCardProps {
   standup: Standup;

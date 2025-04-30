@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { createStandup } from "@/lib/standup-api";
+import { createStandup } from "@repo/lib/standup-api";
 import { toast } from "sonner";
 
 interface StandupFormProps {

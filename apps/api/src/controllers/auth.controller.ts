@@ -69,10 +69,12 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
+    console.log("login", email, password);
     // Find user
     const user = await prisma.user.findUnique({
       where: { email },
     });
+    console.log("user", user);
 
     if (!user) {
       throw new ApiError(401, "Invalid credentials");
@@ -85,6 +87,7 @@ export const login = async (
 
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log("isPasswordValid", isPasswordValid);
     if (!isPasswordValid) {
       throw new ApiError(401, "Invalid credentials");
     }

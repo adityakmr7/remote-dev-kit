@@ -7,7 +7,6 @@ const apiClient = axios.create({
     "Content-Type": "application/json",
   },
 })
-
 // Add a request interceptor to include the auth token in requests
 apiClient.interceptors.request.use(
   (config) => {

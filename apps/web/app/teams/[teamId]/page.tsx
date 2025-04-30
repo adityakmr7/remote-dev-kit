@@ -34,7 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getTeamById, type Team } from "@/lib/team-api";
+import { getTeamById, type Team } from "@repo/lib/team-api";
 import { InviteTeamMemberDialog } from "@/components/invite-team-member-dialog";
 import { toast } from "sonner";
 

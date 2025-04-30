@@ -19,7 +19,7 @@ import {
   getTeamInvitation,
   respondToInvitation,
   type TeamInvitation,
-} from "@/lib/team-api";
+} from "@repo/lib/team-api";
 import { toast } from "sonner";
 
 export default function InvitationPage() {

@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { prismaClient as prisma } from "@repo/db/client";
-import { ApiError } from "../utils/error.utils";
+import { ApiError, httpCode } from "../utils/error.utils";
 
 // Extend Express Request type to include user
 declare global {
@@ -13,7 +13,33 @@ declare global {
     }
   }
 }
+export const isAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (!req.user?.id) {
+      throw new ApiError(httpCode.UNAUTHORIZED, "Authentication required");
+    }
 
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+    });
+
+    if (!user) {
+      throw new ApiError(httpCode.UNAUTHORIZED, "User not found");
+    }
+
+    if (user.role !== "ADMIN") {
+      throw new ApiError(httpCode.FORBIDDEN, "Admin privileges required");
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 export const authenticate = async (
   req: Request,
   res: Response,

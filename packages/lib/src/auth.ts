@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import apiClient from "./api-client";
+import apiClient from "./api-client.ts";
 
 // Types
 interface AuthResponse {
