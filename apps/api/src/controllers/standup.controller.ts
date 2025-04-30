@@ -358,7 +358,7 @@ export const getStandupHistory = async (
     const teamIds = userTeams.map((ut) => ut.teamId);
 
     if (teamIds.length === 0) {
-      return res.status(200).json({
+      res.status(200).json({
         history: [],
         pagination: {
           page,
@@ -367,6 +367,7 @@ export const getStandupHistory = async (
           totalPages: 0,
         },
       });
+      return;
     }
 
     // Get distinct dates
