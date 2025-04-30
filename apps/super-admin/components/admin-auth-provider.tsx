@@ -17,6 +17,12 @@ type AdminAuthContextType = {
   user: AdminUser | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    adminSecretKey: string,
+  ) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -37,7 +43,11 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         const token = localStorage.getItem("admin_token");
         if (!token) {
           setIsLoading(false);
-          if (pathname !== "/admin/login" && pathname?.startsWith("/admin")) {
+          if (
+            pathname !== "/admin/login" &&
+            pathname !== "/admin/register" &&
+            pathname?.startsWith("/admin")
+          ) {
             router.push("/admin/login");
           }
           return;
@@ -47,20 +57,28 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         const { valid, user } = await adminAuthApi.validateToken();
         if (valid && user) {
           setUser(user);
-          if (pathname === "/admin/login") {
+          if (pathname === "/admin/login" || pathname === "/admin/register") {
             router.push("/admin/dashboard");
           }
         } else {
           // Token is invalid
           localStorage.removeItem("admin_token");
           localStorage.removeItem("admin_refresh_token");
-          if (pathname !== "/admin/login" && pathname?.startsWith("/admin")) {
+          if (
+            pathname !== "/admin/login" &&
+            pathname !== "/admin/register" &&
+            pathname?.startsWith("/admin")
+          ) {
             router.push("/admin/login");
           }
         }
       } catch (error) {
         console.error("Auth check error:", error);
-        if (pathname !== "/admin/login" && pathname?.startsWith("/admin")) {
+        if (
+          pathname !== "/admin/login" &&
+          pathname !== "/admin/register" &&
+          pathname?.startsWith("/admin")
+        ) {
           router.push("/admin/login");
         }
       } finally {
@@ -72,7 +90,6 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   }, [pathname, router]);
 
   const login = async (email: string, password: string) => {
-    // @ts-ignore
     try {
       setIsLoading(true);
       const { user, accessToken, refreshToken } = await adminAuthApi.login(
@@ -100,6 +117,42 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const register = async (
+    name: string,
+    email: string,
+    password: string,
+    adminSecretKey: string,
+  ) => {
+    try {
+      setIsLoading(true);
+      const { user, accessToken, refreshToken } = await adminAuthApi.register(
+        name,
+        email,
+        password,
+        adminSecretKey,
+      );
+
+      localStorage.setItem("admin_token", accessToken);
+      localStorage.setItem("admin_refresh_token", refreshToken);
+
+      setUser(user);
+      router.push("/admin/dashboard");
+
+      toast("Registration successful", {
+        description: `Welcome, ${user.name}! Your super admin account has been created.`,
+      });
+    } catch (error: any) {
+      console.error("Registration error:", error);
+      toast("Registration failed", {
+        description:
+          error.response?.data?.message || "Failed to register super admin",
+      });
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = async () => {
     try {
       setIsLoading(true);
@@ -119,7 +172,9 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AdminAuthContext.Provider value={{ user, isLoading, login, logout }}>
+    <AdminAuthContext.Provider
+      value={{ user, isLoading, login, register, logout }}
+    >
       {children}
     </AdminAuthContext.Provider>
   );

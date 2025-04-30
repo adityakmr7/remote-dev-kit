@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
+const API_URL = "http://localhost:4000";
 const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -10,7 +9,9 @@ const api = axios.create({
 // Add a request interceptor to include the token in requests
 api.interceptors.request.use(
   (config) => {
+    //@ts-ignore
     const token =
+      //@ts-ignore
       typeof window !== "undefined"
         ? localStorage.getItem("admin_token")
         : null;
@@ -59,9 +60,11 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (error) {
         // If refresh fails, redirect to login
+        //@ts-ignore
         if (typeof window !== "undefined") {
           localStorage.removeItem("admin_token");
           localStorage.removeItem("admin_refresh_token");
+          //@ts-ignore
           window.location.href = "/admin/login";
         }
         return Promise.reject(error);
@@ -78,6 +81,20 @@ export const adminAuthApi = {
     const response = await api.post("/api/admin/auth/login", {
       email,
       password,
+    });
+    return response.data;
+  },
+  register: async (
+    name: string,
+    email: string,
+    password: string,
+    adminSecretKey: string,
+  ) => {
+    const response = await api.post("/api/admin/auth/register-super-admin", {
+      name,
+      email,
+      password,
+      adminSecretKey,
     });
     return response.data;
   },
@@ -160,40 +177,6 @@ export const usersApi = {
   },
   delete: async (id: string) => {
     const response = await api.delete(`/api/admin/users/${id}`);
-    return response.data;
-  },
-};
-
-// Subscriptions API
-export const subscriptionsApi = {
-  getAll: async (page = 1, limit = 10) => {
-    const response = await api.get(
-      `/api/admin/subscriptions?page=${page}&limit=${limit}`,
-    );
-    return response.data;
-  },
-  getById: async (id: string) => {
-    const response = await api.get(`/api/admin/subscriptions/${id}`);
-    return response.data;
-  },
-  create: async (data: {
-    organizationId: string;
-    plan: string;
-    startDate: Date;
-    endDate?: Date;
-  }) => {
-    const response = await api.post("/api/admin/subscriptions", data);
-    return response.data;
-  },
-  update: async (
-    id: string,
-    data: { plan?: string; status?: string; endDate?: Date },
-  ) => {
-    const response = await api.put(`/api/admin/subscriptions/${id}`, data);
-    return response.data;
-  },
-  cancel: async (id: string) => {
-    const response = await api.post(`/api/admin/subscriptions/${id}/cancel`);
     return response.data;
   },
 };

@@ -11,6 +11,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // Get token from localStorage (in a real app, consider using a more secure approach)
+    //@ts-ignore
     const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null
 
     if (token) {
@@ -40,7 +41,9 @@ apiClient.interceptors.response.use(
 
         if (!refreshToken) {
           // No refresh token available, redirect to login
+          //@ts-ignore
           if (typeof window !== "undefined") {
+            //@ts-ignore
             window.location.href = "/login"
           }
           return Promise.reject(error)
@@ -64,9 +67,11 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest)
       } catch (refreshError) {
         // If refresh token is invalid, redirect to login
+        //@ts-ignore
         if (typeof window !== "undefined") {
           localStorage.removeItem("accessToken")
           localStorage.removeItem("refreshToken")
+          //@ts-ignore
           window.location.href = "/login"
         }
         return Promise.reject(refreshError)

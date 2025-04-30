@@ -13,19 +13,41 @@ import { prismaClient as prisma } from "@repo/db/client";
 import standupRoutes from "./routes/standup.routes.ts";
 import helmet from "helmet";
 import teamRoutes from "./routes/team.routes.ts";
+import adminRoutes from "./routes/admin.routes.ts";
 
 dotenv.config();
 const app = express();
 app.use(helmet())
+
+// CORS configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:3000",
+  "http://localhost:3001",
+  // Add any other origins you need
+]
+
+// Standard CORS setup
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl requests)
+      if (!origin) return callback(null, true)
+
+      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === "development") {
+        callback(null, true)
+      } else {
+        console.warn(`Origin ${origin} not allowed by CORS`)
+        callback(new Error("Not allowed by CORS"))
+      }
+    },
+    credentials: true,
+  }),
+)
+// Handle preflight requests
 // Add JSON body parser middleware
 app.use(express.json());
 
-app.use(
-    cors({
-        origin: process.env.FRONTEND_URL,
-        credentials: true,
-    })
-);
+app.use(express.urlencoded({ extended: true }))
 
 // Mount routes
 app.use('/api/auth', authRoutes);
@@ -34,6 +56,7 @@ app.use('/api/users', userRoutes); // Mount user routes
 app.use('/api/dashboard', dashboardRoutes);
 app.use("/api/standups", standupRoutes)
 app.use('/api/teams', teamRoutes);
+app.use('/api/admin',adminRoutes)
 
 
 // Health check endpoint

@@ -1,5 +1,4 @@
 import type React from "react";
-import { AdminSidebar } from "@/components/admin-sidebar";
 import { AdminAuthProvider } from "@/components/admin-auth-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -31,7 +30,6 @@ export default function AdminLayout({
       >
         <div className="flex h-screen">
           <AdminAuthProvider>
-            <AdminSidebar />
             <div className="flex-1 overflow-auto">{children}</div>
           </AdminAuthProvider>
         </div>

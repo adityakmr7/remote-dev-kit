@@ -4,10 +4,19 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
 import { useAdminAuth } from "@/components/admin-auth-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -45,18 +54,17 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md dark:bg-gray-800">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">
             Admin Login
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          </CardTitle>
+          <CardDescription className="text-center">
             Sign in to access the RemoteDevKit admin dashboard
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-          <div className="space-y-4">
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -86,17 +94,28 @@ export default function AdminLoginPage() {
                 </p>
               )}
             </div>
-          </div>
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isSubmitting || isLoading}
-          >
-            {isSubmitting || isLoading ? "Signing in..." : "Sign in"}
-          </Button>
-        </form>
-      </div>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isSubmitting || isLoading}
+            >
+              {isSubmitting || isLoading ? "Signing in..." : "Sign in"}
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Need to create a super admin account?{" "}
+            <Link
+              href="/admin/register"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Register here
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
