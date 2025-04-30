@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { prismaClient as prisma } from "@repo/db/client";
+import { Prisma, prismaClient as prisma } from "@repo/db/client";
 import { ApiError } from "../utils/error.utils";
 import type {
   CreateStandupInput,
@@ -335,7 +335,6 @@ export const getStandupsByDate = async (
   }
 };
 
-// Get standup history (paginated)
 export const getStandupHistory = async (
   req: Request,
   res: Response,
@@ -358,40 +357,67 @@ export const getStandupHistory = async (
 
     const teamIds = userTeams.map((ut) => ut.teamId);
 
-    // Get distinct dates with standups, ordered by date
-    const standupDates = await prisma.$queryRaw<
-      { date: Date; count: number }[]
-    >`
-      SELECT DATE(created_at) as date, COUNT(*) as count
-      FROM standup
-      WHERE team_id IN (${teamIds.join(",")})
-      GROUP BY DATE(created_at)
+    if (teamIds.length === 0) {
+      return res.status(200).json({
+        history: [],
+        pagination: {
+          page,
+          limit,
+          total: 0,
+          totalPages: 0,
+        },
+      });
+    }
+
+    // Get distinct dates
+    const distinctDates = await prisma.$queryRaw<Array<{ date: Date }>>`
+      SELECT DISTINCT DATE("createdAt") as date
+      FROM "Standup"
+      WHERE "teamId" IN (${Prisma.join(teamIds)})
       ORDER BY date DESC
-        LIMIT ${limit} OFFSET ${(page - 1) * limit}
+      LIMIT ${limit} OFFSET ${(page - 1) * limit}
     `;
 
-    // Format the response
-    const formattedDates = standupDates.map((item) => ({
-      date: item.date.toISOString().split("T")[0],
-      participantCount: Number(item.count),
-    }));
+    // Get counts for each date
+    const dateCounts = await Promise.all(
+      distinctDates.map(async ({ date }) => {
+        const dateStart = new Date(date);
+        const dateEnd = new Date(date);
+        dateEnd.setDate(dateEnd.getDate() + 1);
 
-    // Get total count for pagination
-    const totalCount = await prisma.$queryRaw<{ count: number }[]>`
-      SELECT COUNT(DISTINCT DATE(created_at)) as count
-      FROM standup
-      WHERE team_id IN (${teamIds.join(",")})
+        const count = await prisma.standup.count({
+          where: {
+            teamId: { in: teamIds },
+            createdAt: {
+              gte: dateStart,
+              lt: dateEnd,
+            },
+          },
+        });
+
+        return {
+          date: dateStart.toISOString().split("T")[0],
+          participantCount: count,
+        };
+      }),
+    );
+
+    // Get total distinct dates count for pagination
+    const totalDatesCount = await prisma.$queryRaw<Array<{ count: BigInt }>>`
+      SELECT COUNT(DISTINCT DATE("createdAt")) as count
+      FROM "Standup"
+      WHERE "teamId" IN (${Prisma.join(teamIds)})
     `;
 
-    const total = totalCount[0]?.count || 0;
+    const total = Number(totalDatesCount[0]?.count || 0);
 
     res.status(200).json({
-      history: formattedDates,
+      history: dateCounts,
       pagination: {
         page,
         limit,
         total,
-        totalPages: Math.ceil(Number(total) / limit),
+        totalPages: Math.ceil(total / limit),
       },
     });
   } catch (error) {
