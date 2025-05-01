@@ -4,13 +4,18 @@ import jwt from "jsonwebtoken";
 import { prismaClient as prisma } from "@repo/db/client";
 import { generateRefreshToken, generateToken } from "../utils/token.utils";
 import { ApiError } from "../utils/error.utils";
-import { sendPasswordResetEmail } from "../services/email.service";
+import {
+  sendPasswordResetEmail,
+  sendVerificationEmail,
+} from "../services/email.service";
+import * as crypto from "node:crypto";
 import type {
   ForgotPasswordInput,
   LoginInput,
   RefreshTokenInput,
   RegisterInput,
   ResetPasswordInput,
+  VerifyEmailInput,
 } from "../schemas/auth.schema";
 
 export const register = async (
@@ -33,7 +38,10 @@ export const register = async (
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+    // Generate email verification token
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationTokenExpiry = new Date();
+    verificationTokenExpiry.setHours(verificationTokenExpiry.getHours() + 24); // 24 hour expiry
     // Create user
     const user = await prisma.user.create({
       data: {
@@ -41,12 +49,23 @@ export const register = async (
         name,
         password: hashedPassword,
         provider: "email",
+        emailVerified: false,
+        verificationToken,
+        verificationTokenExpiry,
       },
     });
 
     // Generate tokens
     const accessToken = generateToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
+
+    // Send verification email
+    try {
+      await sendVerificationEmail(email, verificationToken);
+    } catch (emailError) {
+      console.error("Failed to send verification email:", emailError);
+      // Continue with registration even if email fails
+    }
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
@@ -55,6 +74,7 @@ export const register = async (
       user: userWithoutPassword,
       accessToken,
       refreshToken,
+      message: "Registration successful. Please verify your email.",
     });
   } catch (error) {
     next(error);
@@ -69,12 +89,10 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    console.log("login", email, password);
     // Find user
     const user = await prisma.user.findUnique({
       where: { email },
     });
-    console.log("user", user);
 
     if (!user) {
       throw new ApiError(401, "Invalid credentials");
@@ -87,7 +105,6 @@ export const login = async (
 
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("isPasswordValid", isPasswordValid);
     if (!isPasswordValid) {
       throw new ApiError(401, "Invalid credentials");
     }
@@ -98,17 +115,112 @@ export const login = async (
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
-
+    // Check if email is verified
+    const emailVerificationMessage = !user.emailVerified
+      ? "Please verify your email address to access all features."
+      : undefined;
     res.status(200).json({
       user: userWithoutPassword,
       accessToken,
       refreshToken,
+      message: emailVerificationMessage,
     });
   } catch (error) {
     next(error);
   }
 };
 
+export const verifyEmail = async (
+  req: Request<{}, {}, VerifyEmailInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { token } = req.body;
+
+    // Find user with this verification token
+    const user = await prisma.user.findFirst({
+      where: {
+        verificationToken: token,
+        verificationTokenExpiry: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    if (!user) {
+      throw new ApiError(400, "Invalid or expired verification token");
+    }
+
+    // Update user as verified
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        emailVerified: true,
+        verificationToken: null,
+        verificationTokenExpiry: null,
+      },
+    });
+
+    res.status(200).json({ message: "Email verified successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resendVerificationEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    if (user.emailVerified) {
+      res.status(200).json({ message: "Email is already verified" });
+      return;
+    }
+
+    // Generate new verification token
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationTokenExpiry = new Date();
+    verificationTokenExpiry.setHours(verificationTokenExpiry.getHours() + 24); // 24 hour expiry
+
+    // Update user with new token
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        verificationToken,
+        verificationTokenExpiry,
+      },
+    });
+
+    // Send verification email
+    try {
+      await sendVerificationEmail(user.email, verificationToken);
+    } catch (emailError) {
+      console.error("Failed to send verification email:", emailError);
+      throw new ApiError(500, "Failed to send verification email");
+    }
+
+    res.status(200).json({ message: "Verification email sent successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 export const refreshToken = async (
   req: Request<{}, {}, RefreshTokenInput>,
   res: Response,

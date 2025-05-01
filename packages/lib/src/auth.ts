@@ -199,6 +199,42 @@ export async function resetPassword(
   }
 }
 
+// Verify email with token
+export async function verifyEmail(
+  token: string,
+): Promise<{ success: boolean; message?: string; error?: string }> {
+  try {
+    const response = await apiClient.post("/auth/verify-email", { token });
+    return { success: true, message: response.data.message };
+  } catch (error: any) {
+    return {
+      success: false,
+      error:
+        error.response?.data?.error?.message ||
+        "Failed to verify email. Please try again.",
+    };
+  }
+}
+
+// Resend verification email
+export async function resendVerificationEmail(): Promise<{
+  success: boolean;
+  message?: string;
+  error?: string;
+}> {
+  try {
+    const response = await apiClient.post("/auth/resend-verification");
+    return { success: true, message: response.data.message };
+  } catch (error: any) {
+    return {
+      success: false,
+      error:
+        error.response?.data?.error?.message ||
+        "Failed to resend verification email. Please try again.",
+    };
+  }
+}
+
 // Add a function to check token validity
 export async function validateToken(): Promise<boolean> {
   try {

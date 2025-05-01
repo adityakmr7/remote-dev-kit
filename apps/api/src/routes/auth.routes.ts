@@ -5,7 +5,9 @@ import {
   logout,
   refreshToken,
   register,
+  resendVerificationEmail,
   resetPassword,
+  verifyEmail,
 } from "../controllers/auth.controller";
 import { githubAuth } from "../controllers/github.controller";
 import { validate } from "../middleware/validation.middleware";
@@ -16,6 +18,7 @@ import {
   refreshTokenSchema,
   registerSchema,
   resetPasswordSchema,
+  verifyEmailSchema,
 } from "../schemas/auth.schema";
 import { authenticate } from "../middleware/auth.middleware";
 
@@ -38,7 +41,8 @@ router.post("/forgot-password", validate(forgotPasswordSchema), forgotPassword);
 
 // Reset password
 router.post("/reset-password", validate(resetPasswordSchema), resetPassword);
-
+router.post("/verify-email", validate(verifyEmailSchema), verifyEmail);
+router.post("/resend-verification", authenticate, resendVerificationEmail);
 // Logout
 router.post("/logout", logout);
 // Add a token validation endpoint

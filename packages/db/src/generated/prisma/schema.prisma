@@ -15,29 +15,31 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String?
-  name      String?
-  avatarUrl String?
-  isAdmin   Boolean  @default(false) // Add this field for admin
-  provider  String   @default("email") // "email", "github", etc.
-  status    String?  @default("offline") // "online", "offline", "away"
-  role      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id                      String                   @id @default(uuid())
+  email                   String                   @unique
+  password                String?
+  name                    String?
+  avatarUrl               String?
+  isAdmin                 Boolean                  @default(false) // Add this field for admin
+  provider                String                   @default("email") // "email", "github", etc.
+  status                  String?                  @default("offline") // "online", "offline", "away"
+  role                    String?
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  emailVerified           Boolean                  @default(false)
+  verificationToken       String?
+  verificationTokenExpiry DateTime?
   // Relations
-  teams               UserTeam[]
-  standups            Standup[]
-  pairSessions        PairSessionParticipant[]
-  pullRequests        PullRequest[]
-  focusTimes          FocusTime[]
-  subscription        Subscription?            @relation(fields: [subscriptionId], references: [id])
-  organizations       OrganizationMember[]
-  subscriptionId      String?
-  PullRequestComment  PullRequestComment[]
-  PullRequestReviewer PullRequestReviewer[]
+  teams                   UserTeam[]
+  standups                Standup[]
+  pairSessions            PairSessionParticipant[]
+  pullRequests            PullRequest[]
+  focusTimes              FocusTime[]
+  subscription            Subscription?            @relation(fields: [subscriptionId], references: [id])
+  organizations           OrganizationMember[]
+  subscriptionId          String?
+  PullRequestComment      PullRequestComment[]
+  PullRequestReviewer     PullRequestReviewer[]
 }
 
 model Team {
