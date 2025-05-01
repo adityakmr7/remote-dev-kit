@@ -4,8 +4,8 @@ import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { getSession, logout } from "@/lib/auth";
-import apiClient from "@/lib/api-client";
+import { getSession, logout } from "@repo/lib/auth";
+import apiClient from "../../../packages/lib/src/api-client";
 
 type User = {
   id: string;

@@ -22,6 +22,8 @@ import {
   respondToInvitationSchema,
   updateTeamSchema,
 } from "../schemas/team.schema";
+import { hasTeamPermission } from "../middleware/permission.middleware.ts";
+import { TeamPermission } from "@repo/lib/types/permissions";
 
 const router = express.Router();
 
@@ -31,6 +33,51 @@ router.use(authenticate);
 // Get all teams for the current user
 router.get("/", getMyTeams);
 
+// Get team by ID
+router.get("/:id", getTeamById);
+
+// Create a new team
+router.post("/", validate(createTeamSchema), createTeam);
+
+// Update a team
+router.put(
+  "/:id",
+  validate(updateTeamSchema),
+  hasTeamPermission(TeamPermission.EDIT_TEAM_SETTINGS),
+  updateTeam,
+);
+
+// Delete a team
+router.delete(
+  "/:id",
+  hasTeamPermission(TeamPermission.DELETE_TEAM),
+  deleteTeam,
+);
+
+// Invite a user to a team
+router.post("/:id/invite", validate(inviteToTeamSchema), inviteToTeam);
+
+// Add a member to a team
+router.post(
+  "/:id/members",
+  validate(addTeamMemberSchema),
+  hasTeamPermission(TeamPermission.INVITE_MEMBERS),
+  addTeamMember,
+);
+
+// Remove a member from a team
+router.delete(
+  "/:id/members/:memberId",
+  hasTeamPermission(TeamPermission.REMOVE_MEMBERS),
+  removeTeamMember,
+);
+
+// Update a team member's role
+router.put(
+  "/:id/members/:memberId",
+  hasTeamPermission(TeamPermission.MANAGE_MEMBER_ROLES),
+  updateTeamMemberRole,
+);
 // Get team invitations for the current user
 router.get("/invitations", getTeamInvitations);
 
@@ -43,29 +90,4 @@ router.post(
   validate(respondToInvitationSchema),
   respondToInvitation,
 );
-
-// Get team by ID
-router.get("/:id", getTeamById);
-
-// Create a new team
-router.post("/", validate(createTeamSchema), createTeam);
-
-// Update a team
-router.put("/:id", validate(updateTeamSchema), updateTeam);
-
-// Delete a team
-router.delete("/:id", deleteTeam);
-
-// Invite a user to a team
-router.post("/:id/invite", validate(inviteToTeamSchema), inviteToTeam);
-
-// Add a member to a team
-router.post("/:id/members", validate(addTeamMemberSchema), addTeamMember);
-
-// Remove a member from a team
-router.delete("/:id/members/:memberId", removeTeamMember);
-
-// Update a team member's role
-router.put("/:id/members/:memberId", updateTeamMemberRole);
-
 export default router;

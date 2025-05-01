@@ -42,7 +42,7 @@ import {
   respondToInvitation,
   type Team,
   type TeamInvitation,
-} from "@/lib/team-api";
+} from "@repo/lib/team-api";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { toast } from "sonner";
 

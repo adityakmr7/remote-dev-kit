@@ -18,7 +18,7 @@ import {
   getStandupsByDate,
   getTodayStandups,
   type Standup,
-} from "@/lib/standup-api";
+} from "@repo/lib/standup-api";
 import { toast } from "sonner";
 
 export default function StandupsPage() {

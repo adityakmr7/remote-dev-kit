@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowLeft, Mail } from "lucide-react";
 import Link from "next/link";
 
-import { forgotPassword } from "@/lib/auth";
+import { forgotPassword } from "@repo/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
   Card,

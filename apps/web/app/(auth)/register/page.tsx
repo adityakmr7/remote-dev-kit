@@ -6,7 +6,7 @@ import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { register } from "@/lib/auth";
+import { register } from "@repo/lib/auth";
 import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import {

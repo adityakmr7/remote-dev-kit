@@ -4,8 +4,16 @@ import { prismaClient as prisma } from "@repo/db/client";
 import type {
   AddTeamMemberInput,
   CreateTeamInput,
+  InviteToTeamInput,
+  RespondToInvitationInput,
   UpdateTeamInput,
+  UpdateTeamMemberRoleInput,
 } from "../schemas/team.schema";
+import {
+  getPermissionsForRole,
+  TeamPermission,
+} from "@repo/lib/types/permissions";
+import { sendMail } from "../services/email.service";
 
 // Get all teams for the current user
 export const getMyTeams = async (
@@ -52,6 +60,8 @@ export const getMyTeams = async (
         name: team.name,
         description: team.description,
         role: userTeam.role,
+        userRole: userTeam.role,
+        userPermissions: getPermissionsForRole(userTeam.role as any),
         createdAt: team.createdAt,
         updatedAt: team.updatedAt,
         memberCount: team.members.length,
@@ -127,6 +137,7 @@ export const getTeamById = async (
       createdAt: team.createdAt,
       updatedAt: team.updatedAt,
       userRole: userTeam.role,
+      userPermissions: getPermissionsForRole(userTeam.role as any),
       members: team.members.map((member) => ({
         id: member.user.id,
         name: member.user.name,
@@ -143,6 +154,45 @@ export const getTeamById = async (
   }
 };
 
+// Check if user has a specific permission in a team
+export const checkTeamPermission = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+    const { teamId, permission } = req.params;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    if (!Object.values(TeamPermission).includes(permission as TeamPermission)) {
+      throw new ApiError(400, "Invalid permission");
+    }
+
+    // Get a user's role in the team
+    const userTeam = await prisma.userTeam.findFirst({
+      where: { userId, teamId },
+    });
+
+    if (!userTeam) {
+      return res.status(200).json({ hasPermission: false });
+    }
+
+    // Check if the user's role has the required permission
+    const userPermissions = getPermissionsForRole(userTeam.role as any);
+    const hasPermission = userPermissions.includes(
+      permission as TeamPermission,
+    );
+
+    res.status(200).json({ hasPermission });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Create a new team
 export const createTeam = async (
   req: Request<{}, {}, CreateTeamInput>,
@@ -151,10 +201,35 @@ export const createTeam = async (
 ) => {
   try {
     const userId = req.user?.id;
-    const { name, description, visibility } = req.body;
+    const { name, description, organizationId } = req.body;
 
     if (!userId) {
       throw new ApiError(401, "Not authenticated");
+    }
+    if (!organizationId) {
+      throw new ApiError(400, "Organization ID is required");
+    }
+
+    // Check if user is a member of the organization
+    const orgMember = await prisma.organizationMember.findUnique({
+      where: {
+        userId_organizationId: {
+          userId,
+          organizationId,
+        },
+      },
+    });
+
+    if (!orgMember) {
+      throw new ApiError(403, "You are not a member of this organization");
+    }
+
+    // Only organization admins and leads can create teams
+    if (orgMember.role !== "ADMIN" && orgMember.role !== "LEAD") {
+      throw new ApiError(
+        403,
+        "You don't have permission to create teams in this organization",
+      );
     }
 
     // Create team and add current user as admin
@@ -162,6 +237,7 @@ export const createTeam = async (
       data: {
         name,
         description,
+        organizationId,
         members: {
           create: {
             userId,
@@ -190,9 +266,11 @@ export const createTeam = async (
       id: team.id,
       name: team.name,
       description: team.description,
+      organizationId: team.organizationId,
       createdAt: team.createdAt,
       updatedAt: team.updatedAt,
       userRole: "ADMIN",
+      userPermissions: getPermissionsForRole("ADMIN" as any),
       members: team.members.map((member) => ({
         id: member.user.id,
         name: member.user.name,
@@ -223,14 +301,7 @@ export const updateTeam = async (
       throw new ApiError(401, "Not authenticated");
     }
 
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId: id, role: "ADMIN" },
-    });
-
-    if (!userTeam) {
-      throw new ApiError(403, "You don't have permission to update this team");
-    }
+    // Permission check is now handled by middleware
 
     const updatedTeam = await prisma.team.update({
       where: { id },
@@ -254,6 +325,11 @@ export const updateTeam = async (
       },
     });
 
+    // Get user's role in the team
+    const userTeam = await prisma.userTeam.findFirst({
+      where: { userId, teamId: id },
+    });
+
     // Format the response
     const formattedTeam = {
       id: updatedTeam.id,
@@ -261,7 +337,10 @@ export const updateTeam = async (
       description: updatedTeam.description,
       createdAt: updatedTeam.createdAt,
       updatedAt: updatedTeam.updatedAt,
-      userRole: "ADMIN",
+      userRole: userTeam?.role || "MEMBER",
+      userPermissions: getPermissionsForRole(
+        (userTeam?.role || "MEMBER") as any,
+      ),
       members: updatedTeam.members.map((member) => ({
         id: member.user.id,
         name: member.user.name,
@@ -284,21 +363,9 @@ export const deleteTeam = async (
   next: NextFunction,
 ) => {
   try {
-    const userId = req.user?.id;
     const { id } = req.params;
 
-    if (!userId) {
-      throw new ApiError(401, "Not authenticated");
-    }
-
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId: id, role: "ADMIN" },
-    });
-
-    if (!userTeam) {
-      throw new ApiError(403, "You don't have permission to delete this team");
-    }
+    // Permission check is now handled by middleware
 
     await prisma.team.delete({
       where: { id },
@@ -318,24 +385,14 @@ export const addTeamMember = async (
 ) => {
   try {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const { id: teamId } = req.params;
     const { email, role } = req.body;
 
     if (!userId) {
       throw new ApiError(401, "Not authenticated");
     }
 
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId: id, role: "ADMIN" },
-    });
-
-    if (!userTeam) {
-      throw new ApiError(
-        403,
-        "You don't have permission to add members to this team",
-      );
-    }
+    // Permission check is now handled by middleware
 
     // Find the user to add
     const userToAdd = await prisma.user.findUnique({
@@ -346,9 +403,33 @@ export const addTeamMember = async (
       throw new ApiError(404, "User not found");
     }
 
-    // Check if user is already a member
+    // Get the team with its organization
+    const team = await prisma.team.findUnique({
+      where: { id: teamId },
+      select: { organizationId: true },
+    });
+
+    if (!team || !team.organizationId) {
+      throw new ApiError(404, "Team not found");
+    }
+
+    // Check if user is a member of the organization
+    const userOrgMember = await prisma.organizationMember.findUnique({
+      where: {
+        userId_organizationId: {
+          userId: userToAdd.id,
+          organizationId: team.organizationId,
+        },
+      },
+    });
+
+    if (!userOrgMember) {
+      throw new ApiError(400, "User is not a member of this organization");
+    }
+
+    // Check if user is already a member of the team
     const existingMember = await prisma.userTeam.findFirst({
-      where: { userId: userToAdd.id, teamId: id },
+      where: { userId: userToAdd.id, teamId },
     });
 
     if (existingMember) {
@@ -359,7 +440,7 @@ export const addTeamMember = async (
     await prisma.userTeam.create({
       data: {
         userId: userToAdd.id,
-        teamId: id,
+        teamId,
         role,
       },
     });
@@ -393,17 +474,7 @@ export const removeTeamMember = async (
       throw new ApiError(401, "Not authenticated");
     }
 
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId: id, role: "ADMIN" },
-    });
-
-    if (!userTeam) {
-      throw new ApiError(
-        403,
-        "You don't have permission to remove members from this team",
-      );
-    }
+    // Permission check is now handled by middleware
 
     // Check if the member to remove exists
     const memberToRemove = await prisma.userTeam.findFirst({
@@ -445,23 +516,13 @@ export const updateTeamMemberRole = async (
   try {
     const userId = req.user?.id;
     const { id, memberId } = req.params;
-    const { role } = req.body;
+    const { role } = req.body as UpdateTeamMemberRoleInput;
 
     if (!userId) {
       throw new ApiError(401, "Not authenticated");
     }
 
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId: id, role: "ADMIN" },
-    });
-
-    if (!userTeam) {
-      throw new ApiError(
-        403,
-        "You don't have permission to update member roles in this team",
-      );
-    }
+    // Permission check is now handled by middleware
 
     // Check if the member exists
     const memberToUpdate = await prisma.userTeam.findFirst({
@@ -529,57 +590,77 @@ export const inviteToTeam = async (
       throw new ApiError(401, "Not authenticated");
     }
 
-    // Check if user is an admin of the team
-    const userTeam = await prisma.userTeam.findFirst({
-      where: { userId, teamId, role: "ADMIN" },
+    // Get the team with its organization
+    const team = await prisma.team.findUnique({
+      where: { id: teamId },
+      select: { organizationId: true, name: true },
     });
 
-    if (!userTeam) {
+    if (!team || !team.organizationId) {
+      throw new ApiError(404, "Team not found");
+    }
+
+    // Check if user is organization admin or lead
+    const orgMember = await prisma.organizationMember.findUnique({
+      where: {
+        userId_organizationId: {
+          userId,
+          organizationId: team.organizationId,
+        },
+      },
+    });
+
+    // Check if user is team admin
+    const teamMember = await prisma.userTeam.findFirst({
+      where: {
+        userId,
+        teamId,
+        role: "ADMIN",
+      },
+    });
+
+    // Only organization admins, organization leads, or team admins can invite members
+    if (
+      !(
+        (orgMember &&
+          (orgMember.role === "ADMIN" || orgMember.role === "LEAD")) ||
+        teamMember
+      )
+    ) {
       throw new ApiError(
         403,
         "You don't have permission to invite members to this team",
       );
     }
 
-    // Check if the team exists
-    const team = await prisma.team.findUnique({
-      where: { id: teamId },
-    });
-
-    if (!team) {
-      throw new ApiError(404, "Team not found");
-    }
-
-    // Check if user is already a member
+    // Check if the user to invite is already a member of the organization
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUser) {
-      const existingMember = await prisma.userTeam.findFirst({
+      const userOrgMember = await prisma.organizationMember.findUnique({
+        where: {
+          userId_organizationId: {
+            userId: existingUser.id,
+            organizationId: team.organizationId,
+          },
+        },
+      });
+
+      if (!userOrgMember) {
+        throw new ApiError(400, "User is not a member of this organization");
+      }
+
+      const existingTeamMember = await prisma.userTeam.findFirst({
         where: { userId: existingUser.id, teamId },
       });
 
-      if (existingMember) {
+      if (existingTeamMember) {
         throw new ApiError(400, "User is already a member of this team");
       }
-    }
-
-    // Check if there's already a pending invitation
-    const existingInvitation = await prisma.teamInvitation.findFirst({
-      where: {
-        email,
-        teamId,
-        status: "PENDING",
-        expiresAt: { gt: new Date() },
-      },
-    });
-
-    if (existingInvitation) {
-      throw new ApiError(
-        400,
-        "There's already a pending invitation for this email",
-      );
+    } else {
+      throw new ApiError(404, "User not found in the system");
     }
 
     // Create expiration date (7 days from now)
@@ -605,13 +686,13 @@ export const inviteToTeam = async (
 
     // Send invitation email
     try {
-      await sendEmail({
+      await sendMail({
         to: email,
         subject: `Invitation to join ${team.name}`,
         text: `${inviter?.name || inviter?.email || "Someone"} has invited you to join ${team.name}. 
-               Click here to accept: ${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}`,
+              Click here to accept: ${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}`,
         html: `<p>${inviter?.name || inviter?.email || "Someone"} has invited you to join ${team.name}.</p>
-               <p><a href="${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}">Click here to view the invitation</a></p>`,
+              <p><a href="${process.env.FRONTEND_URL}/teams/invitations/${invitation.id}">Click here to view the invitation</a></p>`,
       });
     } catch (error) {
       console.error("Failed to send invitation email:", error);

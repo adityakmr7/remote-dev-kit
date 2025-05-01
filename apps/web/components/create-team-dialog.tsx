@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Loader2, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { createTeam } from "@/lib/team-api";
+import { createTeam } from "@repo/lib/team-api";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
