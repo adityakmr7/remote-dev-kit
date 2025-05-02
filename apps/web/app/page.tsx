@@ -15,7 +15,6 @@ import {
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AppSidebar } from "@/components/app-sidebar";
-import { ThemeToggle } from "@/components/theme-toggle";
 import {
   type DashboardStats,
   getActivePairSessions,
@@ -23,7 +22,8 @@ import {
   getTodayStandups,
   type PairSession,
   type Standup,
-} from "../../../packages/lib/src/dashboard-api";
+} from "@repo/lib/dashboard-api";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -31,20 +31,10 @@ export default function Dashboard() {
   const [pairSessions, setPairSessions] = useState<PairSession[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
   useEffect(() => {
     async function fetchDashboardData() {
       setIsLoading(true);
       try {
-        // Check if user is authenticated before making API calls
-        // const isAuthenticated = await isUserAuthenticated();
-
-        // if (!isAuthenticated) {
-        //   console.error("User not authenticated, redirecting to login");
-        //   router.push("/login");
-        //   return;
-        // }
-
         // Fetch all data in parallel
         const [statsData, standupsData, pairSessionsData] = await Promise.all([
           getDashboardStats(),
@@ -65,22 +55,6 @@ export default function Dashboard() {
 
     fetchDashboardData();
   }, [router]);
-
-  // Helper function to check authentication
-  // async function isUserAuthenticated() {
-  //   // First check localStorage for tokens
-  //   const accessToken = localStorage.getItem("accessToken");
-  //   if (!accessToken) return false;
-  //
-  //   try {
-  //     // Make a lightweight API call to validate the token
-  //     await apiClient.get("/auth/validate");
-  //     return true;
-  //   } catch (error) {
-  //     console.error("Authentication validation failed:", error);
-  //     return false;
-  //   }
-  // }
 
   return (
     <SidebarProvider>

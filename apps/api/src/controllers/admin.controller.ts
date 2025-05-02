@@ -590,11 +590,11 @@ export const getDashboardStats = async (
 ) => {
   try {
     const [
-      totalUsers,
-      totalOrganizations,
-      totalTeams,
-      recentUsers,
-      recentOrganizations,
+      totalUsers = 0,
+      totalOrganizations = 0,
+      totalTeams = 0,
+      recentUsers = 0,
+      recentOrganizations = 0,
     ] = await Promise.all([
       prisma.user.count(),
       prisma.organization.count(),
@@ -626,6 +626,13 @@ export const getDashboardStats = async (
       }),
     ]);
 
+    console.log({
+      totalUsers,
+      totalOrganizations,
+      totalTeams,
+      recentUsers,
+      recentOrganizations,
+    });
     res.status(httpCode.OK).json({
       stats: {
         totalUsers,

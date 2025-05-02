@@ -1,117 +1,74 @@
 "use client";
 
-import {
-  Activity,
-  Code2,
-  GitPullRequest,
-  MessageSquare,
-  Users,
-} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { UserDropdown } from "@/components/user-dropdown";
+import {
+  BarChart3,
+  Clock,
+  Github,
+  Home,
+  MessageSquare,
+  Settings,
+  Users,
+} from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
+import { UserDropdown } from "./user-dropdown";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
+
+const navigation = [
+  { name: "Dashboard", href: "/dashboard", icon: Home },
+  { name: "Standups", href: "/standups", icon: MessageSquare },
+  { name: "Teams", href: "/teams", icon: Users },
+  { name: "Focus Time", href: "/focus", icon: Clock },
+  { name: "Pull Requests", href: "/pull-requests", icon: Github },
+  { name: "Analytics", href: "/analytics", icon: BarChart3 },
+  { name: "Settings", href: "/settings", icon: Settings },
+];
 
 export function AppSidebar() {
   const pathname = usePathname();
 
-  // Helper function to check if a path is active
-  const isActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true;
-    if (path !== "/" && pathname.startsWith(path)) return true;
-    return false;
-  };
-
   return (
     <Sidebar>
-      <SidebarHeader className="border-b">
-        <div className="flex items-center gap-2 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
-            <Code2 className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-semibold">RemoteDevKit</span>
-        </div>
+      <SidebarHeader className="flex items-center px-4 py-2">
+        <Link href="/dashboard" className="flex items-center">
+          <span className="text-xl font-bold">RemoteDevKit</span>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Main</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton isActive={isActive("/")} asChild>
-                  <Link href="/">
-                    <Activity className="h-4 w-4" />
-                    <span>Dashboard</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton isActive={isActive("/standups")} asChild>
-                  <Link href="/standups">
-                    <MessageSquare className="h-4 w-4" />
-                    <span>Async Standups</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive={isActive("/pair-programming")}
-                  asChild
-                >
-                  <Link href="/pair-programming">
-                    <Code2 className="h-4 w-4" />
-                    <span>Pair Programming</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton isActive={isActive("/pr-feedback")} asChild>
-                  <Link href="/pr-feedback">
-                    <GitPullRequest className="h-4 w-4" />
-                    <span>PR Feedback</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Team</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton isActive={isActive("/teams")} asChild>
-                  <Link href="/teams">
-                    <Users className="h-4 w-4" />
-                    <span>Teams</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <SidebarMenu>
+          {navigation.map((item) => (
+            <SidebarMenuItem key={item.name}>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === item.href}
+                tooltip={item.name}
+              >
+                <Link href={item.href}>
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.name}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4">
-        <div className="flex items-center gap-2">
+      <SidebarFooter className="p-4">
+        <div className="flex flex-col space-y-4">
+          <ThemeToggle />
           <UserDropdown />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Sarah Chen</span>
-            <span className="text-xs text-muted-foreground">Tech Lead</span>
-          </div>
         </div>
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }

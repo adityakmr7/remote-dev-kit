@@ -1,6 +1,7 @@
 import express from "express";
 import {
   forgotPassword,
+  githubCallback,
   login,
   logout,
   refreshToken,
@@ -14,6 +15,7 @@ import { validate } from "../middleware/validation.middleware";
 import {
   forgotPasswordSchema,
   githubAuthSchema,
+  githubCallbackSchema,
   loginSchema,
   refreshTokenSchema,
   registerSchema,
@@ -45,6 +47,8 @@ router.post("/verify-email", validate(verifyEmailSchema), verifyEmail);
 router.post("/resend-verification", authenticate, resendVerificationEmail);
 // Logout
 router.post("/logout", logout);
+
+router.post("/github/callback", validate(githubCallbackSchema), githubCallback);
 // Add a token validation endpoint
 router.get("/validate", authenticate, (req, res) => {
   res.status(200).json({ valid: true });

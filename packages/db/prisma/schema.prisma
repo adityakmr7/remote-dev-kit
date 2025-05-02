@@ -15,14 +15,23 @@ datasource db {
 }
 
 model User {
-  id                      String                   @id @default(uuid())
-  email                   String                   @unique
-  password                String?
-  name                    String?
-  avatarUrl               String?
-  isAdmin                 Boolean                  @default(false) // Add this field for admin
-  provider                String                   @default("email") // "email", "github", etc.
-  status                  String?                  @default("offline") // "online", "offline", "away"
+  id        String  @id @default(uuid())
+  email     String  @unique
+  password  String?
+  name      String?
+  avatarUrl String?
+  isAdmin   Boolean @default(false) // Add this field for admin
+  provider  String  @default("email") // "email", "github", etc.
+  status    String? @default("offline") // "online", "offline", "away"
+
+  bio                     String?
+  jobTitle                String?
+  githubId                String?                  @unique
+  githubUsername          String?                  @unique
+  githubToken             String?
+  githubRefreshToken      String?
+  onboardingCompleted     Boolean                  @default(false)
+  workspaceSettings       Json?                    @default("{}")
   role                    String?
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @updatedAt

@@ -11,3 +11,30 @@ declare global {
     }
   }
 }
+
+export interface User {
+  id: string
+  email: string
+  name: string | null
+  avatarUrl: string | null
+  bio: string | null
+  jobTitle: string | null
+  githubId: string | null
+  githubUsername: string | null
+  onboardingCompleted: boolean
+  workspaceSettings: WorkspaceSettings | null
+  role: string | null
+  createdAt: string
+  updatedAt: string
+  emailVerified: boolean
+}
+
+export interface WorkspaceSettings {
+  defaultEditor?: string
+  theme?: string
+  fontSize?: number
+  tabSize?: number
+  autoSave?: boolean
+  [key: string]: any
+}
+

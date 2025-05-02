@@ -10,83 +10,138 @@ export const getDashboardStats = async (
   try {
     const userId = req.user?.id;
 
-    console.log(userId);
     if (!userId) {
-      throw new ApiError(401, "Not authenticated");
+      res.status(401).json({
+        success: false,
+        message: "Not authenticated",
+      });
+      return;
     }
 
     // Get user's teams
-    const userTeams = await prisma.userTeam.findMany({
-      where: { userId },
-      select: { teamId: true },
-    });
+    let userTeams;
+    try {
+      userTeams = await prisma.userTeam.findMany({
+        where: { userId },
+        select: { teamId: true },
+      });
+    } catch (dbError) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch team information",
+      });
+      return;
+    }
+
+    if (!userTeams || userTeams.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "No teams found for this user",
+      });
+      return;
+    }
 
     const teamIds = userTeams.map((ut) => ut.teamId);
+    let teamMemberIds: string[] = [];
 
-    // Get focus time stats
-    const focusTimeStats = await prisma.focusTime.aggregate({
-      where: {
-        userId: { in: await getTeamMemberIds(teamIds) },
-        date: { gte: new Date(new Date().setDate(new Date().getDate() - 7)) }, // Last 7 days
-      },
-      _avg: {
-        minutes: true,
-      },
-    });
+    try {
+      teamMemberIds = await getTeamMemberIds(teamIds);
+      if (!teamMemberIds || teamMemberIds.length === 0) {
+        res.status(404).json({
+          success: false,
+          message: "No team members found",
+        });
+      }
+    } catch (memberError) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch team members",
+      });
+    }
 
-    // Get standup completion rate
+    // Setup date ranges
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
     const todayEnd = new Date();
     todayEnd.setHours(23, 59, 59, 999);
 
-    const teamMemberIds = await getTeamMemberIds(teamIds);
-    const totalTeamMembers = teamMemberIds.length;
+    const lastWeekDate = new Date();
+    lastWeekDate.setDate(lastWeekDate.getDate() - 7);
 
-    const standupCompletions = await prisma.standup.count({
-      where: {
-        userId: { in: teamMemberIds },
-        createdAt: {
-          gte: todayStart,
-          lte: todayEnd,
+    const yesterdayStart = new Date();
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+    yesterdayStart.setHours(0, 0, 0, 0);
+
+    const yesterdayEnd = new Date();
+    yesterdayEnd.setDate(yesterdayEnd.getDate() - 1);
+    yesterdayEnd.setHours(23, 59, 59, 999);
+
+    // Get focus time stats
+    let focusTimeStats;
+    try {
+      focusTimeStats = await prisma.focusTime.aggregate({
+        where: {
+          userId: { in: teamMemberIds },
+          date: { gte: lastWeekDate },
         },
-      },
-    });
+        _avg: {
+          minutes: true,
+        },
+      });
+    } catch (focusError) {
+      console.error("Error fetching focus time stats:", focusError);
+      focusTimeStats = { _avg: { minutes: null } };
+    }
 
+    // Get standup completion rate
+    let standupCompletions = 0;
+    let yesterdayStandupCompletions = 0;
+    const totalTeamMembers: number = teamMemberIds.length;
+
+    try {
+      standupCompletions = await prisma.standup.count({
+        where: {
+          userId: { in: teamMemberIds },
+          createdAt: {
+            gte: todayStart,
+            lte: todayEnd,
+          },
+        },
+      });
+    } catch (standupError) {
+      console.error("Error fetching standup completions:", standupError);
+    }
+
+    try {
+      yesterdayStandupCompletions = await prisma.standup.count({
+        where: {
+          userId: { in: teamMemberIds },
+          createdAt: {
+            gte: yesterdayStart,
+            lte: yesterdayEnd,
+          },
+        },
+      });
+    } catch (yesterdayStandupError) {
+      console.error(
+        "Error fetching yesterday's standup data:",
+        yesterdayStandupError,
+      );
+    }
+
+    // Calculate rates safely
     const standupCompletionRate =
       totalTeamMembers > 0
         ? Math.round((standupCompletions / totalTeamMembers) * 100)
         : 0;
-
-    // Get open PRs count
-    const openPRs = await prisma.pullRequest.count({
-      where: {
-        teamId: { in: teamIds },
-        status: { in: ["OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED"] },
-      },
-    });
-
-    // Get yesterday's stats for comparison
-    const yesterdayStandupCompletions = await prisma.standup.count({
-      where: {
-        userId: { in: teamMemberIds },
-        createdAt: {
-          gte: new Date(new Date().setDate(new Date().getDate() - 1))
-            .setHours(0, 0, 0, 0)
-            .toString(),
-          lte: new Date(new Date().setDate(new Date().getDate() - 1))
-            .setHours(23, 59, 59, 999)
-            .toString(),
-        },
-      },
-    });
 
     const yesterdayCompletionRate =
       totalTeamMembers > 0
         ? Math.round((yesterdayStandupCompletions / totalTeamMembers) * 100)
         : 0;
 
+    // Calculate percentage change safely
     const standupChangePercentage =
       yesterdayCompletionRate > 0
         ? Math.round(
@@ -96,14 +151,32 @@ export const getDashboardStats = async (
           )
         : 0;
 
-    // Get PR count from yesterday
-    const yesterdayPRs = await prisma.pullRequest.count({
-      where: {
-        teamId: { in: teamIds },
-        status: { in: ["OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED"] },
-        createdAt: { lt: todayStart },
-      },
-    });
+    // Get open PRs count
+    let openPRs = 0;
+    let yesterdayPRs = 0;
+
+    try {
+      openPRs = await prisma.pullRequest.count({
+        where: {
+          teamId: { in: teamIds },
+          status: { in: ["OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED"] },
+        },
+      });
+    } catch (prError) {
+      console.error("Error fetching open PRs:", prError);
+    }
+
+    try {
+      yesterdayPRs = await prisma.pullRequest.count({
+        where: {
+          teamId: { in: teamIds },
+          status: { in: ["OPEN", "NEEDS_REVIEW", "CHANGES_REQUESTED"] },
+          createdAt: { lt: todayStart },
+        },
+      });
+    } catch (yesterdayPrError) {
+      console.error("Error fetching yesterday's PR data:", yesterdayPrError);
+    }
 
     const prChangeCount = openPRs - yesterdayPRs;
 
@@ -124,9 +197,17 @@ export const getDashboardStats = async (
       },
     };
 
-    res.status(200).json({ stats });
+    res.status(200).json({
+      success: true,
+      stats,
+    });
   } catch (error) {
-    next(error);
+    console.error("Dashboard stats error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch dashboard statistics",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 };
 

@@ -2617,6 +2617,13 @@ export namespace Prisma {
     isAdmin: boolean | null
     provider: string | null
     status: string | null
+    bio: string | null
+    jobTitle: string | null
+    githubId: string | null
+    githubUsername: string | null
+    githubToken: string | null
+    githubRefreshToken: string | null
+    onboardingCompleted: boolean | null
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2635,6 +2642,13 @@ export namespace Prisma {
     isAdmin: boolean | null
     provider: string | null
     status: string | null
+    bio: string | null
+    jobTitle: string | null
+    githubId: string | null
+    githubUsername: string | null
+    githubToken: string | null
+    githubRefreshToken: string | null
+    onboardingCompleted: boolean | null
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2653,6 +2667,14 @@ export namespace Prisma {
     isAdmin: number
     provider: number
     status: number
+    bio: number
+    jobTitle: number
+    githubId: number
+    githubUsername: number
+    githubToken: number
+    githubRefreshToken: number
+    onboardingCompleted: number
+    workspaceSettings: number
     role: number
     createdAt: number
     updatedAt: number
@@ -2673,6 +2695,13 @@ export namespace Prisma {
     isAdmin?: true
     provider?: true
     status?: true
+    bio?: true
+    jobTitle?: true
+    githubId?: true
+    githubUsername?: true
+    githubToken?: true
+    githubRefreshToken?: true
+    onboardingCompleted?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -2691,6 +2720,13 @@ export namespace Prisma {
     isAdmin?: true
     provider?: true
     status?: true
+    bio?: true
+    jobTitle?: true
+    githubId?: true
+    githubUsername?: true
+    githubToken?: true
+    githubRefreshToken?: true
+    onboardingCompleted?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -2709,6 +2745,14 @@ export namespace Prisma {
     isAdmin?: true
     provider?: true
     status?: true
+    bio?: true
+    jobTitle?: true
+    githubId?: true
+    githubUsername?: true
+    githubToken?: true
+    githubRefreshToken?: true
+    onboardingCompleted?: true
+    workspaceSettings?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -2800,6 +2844,14 @@ export namespace Prisma {
     isAdmin: boolean
     provider: string
     status: string | null
+    bio: string | null
+    jobTitle: string | null
+    githubId: string | null
+    githubUsername: string | null
+    githubToken: string | null
+    githubRefreshToken: string | null
+    onboardingCompleted: boolean
+    workspaceSettings: JsonValue | null
     role: string | null
     createdAt: Date
     updatedAt: Date
@@ -2835,6 +2887,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: boolean
     status?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    githubId?: boolean
+    githubUsername?: boolean
+    githubToken?: boolean
+    githubRefreshToken?: boolean
+    onboardingCompleted?: boolean
+    workspaceSettings?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2863,6 +2923,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: boolean
     status?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    githubId?: boolean
+    githubUsername?: boolean
+    githubToken?: boolean
+    githubRefreshToken?: boolean
+    onboardingCompleted?: boolean
+    workspaceSettings?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2882,6 +2950,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: boolean
     status?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    githubId?: boolean
+    githubUsername?: boolean
+    githubToken?: boolean
+    githubRefreshToken?: boolean
+    onboardingCompleted?: boolean
+    workspaceSettings?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2901,6 +2977,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: boolean
     status?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    githubId?: boolean
+    githubUsername?: boolean
+    githubToken?: boolean
+    githubRefreshToken?: boolean
+    onboardingCompleted?: boolean
+    workspaceSettings?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2910,7 +2994,7 @@ export namespace Prisma {
     subscriptionId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "avatarUrl" | "isAdmin" | "provider" | "status" | "role" | "createdAt" | "updatedAt" | "emailVerified" | "verificationToken" | "verificationTokenExpiry" | "subscriptionId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "avatarUrl" | "isAdmin" | "provider" | "status" | "bio" | "jobTitle" | "githubId" | "githubUsername" | "githubToken" | "githubRefreshToken" | "onboardingCompleted" | "workspaceSettings" | "role" | "createdAt" | "updatedAt" | "emailVerified" | "verificationToken" | "verificationTokenExpiry" | "subscriptionId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teams?: boolean | User$teamsArgs<ExtArgs>
     standups?: boolean | User$standupsArgs<ExtArgs>
@@ -2952,6 +3036,14 @@ export namespace Prisma {
       isAdmin: boolean
       provider: string
       status: string | null
+      bio: string | null
+      jobTitle: string | null
+      githubId: string | null
+      githubUsername: string | null
+      githubToken: string | null
+      githubRefreshToken: string | null
+      onboardingCompleted: boolean
+      workspaceSettings: Prisma.JsonValue | null
       role: string | null
       createdAt: Date
       updatedAt: Date
@@ -3399,6 +3491,14 @@ export namespace Prisma {
     readonly isAdmin: FieldRef<"User", 'Boolean'>
     readonly provider: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly jobTitle: FieldRef<"User", 'String'>
+    readonly githubId: FieldRef<"User", 'String'>
+    readonly githubUsername: FieldRef<"User", 'String'>
+    readonly githubToken: FieldRef<"User", 'String'>
+    readonly githubRefreshToken: FieldRef<"User", 'String'>
+    readonly onboardingCompleted: FieldRef<"User", 'Boolean'>
+    readonly workspaceSettings: FieldRef<"User", 'Json'>
     readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -21172,6 +21272,14 @@ export namespace Prisma {
     isAdmin: 'isAdmin',
     provider: 'provider',
     status: 'status',
+    bio: 'bio',
+    jobTitle: 'jobTitle',
+    githubId: 'githubId',
+    githubUsername: 'githubUsername',
+    githubToken: 'githubToken',
+    githubRefreshToken: 'githubRefreshToken',
+    onboardingCompleted: 'onboardingCompleted',
+    workspaceSettings: 'workspaceSettings',
     role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -21414,12 +21522,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -21453,6 +21578,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -21513,6 +21652,14 @@ export namespace Prisma {
     isAdmin?: BoolFilter<"User"> | boolean
     provider?: StringFilter<"User"> | string
     status?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
+    githubId?: StringNullableFilter<"User"> | string | null
+    githubUsername?: StringNullableFilter<"User"> | string | null
+    githubToken?: StringNullableFilter<"User"> | string | null
+    githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingCompleted?: BoolFilter<"User"> | boolean
+    workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -21540,6 +21687,14 @@ export namespace Prisma {
     isAdmin?: SortOrder
     provider?: SortOrder
     status?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    githubId?: SortOrderInput | SortOrder
+    githubUsername?: SortOrderInput | SortOrder
+    githubToken?: SortOrderInput | SortOrder
+    githubRefreshToken?: SortOrderInput | SortOrder
+    onboardingCompleted?: SortOrder
+    workspaceSettings?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21561,6 +21716,8 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    githubId?: string
+    githubUsername?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -21570,6 +21727,12 @@ export namespace Prisma {
     isAdmin?: BoolFilter<"User"> | boolean
     provider?: StringFilter<"User"> | string
     status?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
+    githubToken?: StringNullableFilter<"User"> | string | null
+    githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingCompleted?: BoolFilter<"User"> | boolean
+    workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -21586,7 +21749,7 @@ export namespace Prisma {
     organizations?: OrganizationMemberListRelationFilter
     PullRequestComment?: PullRequestCommentListRelationFilter
     PullRequestReviewer?: PullRequestReviewerListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "githubId" | "githubUsername">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -21597,6 +21760,14 @@ export namespace Prisma {
     isAdmin?: SortOrder
     provider?: SortOrder
     status?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    githubId?: SortOrderInput | SortOrder
+    githubUsername?: SortOrderInput | SortOrder
+    githubToken?: SortOrderInput | SortOrder
+    githubRefreshToken?: SortOrderInput | SortOrder
+    onboardingCompleted?: SortOrder
+    workspaceSettings?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21621,6 +21792,14 @@ export namespace Prisma {
     isAdmin?: BoolWithAggregatesFilter<"User"> | boolean
     provider?: StringWithAggregatesFilter<"User"> | string
     status?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    jobTitle?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubUsername?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubRefreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    onboardingCompleted?: BoolWithAggregatesFilter<"User"> | boolean
+    workspaceSettings?: JsonNullableWithAggregatesFilter<"User">
     role?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -22809,6 +22988,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22835,6 +23022,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22861,6 +23056,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22887,6 +23090,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22913,6 +23124,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22931,6 +23150,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22948,6 +23175,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24264,6 +24499,29 @@ export namespace Prisma {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -24386,6 +24644,14 @@ export namespace Prisma {
     isAdmin?: SortOrder
     provider?: SortOrder
     status?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    githubId?: SortOrder
+    githubUsername?: SortOrder
+    githubToken?: SortOrder
+    githubRefreshToken?: SortOrder
+    onboardingCompleted?: SortOrder
+    workspaceSettings?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24404,6 +24670,13 @@ export namespace Prisma {
     isAdmin?: SortOrder
     provider?: SortOrder
     status?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    githubId?: SortOrder
+    githubUsername?: SortOrder
+    githubToken?: SortOrder
+    githubRefreshToken?: SortOrder
+    onboardingCompleted?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24422,6 +24695,13 @@ export namespace Prisma {
     isAdmin?: SortOrder
     provider?: SortOrder
     status?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    githubId?: SortOrder
+    githubUsername?: SortOrder
+    githubToken?: SortOrder
+    githubRefreshToken?: SortOrder
+    onboardingCompleted?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24473,6 +24753,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -26568,6 +26874,29 @@ export namespace Prisma {
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -27633,6 +27962,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27658,6 +27995,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27730,6 +28075,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27755,6 +28108,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27817,6 +28178,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27842,6 +28211,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27933,6 +28310,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27958,6 +28343,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28298,6 +28691,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28323,6 +28724,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28401,6 +28810,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28426,6 +28843,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28451,6 +28876,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28476,6 +28909,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28517,6 +28958,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28542,6 +28991,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28673,6 +29130,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28698,6 +29163,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28802,6 +29275,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28827,6 +29308,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28921,6 +29410,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28946,6 +29443,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29000,6 +29505,14 @@ export namespace Prisma {
     isAdmin?: BoolFilter<"User"> | boolean
     provider?: StringFilter<"User"> | string
     status?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
+    githubId?: StringNullableFilter<"User"> | string | null
+    githubUsername?: StringNullableFilter<"User"> | string | null
+    githubToken?: StringNullableFilter<"User"> | string | null
+    githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingCompleted?: BoolFilter<"User"> | boolean
+    workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -29018,6 +29531,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29043,6 +29564,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29163,6 +29692,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29188,6 +29725,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29319,6 +29864,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29344,6 +29897,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29428,6 +29989,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29453,6 +30022,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29515,6 +30092,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29540,6 +30125,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29624,6 +30217,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29649,6 +30250,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30351,6 +30960,14 @@ export namespace Prisma {
     isAdmin?: boolean
     provider?: string
     status?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    githubId?: string | null
+    githubUsername?: string | null
+    githubToken?: string | null
+    githubRefreshToken?: string | null
+    onboardingCompleted?: boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30368,6 +30985,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30393,6 +31018,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30418,6 +31051,14 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     provider?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    githubToken?: NullableStringFieldUpdateOperationsInput | string | null
+    githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
