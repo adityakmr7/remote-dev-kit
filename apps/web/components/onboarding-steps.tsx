@@ -36,7 +36,7 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
     theme: string;
     fontSize: number;
     tabSize: number;
-    autoSave: true;
+    autoSave: boolean;
   }>({
     defaultEditor:
       (user.workspaceSettings?.defaultEditor as string) || "vscode",
@@ -52,34 +52,34 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
     icon: React.ReactNode;
     completed: boolean;
   }[] = [
-    {
-      id: "profile",
-      label: "Profile",
-      icon: <User className="h-5 w-5" />,
-      completed: currentStep !== "profile",
-    },
-    {
-      id: "workspace",
-      label: "Workspace",
-      icon: <Settings className="h-5 w-5" />,
-      completed: currentStep !== "workspace" && currentStep !== "profile",
-    },
-    {
-      id: "github",
-      label: "GitHub",
-      icon: <Github className="h-5 w-5" />,
-      completed:
-        currentStep !== "github" &&
-        currentStep !== "workspace" &&
-        currentStep !== "profile",
-    },
-    {
-      id: "team",
-      label: "Team",
-      icon: <Laptop className="h-5 w-5" />,
-      completed: currentStep === "team",
-    },
-  ];
+      {
+        id: "profile",
+        label: "Profile",
+        icon: <User className="h-5 w-5" />,
+        completed: currentStep !== "profile",
+      },
+      {
+        id: "workspace",
+        label: "Workspace",
+        icon: <Settings className="h-5 w-5" />,
+        completed: currentStep !== "workspace" && currentStep !== "profile",
+      },
+      {
+        id: "github",
+        label: "GitHub",
+        icon: <Github className="h-5 w-5" />,
+        completed:
+          currentStep !== "github" &&
+          currentStep !== "workspace" &&
+          currentStep !== "profile",
+      },
+      {
+        id: "team",
+        label: "Team",
+        icon: <Laptop className="h-5 w-5" />,
+        completed: currentStep === "team",
+      },
+    ];
 
   const handleNext = () => {
     const currentIndex = steps.findIndex((step) => step.id === currentStep);
@@ -125,7 +125,6 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
     }
   };
 
-  // @ts-ignore
   return (
     <div className="space-y-8">
       {/* Progress Steps */}
@@ -133,33 +132,30 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
         {steps.map((step, index) => (
           <div key={step.id} className="flex items-center">
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                step.completed
+              className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${step.completed
                   ? "bg-green-100 border-green-500 text-green-500 dark:bg-green-900 dark:border-green-400 dark:text-green-400"
                   : currentStep === step.id
                     ? "bg-blue-100 border-blue-500 text-blue-500 dark:bg-blue-900 dark:border-blue-400 dark:text-blue-400"
                     : "bg-gray-100 border-gray-300 text-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400"
-              }`}
+                }`}
             >
               {step.completed ? <Check className="h-5 w-5" /> : step.icon}
             </div>
             <span
-              className={`ml-2 text-sm font-medium hidden sm:inline ${
-                currentStep === step.id
+              className={`ml-2 text-sm font-medium hidden sm:inline ${currentStep === step.id
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-gray-500 dark:text-gray-400"
-              }`}
+                }`}
             >
               {step.label}
             </span>
             {index < steps.length - 1 && (
               <div className="w-12 h-1 bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block">
                 <div
-                  className={`h-full ${
-                    step.completed
+                  className={`h-full ${step.completed
                       ? "bg-green-500 dark:bg-green-400"
                       : "bg-gray-200 dark:bg-gray-700"
-                  }`}
+                    }`}
                 ></div>
               </div>
             )}
@@ -179,7 +175,6 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
         {currentStep === "workspace" && (
           <WorkspaceStep
             data={workspaceData}
-            //@ts-ignore
             setData={setWorkspaceData}
             onNext={handleNext}
             onBack={handleBack}
