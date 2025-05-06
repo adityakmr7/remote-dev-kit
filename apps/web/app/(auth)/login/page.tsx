@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { login } from "@repo/lib/auth";
-import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +21,6 @@ import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setUser, storeTokens } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -39,16 +37,6 @@ export default function LoginPage() {
 
       if (result.success && result.user) {
         // Store user in context
-        setUser(result.user);
-
-        // Store tokens in localStorage
-        if ("accessToken" in result && "refreshToken" in result) {
-          storeTokens(
-            result.accessToken as string,
-            result.refreshToken as string,
-          );
-        }
-
         router.push("/");
       } else {
         setError(result.error || "Invalid email or password");

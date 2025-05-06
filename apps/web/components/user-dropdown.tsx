@@ -1,73 +1,89 @@
 "use client";
 
-import { LogOut, Settings, User } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
-
-import { useAuth } from "@/components/auth-provider";
+import { LogOut, Settings, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from "./auth-provider";
 
 export function UserDropdown() {
   const { user, logout } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (!user) return null;
+  const handleLogout = async () => {
+    setIsLoading(true);
+    await logout();
+    setIsLoading(false);
+  };
 
-  const initials = user.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
+  // Generate initials from name or email
+  const getInitials = () => {
+    if (user?.name) {
+      return user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .substring(0, 2);
+    }
+    return user?.email.substring(0, 2).toUpperCase() || "U";
+  };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarImage
-              src="/placeholder.svg?height=32&width=32"
-              alt={user.name}
-            />
-            <AvatarFallback>{initials}</AvatarFallback>
-          </Avatar>
-        </Button>
+      <DropdownMenuTrigger className="flex items-center space-x-2 rounded-md p-2 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <Avatar className="h-8 w-8">
+          <AvatarImage
+            src={user.avatarUrl || ""}
+            alt={user.name || user.email}
+          />
+          <AvatarFallback>{getInitials()}</AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col text-left">
+          <span className="text-sm font-medium">{user.name || "User"}</span>
+          <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+            {user.email}
+          </span>
+        </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
-            </p>
-          </div>
-        </DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
-            <Link href="/profile">
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/settings">
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+        <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <User className="mr-2 h-4 w-4" />
+            Profile
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/settings">
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => logout()}>
+        <DropdownMenuItem
+          onClick={handleLogout}
+          disabled={isLoading}
+          className="text-red-500 focus:text-red-500"
+        >
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          {isLoading ? "Logging out..." : "Log out"}
+          {isLoading && (
+            <span className="ml-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

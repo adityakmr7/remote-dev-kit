@@ -1,21 +1,26 @@
 import express from "express";
 import {
   forgotPassword,
+  githubCallback,
   login,
   logout,
   refreshToken,
   register,
+  resendVerificationEmail,
   resetPassword,
+  verifyEmail,
 } from "../controllers/auth.controller";
 import { githubAuth } from "../controllers/github.controller";
 import { validate } from "../middleware/validation.middleware";
 import {
   forgotPasswordSchema,
   githubAuthSchema,
+  githubCallbackSchema,
   loginSchema,
   refreshTokenSchema,
   registerSchema,
   resetPasswordSchema,
+  verifyEmailSchema,
 } from "../schemas/auth.schema";
 import { authenticate } from "../middleware/auth.middleware";
 
@@ -38,9 +43,12 @@ router.post("/forgot-password", validate(forgotPasswordSchema), forgotPassword);
 
 // Reset password
 router.post("/reset-password", validate(resetPasswordSchema), resetPassword);
-
+router.post("/verify-email", validate(verifyEmailSchema), verifyEmail);
+router.post("/resend-verification", authenticate, resendVerificationEmail);
 // Logout
 router.post("/logout", logout);
+
+router.post("/github/callback", validate(githubCallbackSchema), githubCallback);
 // Add a token validation endpoint
 router.get("/validate", authenticate, (req, res) => {
   res.status(200).json({ valid: true });

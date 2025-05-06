@@ -1,4 +1,7 @@
 // Permission types for team roles
+
+export type OrganizationRole = "ADMIN" | "MEMBER" | "OWNER"
+
 export enum TeamPermission {
   // View permissions
   VIEW_TEAM = "VIEW_TEAM",

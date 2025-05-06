@@ -1,45 +1,54 @@
 // Client-side token utilities
+declare global {
+  interface window {
+    localStorage: Storage;
+  }
+}
+
+
+// Define a check for browser environment
+const isBrowser = () => typeof window !== 'undefined';
 
 /**
  * Get the access token from localStorage
  */
 export function getAccessToken(): string | null {
-  if (typeof window === "undefined") return null
-  return localStorage.getItem("accessToken")
+  if (!isBrowser()) return null;
+  return window.localStorage.getItem("accessToken");
 }
 
 /**
  * Get the refresh token from localStorage
  */
 export function getRefreshToken(): string | null {
-  if (typeof window === "undefined") return null
-  return localStorage.getItem("refreshToken")
+  if (!isBrowser()) return null;
+  return window.localStorage.getItem("refreshToken");
 }
 
 /**
  * Store tokens in localStorage
  */
 export function storeTokens(accessToken: string, refreshToken: string): void {
-  if (typeof window === "undefined") return
-  localStorage.setItem("accessToken", accessToken)
-  localStorage.setItem("refreshToken", refreshToken)
+  if (!isBrowser()) return;
+  window.localStorage.setItem("accessToken", accessToken);
+  window.localStorage.setItem("refreshToken", refreshToken);
 }
 
 /**
  * Clear tokens from localStorage
  */
 export function clearTokens(): void {
-  if (typeof window === "undefined") return
-  localStorage.removeItem("accessToken")
-  localStorage.removeItem("refreshToken")
+  if (!isBrowser()) return;
+  window.localStorage.removeItem("accessToken");
+  window.localStorage.removeItem("refreshToken");
 }
 
 /**
  * Check if tokens exist in localStorage
  */
 export function hasTokens(): boolean {
-  if (typeof window === "undefined") return false
-  return !!localStorage.getItem("accessToken") && !!localStorage.getItem("refreshToken")
+  if (!isBrowser()) return false;
+  return !!window.localStorage.getItem("accessToken") && !!window.localStorage.getItem("refreshToken");
 }
 
 /**
@@ -48,9 +57,17 @@ export function hasTokens(): boolean {
  */
 export function parseJwt(token: string): any {
   try {
-    return JSON.parse(atob(token.split(".")[1]))
+    const parts = token.split(".");
+    if (parts.length !== 3) {
+      return null; // Not a valid JWT which should have 3 parts
+    }
+    const payload = parts[1];
+    if (!payload) {
+      return null;
+    }
+    return JSON.parse(atob(payload));
   } catch (e) {
-    return null
+    return null;
   }
 }
 
@@ -58,11 +75,18 @@ export function parseJwt(token: string): any {
  * Check if the access token is expired
  */
 export function isTokenExpired(token: string | null): boolean {
-  if (!token) return true
+  if (!token) return true;
 
-  const payload = parseJwt(token)
-  if (!payload || !payload.exp) return true
+  const payload = parseJwt(token);
+  if (!payload || !payload.exp) return true;
 
-  const expirationTime = payload.exp * 1000 // Convert to milliseconds
-  return Date.now() >= expirationTime
+  const expirationTime = payload.exp * 1000; // Convert to milliseconds
+  return Date.now() >= expirationTime;
+}
+
+// Get user from localStorage
+export const getUser = () => {
+  if (!isBrowser()) return null;
+  const user = window.localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
 }

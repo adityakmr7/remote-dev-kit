@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { register } from "@repo/lib/auth";
-import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +21,6 @@ import { Label } from "@/components/ui/label";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { setUser, storeTokens } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,16 +45,6 @@ export default function RegisterPage() {
 
       if (result.success && result.user) {
         // Store user in context
-        setUser(result.user);
-
-        // Store tokens in localStorage
-        if ("accessToken" in result && "refreshToken" in result) {
-          storeTokens(
-            result.accessToken as string,
-            result.refreshToken as string,
-          );
-        }
-
         router.push("/");
       } else {
         setError(result.error || "Registration failed");

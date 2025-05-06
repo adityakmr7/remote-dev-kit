@@ -12,6 +12,7 @@ interface AuthResponse {
     avatarUrl: string | null;
     provider: "email" | "github";
     createdAt: string;
+    onboardingCompleted: boolean;
   };
   accessToken: string;
   refreshToken: string;
@@ -23,6 +24,7 @@ interface AuthResult {
     id: string;
     name: string | null;
     email: string;
+    onboardingCompleted: boolean;
   };
   error?: string;
   accessToken?: string;
@@ -50,7 +52,12 @@ export async function register(
     const cookieStore = await cookies();
     cookieStore.set(
       "session",
-      JSON.stringify({ id: user.id, name: user.name, email: user.email }),
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      }),
       {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -62,7 +69,12 @@ export async function register(
     // Return tokens to be stored in localStorage by the client
     return {
       success: true,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      },
       // We'll pass these back to the client component to store in localStorage
       accessToken,
       refreshToken,
@@ -95,7 +107,12 @@ export async function login(
     const cookieStore = await cookies();
     cookieStore.set(
       "session",
-      JSON.stringify({ id: user.id, name: user.name, email: user.email }),
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      }),
       {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -107,7 +124,12 @@ export async function login(
     // Return tokens to be stored in localStorage by the client
     return {
       success: true,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      },
       // We'll pass these back to the client component to store in localStorage
       accessToken,
       refreshToken,
@@ -195,6 +217,42 @@ export async function resetPassword(
       error:
         error.response?.data?.error?.message ||
         "Failed to reset password. Please try again.",
+    };
+  }
+}
+
+// Verify email with token
+export async function verifyEmail(
+  token: string,
+): Promise<{ success: boolean; message?: string; error?: string }> {
+  try {
+    const response = await apiClient.post("/auth/verify-email", { token });
+    return { success: true, message: response.data.message };
+  } catch (error: any) {
+    return {
+      success: false,
+      error:
+        error.response?.data?.error?.message ||
+        "Failed to verify email. Please try again.",
+    };
+  }
+}
+
+// Resend verification email
+export async function resendVerificationEmail(): Promise<{
+  success: boolean;
+  message?: string;
+  error?: string;
+}> {
+  try {
+    const response = await apiClient.post("/auth/resend-verification");
+    return { success: true, message: response.data.message };
+  } catch (error: any) {
+    return {
+      success: false,
+      error:
+        error.response?.data?.error?.message ||
+        "Failed to resend verification email. Please try again.",
     };
   }
 }

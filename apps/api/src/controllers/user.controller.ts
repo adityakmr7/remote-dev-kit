@@ -4,7 +4,9 @@ import { prismaClient as prisma } from "@repo/db/client";
 import { ApiError } from "../utils/error.utils";
 import type {
   ChangePasswordInput,
+  CompleteOnboardingInput,
   UpdateProfileInput,
+  UpdateWorkspaceSettingsInput,
 } from "../schemas/user.schema";
 
 export const getCurrentUser = async (
@@ -29,6 +31,11 @@ export const getCurrentUser = async (
         provider: true,
         createdAt: true,
         subscription: true,
+        bio: true,
+        jobTitle: true,
+        githubUsername: true,
+        onboardingCompleted: true,
+        workspaceSettings: true,
         teams: {
           include: {
             team: true,
@@ -54,7 +61,7 @@ export const updateProfile = async (
 ) => {
   try {
     const userId = req.user?.id;
-    const { name, avatarUrl } = req.body;
+    const { name, avatarUrl, bio, jobTitle } = req.body;
 
     if (!userId) {
       throw new ApiError(401, "Not authenticated");
@@ -65,6 +72,8 @@ export const updateProfile = async (
       data: {
         name,
         avatarUrl,
+        bio,
+        jobTitle,
       },
       select: {
         id: true,
@@ -72,10 +81,13 @@ export const updateProfile = async (
         name: true,
         avatarUrl: true,
         provider: true,
+        bio: true,
+        jobTitle: true,
         createdAt: true,
       },
     });
 
+    console.log("updatedUser", updatedUser);
     res.status(200).json({ user: updatedUser });
   } catch (error) {
     next(error);
@@ -134,5 +146,158 @@ export const changePassword = async (
     res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     next(error);
+  }
+};
+
+export const updateWorkspaceSettings = async (
+  req: Request<{}, {}, UpdateWorkspaceSettingsInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+    const settings = req.body;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    // Get current settings
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { workspaceSettings: true },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Merge new settings with existing ones
+    const currentSettings = user.workspaceSettings
+      ? (user.workspaceSettings as object)
+      : {};
+    const updatedSettings = { ...currentSettings, ...settings };
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        workspaceSettings: updatedSettings,
+      },
+      select: {
+        id: true,
+        workspaceSettings: true,
+      },
+    });
+
+    res.status(200).json({ workspaceSettings: updatedUser.workspaceSettings });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const completeOnboarding = async (
+  req: Request<{}, {}, CompleteOnboardingInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        onboardingCompleted: true,
+      },
+      select: {
+        id: true,
+        onboardingCompleted: true,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ onboardingCompleted: updatedUser.onboardingCompleted });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const onboardingProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        onboardingCompleted: true,
+        onboardingProgress: true,
+      },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Ensure the JSON is properly parsed before sending
+    const parsedProgress = typeof user.onboardingProgress === 'string'
+      ? JSON.parse(user.onboardingProgress)
+      : user.onboardingProgress;
+
+    console.log("parsedProgress", parsedProgress, user.onboardingProgress);
+    res.status(200).json({
+      onboardingCompleted: user.onboardingCompleted,
+      onboardingProgress: parsedProgress,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const updateOnboardingProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    const { progress } = req.body;
+    console.log("progress", progress);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        onboardingProgress: {
+          ...progress,
+          lastUpdated: new Date().toISOString(),
+        },
+      },
+      select: {
+        id: true,
+        onboardingProgress: true,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ onboardingProgress: updatedUser.onboardingProgress });
+  } catch (e) {
+    next(e);
   }
 };
