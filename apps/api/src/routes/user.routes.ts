@@ -3,6 +3,8 @@ import {
   changePassword,
   completeOnboarding,
   getCurrentUser,
+  onboardingProgress,
+  updateOnboardingProgress,
   updateProfile,
   updateWorkspaceSettings,
 } from "../controllers/user.controller";
@@ -50,4 +52,8 @@ router.post(
   validate(completeOnboardingSchema),
   completeOnboarding,
 );
+
+router.get("/onboarding-progress", authenticate, onboardingProgress);
+router.put("/onboarding-progress", authenticate, updateOnboardingProgress);
+
 export default router;

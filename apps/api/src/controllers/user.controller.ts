@@ -225,3 +225,79 @@ export const completeOnboarding = async (
     next(error);
   }
 };
+
+export const onboardingProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        onboardingCompleted: true,
+        onboardingProgress: true,
+      },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    // Ensure the JSON is properly parsed before sending
+    const parsedProgress = typeof user.onboardingProgress === 'string'
+      ? JSON.parse(user.onboardingProgress)
+      : user.onboardingProgress;
+
+    console.log("parsedProgress", parsedProgress, user.onboardingProgress);
+    res.status(200).json({
+      onboardingCompleted: user.onboardingCompleted,
+      onboardingProgress: parsedProgress,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const updateOnboardingProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new ApiError(401, "Not authenticated");
+    }
+
+    const { progress } = req.body;
+    console.log("progress", progress);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        onboardingProgress: {
+          ...progress,
+          lastUpdated: new Date().toISOString(),
+        },
+      },
+      select: {
+        id: true,
+        onboardingProgress: true,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ onboardingProgress: updatedUser.onboardingProgress });
+  } catch (e) {
+    next(e);
+  }
+};

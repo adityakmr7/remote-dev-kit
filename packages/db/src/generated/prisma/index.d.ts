@@ -2673,6 +2673,7 @@ export namespace Prisma {
     githubUsername: number
     githubToken: number
     githubRefreshToken: number
+    onboardingProgress: number
     onboardingCompleted: number
     workspaceSettings: number
     role: number
@@ -2751,6 +2752,7 @@ export namespace Prisma {
     githubUsername?: true
     githubToken?: true
     githubRefreshToken?: true
+    onboardingProgress?: true
     onboardingCompleted?: true
     workspaceSettings?: true
     role?: true
@@ -2850,6 +2852,7 @@ export namespace Prisma {
     githubUsername: string | null
     githubToken: string | null
     githubRefreshToken: string | null
+    onboardingProgress: JsonValue | null
     onboardingCompleted: boolean
     workspaceSettings: JsonValue | null
     role: string | null
@@ -2893,6 +2896,7 @@ export namespace Prisma {
     githubUsername?: boolean
     githubToken?: boolean
     githubRefreshToken?: boolean
+    onboardingProgress?: boolean
     onboardingCompleted?: boolean
     workspaceSettings?: boolean
     role?: boolean
@@ -2929,6 +2933,7 @@ export namespace Prisma {
     githubUsername?: boolean
     githubToken?: boolean
     githubRefreshToken?: boolean
+    onboardingProgress?: boolean
     onboardingCompleted?: boolean
     workspaceSettings?: boolean
     role?: boolean
@@ -2956,6 +2961,7 @@ export namespace Prisma {
     githubUsername?: boolean
     githubToken?: boolean
     githubRefreshToken?: boolean
+    onboardingProgress?: boolean
     onboardingCompleted?: boolean
     workspaceSettings?: boolean
     role?: boolean
@@ -2983,6 +2989,7 @@ export namespace Prisma {
     githubUsername?: boolean
     githubToken?: boolean
     githubRefreshToken?: boolean
+    onboardingProgress?: boolean
     onboardingCompleted?: boolean
     workspaceSettings?: boolean
     role?: boolean
@@ -2994,7 +3001,7 @@ export namespace Prisma {
     subscriptionId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "avatarUrl" | "isAdmin" | "provider" | "status" | "bio" | "jobTitle" | "githubId" | "githubUsername" | "githubToken" | "githubRefreshToken" | "onboardingCompleted" | "workspaceSettings" | "role" | "createdAt" | "updatedAt" | "emailVerified" | "verificationToken" | "verificationTokenExpiry" | "subscriptionId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "avatarUrl" | "isAdmin" | "provider" | "status" | "bio" | "jobTitle" | "githubId" | "githubUsername" | "githubToken" | "githubRefreshToken" | "onboardingProgress" | "onboardingCompleted" | "workspaceSettings" | "role" | "createdAt" | "updatedAt" | "emailVerified" | "verificationToken" | "verificationTokenExpiry" | "subscriptionId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teams?: boolean | User$teamsArgs<ExtArgs>
     standups?: boolean | User$standupsArgs<ExtArgs>
@@ -3042,6 +3049,7 @@ export namespace Prisma {
       githubUsername: string | null
       githubToken: string | null
       githubRefreshToken: string | null
+      onboardingProgress: Prisma.JsonValue | null
       onboardingCompleted: boolean
       workspaceSettings: Prisma.JsonValue | null
       role: string | null
@@ -3497,6 +3505,7 @@ export namespace Prisma {
     readonly githubUsername: FieldRef<"User", 'String'>
     readonly githubToken: FieldRef<"User", 'String'>
     readonly githubRefreshToken: FieldRef<"User", 'String'>
+    readonly onboardingProgress: FieldRef<"User", 'Json'>
     readonly onboardingCompleted: FieldRef<"User", 'Boolean'>
     readonly workspaceSettings: FieldRef<"User", 'Json'>
     readonly role: FieldRef<"User", 'String'>
@@ -21278,6 +21287,7 @@ export namespace Prisma {
     githubUsername: 'githubUsername',
     githubToken: 'githubToken',
     githubRefreshToken: 'githubRefreshToken',
+    onboardingProgress: 'onboardingProgress',
     onboardingCompleted: 'onboardingCompleted',
     workspaceSettings: 'workspaceSettings',
     role: 'role',
@@ -21658,6 +21668,7 @@ export namespace Prisma {
     githubUsername?: StringNullableFilter<"User"> | string | null
     githubToken?: StringNullableFilter<"User"> | string | null
     githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingProgress?: JsonNullableFilter<"User">
     onboardingCompleted?: BoolFilter<"User"> | boolean
     workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
@@ -21693,6 +21704,7 @@ export namespace Prisma {
     githubUsername?: SortOrderInput | SortOrder
     githubToken?: SortOrderInput | SortOrder
     githubRefreshToken?: SortOrderInput | SortOrder
+    onboardingProgress?: SortOrderInput | SortOrder
     onboardingCompleted?: SortOrder
     workspaceSettings?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
@@ -21731,6 +21743,7 @@ export namespace Prisma {
     jobTitle?: StringNullableFilter<"User"> | string | null
     githubToken?: StringNullableFilter<"User"> | string | null
     githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingProgress?: JsonNullableFilter<"User">
     onboardingCompleted?: BoolFilter<"User"> | boolean
     workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
@@ -21766,6 +21779,7 @@ export namespace Prisma {
     githubUsername?: SortOrderInput | SortOrder
     githubToken?: SortOrderInput | SortOrder
     githubRefreshToken?: SortOrderInput | SortOrder
+    onboardingProgress?: SortOrderInput | SortOrder
     onboardingCompleted?: SortOrder
     workspaceSettings?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
@@ -21798,6 +21812,7 @@ export namespace Prisma {
     githubUsername?: StringNullableWithAggregatesFilter<"User"> | string | null
     githubToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     githubRefreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    onboardingProgress?: JsonNullableWithAggregatesFilter<"User">
     onboardingCompleted?: BoolWithAggregatesFilter<"User"> | boolean
     workspaceSettings?: JsonNullableWithAggregatesFilter<"User">
     role?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -22994,6 +23009,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -23028,6 +23044,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -23062,6 +23079,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23096,6 +23114,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23130,6 +23149,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -23156,6 +23176,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23181,6 +23202,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24650,6 +24672,7 @@ export namespace Prisma {
     githubUsername?: SortOrder
     githubToken?: SortOrder
     githubRefreshToken?: SortOrder
+    onboardingProgress?: SortOrder
     onboardingCompleted?: SortOrder
     workspaceSettings?: SortOrder
     role?: SortOrder
@@ -27968,6 +27991,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28001,6 +28025,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28081,6 +28106,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28114,6 +28140,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28184,6 +28211,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28217,6 +28245,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28316,6 +28345,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28349,6 +28379,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28697,6 +28728,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28730,6 +28762,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28816,6 +28849,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28849,6 +28883,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28882,6 +28917,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28915,6 +28951,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -28964,6 +29001,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28997,6 +29035,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29136,6 +29175,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29169,6 +29209,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29281,6 +29322,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29314,6 +29356,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29416,6 +29459,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29449,6 +29493,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29511,6 +29556,7 @@ export namespace Prisma {
     githubUsername?: StringNullableFilter<"User"> | string | null
     githubToken?: StringNullableFilter<"User"> | string | null
     githubRefreshToken?: StringNullableFilter<"User"> | string | null
+    onboardingProgress?: JsonNullableFilter<"User">
     onboardingCompleted?: BoolFilter<"User"> | boolean
     workspaceSettings?: JsonNullableFilter<"User">
     role?: StringNullableFilter<"User"> | string | null
@@ -29537,6 +29583,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29570,6 +29617,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29698,6 +29746,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29731,6 +29780,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29870,6 +29920,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29903,6 +29954,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -29995,6 +30047,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30028,6 +30081,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30098,6 +30152,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -30131,6 +30186,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -30223,6 +30279,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30256,6 +30313,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30966,6 +31024,7 @@ export namespace Prisma {
     githubUsername?: string | null
     githubToken?: string | null
     githubRefreshToken?: string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: string | null
@@ -30991,6 +31050,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31024,6 +31084,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31057,6 +31118,7 @@ export namespace Prisma {
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubToken?: NullableStringFieldUpdateOperationsInput | string | null
     githubRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingProgress?: NullableJsonNullValueInput | InputJsonValue
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     workspaceSettings?: NullableJsonNullValueInput | InputJsonValue
     role?: NullableStringFieldUpdateOperationsInput | string | null

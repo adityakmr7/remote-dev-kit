@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { updateWorkspaceSettings } from "@repo/lib/user-api";
 
 interface WorkspaceData {
   defaultEditor: string;
@@ -24,29 +23,33 @@ interface WorkspaceData {
 }
 
 interface WorkspaceStepProps {
-  data: WorkspaceData;
-  setData: React.Dispatch<React.SetStateAction<WorkspaceData>>;
-  onNext: () => void;
+  defaultData: WorkspaceData;
+  onNext: (data: WorkspaceData) => void;
   onBack: () => void;
+  onSkip?: () => void;
 }
 
 export function WorkspaceStep({
-  data,
-  setData,
+  defaultData,
   onNext,
   onBack,
 }: WorkspaceStepProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-
+  const [data, setData] = useState<WorkspaceData>({
+    defaultEditor: defaultData.defaultEditor || "vscode",
+    theme: defaultData.theme || "light",
+    fontSize: defaultData.fontSize || 14,
+    tabSize: defaultData.tabSize || 4,
+    autoSave: defaultData.autoSave || false,
+  });
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
       setIsSubmitting(true);
-      await updateWorkspaceSettings(data);
-      onNext();
+      onNext(data);
     } catch (err) {
       console.error("Error updating workspace settings:", err);
       setError("Failed to update workspace settings. Please try again.");

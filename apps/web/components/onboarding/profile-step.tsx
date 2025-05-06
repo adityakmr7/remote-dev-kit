@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { updateProfile } from "@repo/lib/user-api";
 
 interface ProfileData {
   name: string;
@@ -15,14 +14,19 @@ interface ProfileData {
 }
 
 interface ProfileStepProps {
-  data: ProfileData;
-  setData: React.Dispatch<React.SetStateAction<ProfileData>>;
-  onNext: () => void;
+  defaultData: ProfileData;
+  onNext: (data: ProfileData) => void;
+  onSkip?: () => void;
 }
 
-export function ProfileStep({ data, setData, onNext }: ProfileStepProps) {
+export function ProfileStep({ defaultData, onNext }: ProfileStepProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [data, setData] = useState<ProfileData>({
+    bio: defaultData.bio || "",
+    jobTitle: defaultData.jobTitle || "",
+    name: defaultData.name || "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,12 +39,7 @@ export function ProfileStep({ data, setData, onNext }: ProfileStepProps) {
 
     try {
       setIsSubmitting(true);
-      await updateProfile({
-        name: data.name,
-        jobTitle: data.jobTitle,
-        bio: data.bio,
-      });
-      onNext();
+      onNext(data);
     } catch (err) {
       console.error("Error updating profile:", err);
       setError("Failed to update profile. Please try again.");

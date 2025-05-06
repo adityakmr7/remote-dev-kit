@@ -1,10 +1,10 @@
 import apiClient from "./api-client";
-import type { User, WorkspaceSettings } from "./types";
+import type { OnboardingProgress, User, WorkspaceSettings } from "./types";
 
 // Get current user profile
 export async function getCurrentUser(): Promise<User | null> {
   try {
-    const response = await apiClient.get("/users/profile");
+    const response = await apiClient.get("/users/me");
     return response.data.user;
   } catch (error) {
     console.error("Error fetching current user:", error);
@@ -51,6 +51,30 @@ export async function completeOnboarding(
     return response.data.user;
   } catch (error) {
     console.error("Error completing onboarding:", error);
+    throw error;
+  }
+}
+
+export async function getSavedOnboardingProgress(): Promise<{ onboardingProgress: OnboardingProgress, onboardingCompleted: boolean, } | null> {
+  try {
+    const response = await apiClient.get("/users/onboarding-progress");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching onboarding progress:", error);
+    throw error;
+  }
+}
+
+export async function saveOnboardingProgress(
+  data: OnboardingProgress,
+): Promise<{
+  onboardingProgress: OnboardingProgress;
+} | null> {
+  try {
+    const response = await apiClient.put("/users/onboarding-progress", { progress: data });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching onboarding progress:", error);
     throw error;
   }
 }

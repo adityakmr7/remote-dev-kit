@@ -12,6 +12,7 @@ interface AuthResponse {
     avatarUrl: string | null;
     provider: "email" | "github";
     createdAt: string;
+    onboardingCompleted: boolean;
   };
   accessToken: string;
   refreshToken: string;
@@ -23,6 +24,7 @@ interface AuthResult {
     id: string;
     name: string | null;
     email: string;
+    onboardingCompleted: boolean;
   };
   error?: string;
   accessToken?: string;
@@ -50,7 +52,12 @@ export async function register(
     const cookieStore = await cookies();
     cookieStore.set(
       "session",
-      JSON.stringify({ id: user.id, name: user.name, email: user.email }),
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      }),
       {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -62,7 +69,12 @@ export async function register(
     // Return tokens to be stored in localStorage by the client
     return {
       success: true,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      },
       // We'll pass these back to the client component to store in localStorage
       accessToken,
       refreshToken,
@@ -95,7 +107,12 @@ export async function login(
     const cookieStore = await cookies();
     cookieStore.set(
       "session",
-      JSON.stringify({ id: user.id, name: user.name, email: user.email }),
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      }),
       {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -107,7 +124,12 @@ export async function login(
     // Return tokens to be stored in localStorage by the client
     return {
       success: true,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        onboardingCompleted: user.onboardingCompleted,
+      },
       // We'll pass these back to the client component to store in localStorage
       accessToken,
       refreshToken,

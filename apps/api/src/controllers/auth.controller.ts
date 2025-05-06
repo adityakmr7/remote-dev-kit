@@ -77,6 +77,7 @@ export const register = async (
       accessToken,
       refreshToken,
       message: "Registration successful. Please verify your email.",
+      onboardingCompleted: user.onboardingCompleted,
     });
   } catch (error) {
     next(error);
@@ -126,6 +127,7 @@ export const login = async (
       accessToken,
       refreshToken,
       message: emailVerificationMessage,
+      onboardingCompleted: user.onboardingCompleted,
     });
   } catch (error) {
     next(error);

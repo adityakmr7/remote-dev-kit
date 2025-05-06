@@ -30,6 +30,7 @@ model User {
   githubUsername          String?                  @unique
   githubToken             String?
   githubRefreshToken      String?
+  onboardingProgress      Json?                    @default("{}")
   onboardingCompleted     Boolean                  @default(false)
   workspaceSettings       Json?                    @default("{}")
   role                    String?

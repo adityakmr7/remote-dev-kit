@@ -38,3 +38,30 @@ export interface WorkspaceSettings {
   [key: string]: any
 }
 
+export interface FormData {
+    profile: {
+      name: string;
+      jobTitle: string;
+      bio: string;
+    };
+    workspace: {
+      defaultEditor: string;
+      theme: string;
+      fontSize: number;
+      tabSize: number;
+      autoSave: boolean;
+    }
+    github: {githubUsername:string ,connected: boolean };
+    team: {
+      teamName: string;
+      teamMembers: string[];
+    };
+}
+
+export interface OnboardingProgress {
+  currentStep: number;
+  completedSteps: number[];
+  skippedSteps: number[];
+  formData:FormData,
+  lastUpdated: string;
+}

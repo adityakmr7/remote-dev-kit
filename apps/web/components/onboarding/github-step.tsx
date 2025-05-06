@@ -3,28 +3,28 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
+import { connectToGithub } from "api/src/services/github.service";
 
 interface GithubStepProps {
   onNext: () => void;
   onBack: () => void;
-  user: any; // Replace with proper user type
+  onSkip: () => void;
+  defaultData: {
+    githubUsername: string;
+  };
 }
 
-export function GithubStep({ onNext, onBack, user }: GithubStepProps) {
+export function GithubStep({ onNext, onBack, defaultData }: GithubStepProps) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [isDisconnecting, setIsDisconnecting] = useState(false);
   const [error, setError] = useState("");
-  const isConnected = !!user.githubUsername;
+  const isConnected = !!defaultData.githubUsername;
 
   const handleConnect = async () => {
     try {
       setIsConnecting(true);
       setError("");
-
-      // In a real implementation, this would redirect to GitHub OAuth
-      window.location.href = `/api/auth/github?redirect_uri=${encodeURIComponent(
-        window.location.origin + "/onboarding",
-      )}`;
+      await connectToGithub();
     } catch (err) {
       console.error("Error connecting to GitHub:", err);
       setError("Failed to connect to GitHub. Please try again.");
@@ -75,7 +75,7 @@ export function GithubStep({ onNext, onBack, user }: GithubStepProps) {
                 <Github className="h-6 w-6" />
               </div>
               <div>
-                <p className="font-medium">{user.githubUsername}</p>
+                <p className="font-medium">{defaultData.githubUsername}</p>
                 <p className="text-sm text-gray-500">Connected to GitHub</p>
               </div>
             </div>
