@@ -1,11 +1,22 @@
 import axios from "axios";
 
+// Get the API base URL from environment or default to localhost
+const getApiBaseUrl = () => {
+  // In browser, use environment variable or default
+  if (typeof window !== "undefined") {
+    return process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+  }
+  // On server, use internal URL or default
+  return process.env.API_URL || "http://localhost:4000/api";
+};
+
 // Create an axios instance with default config
 const apiClient = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: getApiBaseUrl(),
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000, // 10 second timeout
 })
 // Add a request interceptor to include the auth token in requests
 apiClient.interceptors.request.use(
@@ -50,7 +61,7 @@ apiClient.interceptors.response.use(
         }
 
         // Try to get a new token
-        const response = await axios.post(`${apiClient.defaults.baseURL}/auth/refresh-token`, {
+        const response = await axios.post(`${getApiBaseUrl()}/auth/refresh-token`, {
           refreshToken,
         })
 

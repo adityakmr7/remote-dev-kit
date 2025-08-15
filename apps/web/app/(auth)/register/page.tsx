@@ -6,7 +6,8 @@ import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { register } from "@repo/lib/auth";
+import { registerUser } from "@repo/lib/client-auth";
+import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +22,7 @@ import { Label } from "@/components/ui/label";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,11 +43,13 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      const result = await register(name, email, password);
+      const result = await registerUser(name, email, password);
 
       if (result.success && result.user) {
-        // Store user in context
-        router.push("/");
+        // Set user in auth context
+        setUser(result.user as any);
+        console.log("Registration successful:", result.message);
+        router.push("/onboarding");
       } else {
         setError(result.error || "Registration failed");
       }

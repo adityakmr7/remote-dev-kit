@@ -59,11 +59,9 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
       // Action: Redirect to the home page (redundant since already at "/")
       router.push("/");
     }
-    else if (isAuthenticated && user && !user.onboardingCompleted) {
-      // Scenario 4: User is authenticated but hasn't completed onboarding
+    else if (isAuthenticated && user && !user.onboardingCompleted && !pathname.startsWith("/onboarding")) {
+      // Scenario 4: User is authenticated but hasn't completed onboarding and is not on onboarding page
       // Action: Redirect to onboarding flow
-      // Note: The commented out condition would check if user is not already on onboarding page
-      // !pathname.startsWith("/onboarding")
       router.push("/onboarding");
     }
     else if (

@@ -2,6 +2,7 @@
 export * from "./src/admin-api"
 export * from "./src/api-client"
 export * from "./src/auth"
+export * from "./src/client-auth"
 export * from "./src/dashboard-api"
 export * from "./src/focus-time-api"
 export * from "./src/github-api"

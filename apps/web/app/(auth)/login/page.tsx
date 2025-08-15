@@ -6,7 +6,8 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { login } from "@repo/lib/auth";
+import { loginUser } from "@repo/lib/client-auth";
+import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +22,7 @@ import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -33,11 +35,18 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const result = await login(email, password);
+      const result = await loginUser(email, password);
 
       if (result.success && result.user) {
-        // Store user in context
-        router.push("/");
+        // Set user in auth context
+        setUser(result.user as any);
+        
+        // Check onboarding status and redirect accordingly
+        if (result.user.onboardingCompleted) {
+          router.push("/");
+        } else {
+          router.push("/onboarding");
+        }
       } else {
         setError(result.error || "Invalid email or password");
       }

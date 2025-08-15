@@ -14,8 +14,7 @@ import {
   saveOnboardingProgress,
 } from "@repo/lib/user-api";
 import { useAuth } from "./auth-provider";
-import type { FormData, User as UserType } from "@repo/lib/types/index";
-import { json } from "stream/consumers";
+import type { OnboardingFormData, User as UserType } from "@repo/lib/types/index";
 
 interface OnboardingStepsProps {
   user: UserType;
@@ -33,7 +32,7 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
   const { refreshUser } = useAuth();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<OnboardingFormData>({
     profile: {
       name: user.name || "",
       jobTitle: user.jobTitle || "",
@@ -93,13 +92,22 @@ export function OnboardingSteps({ user }: OnboardingStepsProps) {
   const saveProgress = async () => {
     try {
       setLoadingProgress(true);
-      await saveOnboardingProgress({
+      
+      // Create a clean copy of the data to ensure no circular references
+      const progressData = {
         currentStep,
-        completedSteps,
-        skippedSteps,
-        formData,
+        completedSteps: [...completedSteps],
+        skippedSteps: [...skippedSteps],
+        formData: {
+          profile: { ...formData.profile },
+          workspace: { ...formData.workspace },
+          github: { ...formData.github },
+          team: { ...formData.team },
+        },
         lastUpdated: new Date().toISOString(),
-      });
+      };
+      
+      await saveOnboardingProgress(progressData);
       toast.success("Progress saved successfully!");
     } catch (error) {
       console.error("Error saving progress:", error);

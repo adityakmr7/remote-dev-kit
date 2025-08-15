@@ -71,10 +71,21 @@ export async function saveOnboardingProgress(
   onboardingProgress: OnboardingProgress;
 } | null> {
   try {
-    const response = await apiClient.put("/users/onboarding-progress", { progress: data });
+    // Sanitize the data to prevent circular references
+    const sanitizedData = JSON.parse(JSON.stringify(data, (key, value) => {
+      // Filter out functions, DOM elements, and other non-serializable objects
+      if (typeof value === 'function' || 
+          (value && typeof value === 'object' && value.nodeType) ||
+          (value && typeof value === 'object' && value.window === value)) {
+        return undefined;
+      }
+      return value;
+    }));
+    
+    const response = await apiClient.put("/users/onboarding-progress", { progress: sanitizedData });
     return response.data;
   } catch (error) {
-    console.error("Error fetching onboarding progress:", error);
+    console.error("Error saving onboarding progress:", error);
     throw error;
   }
 }

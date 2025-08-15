@@ -38,7 +38,7 @@ export interface WorkspaceSettings {
   [key: string]: any
 }
 
-export interface FormData {
+export interface OnboardingFormData {
     profile: {
       name: string;
       jobTitle: string;
@@ -62,6 +62,6 @@ export interface OnboardingProgress {
   currentStep: number;
   completedSteps: number[];
   skippedSteps: number[];
-  formData:FormData,
+  formData: OnboardingFormData,
   lastUpdated: string;
 }
