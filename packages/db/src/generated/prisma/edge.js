@@ -349,7 +349,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/fisdom_may2023/Desktop/remote-dev-kit/packages/db/src/generated/prisma",
+      "value": "/Users/adityakumar/Desktop/projects/remote-dev-kit/packages/db/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -363,12 +363,12 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/fisdom_may2023/Desktop/remote-dev-kit/packages/db/prisma/schema.prisma",
+    "sourceFilePath": "/Users/adityakumar/Desktop/projects/remote-dev-kit/packages/db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "schemaEnvPath": "../../../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",
@@ -381,7 +381,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:postgres@localhost:5432/remote-dev-kit?schema=public"
+        "value": "postgresql://postgres:postgres@localhost:5432/remote_dev_kit"
       }
     }
   },

@@ -350,7 +350,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/fisdom_may2023/Desktop/remote-dev-kit/packages/db/src/generated/prisma",
+      "value": "/Users/adityakumar/Desktop/projects/remote-dev-kit/packages/db/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -364,12 +364,12 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/fisdom_may2023/Desktop/remote-dev-kit/packages/db/prisma/schema.prisma",
+    "sourceFilePath": "/Users/adityakumar/Desktop/projects/remote-dev-kit/packages/db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "schemaEnvPath": "../../../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",
@@ -382,7 +382,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:postgres@localhost:5432/remote-dev-kit?schema=public"
+        "value": "postgresql://postgres:postgres@localhost:5432/remote_dev_kit"
       }
     }
   },
@@ -396,8 +396,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "src/generated/prisma",
-    "generated/prisma",
+    "packages/db/src/generated/prisma",
+    "db/src/generated/prisma",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -427,7 +427,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "packages/db/src/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "src/generated/prisma/schema.prisma")
+path.join(process.cwd(), "packages/db/src/generated/prisma/schema.prisma")

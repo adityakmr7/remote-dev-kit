@@ -1,84 +1,226 @@
-# Turborepo starter
+# Remote Development Kit
 
-This Turborepo starter is maintained by the Turborepo core team.
+A comprehensive full-stack application for remote team collaboration, built with modern technologies and containerized for easy deployment.
 
-## Using this example
+## 🚀 Features
 
-Run the following command:
+- **Team Management** - Create and manage development teams
+- **Standup Tracking** - Daily standup entries and history
+- **GitHub Integration** - OAuth authentication and repository access
+- **Pair Programming** - Schedule and track pair programming sessions
+- **PR Feedback** - Collaborative pull request review system
+- **Admin Dashboard** - Super admin panel for user and organization management
+- **Email Verification** - Secure user onboarding with email verification
+- **Multi-tenant** - Organization-based multi-tenancy
 
-```sh
-npx create-turbo@latest
+## 🏗️ Architecture
+
+This is a Turborepo monorepo containing:
+
+### Apps
+- **`apps/api/`** - Express.js API server with Bun runtime
+- **`apps/web/`** - Next.js frontend application (main user interface)
+- **`apps/super-admin/`** - Next.js super admin dashboard
+
+### Packages
+- **`packages/db/`** - Prisma database layer with PostgreSQL
+- **`packages/lib/`** - Shared API client and utilities
+- **`packages/ui/`** - Shared React components
+- **`packages/eslint-config/`** - ESLint configurations
+- **`packages/typescript-config/`** - TypeScript configurations
+
+## 🛠️ Tech Stack
+
+- **Runtime:** Bun (API), Node.js (Next.js apps)
+- **Database:** PostgreSQL with Prisma ORM
+- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend:** Express.js with TypeScript
+- **UI Components:** Radix UI primitives
+- **Build System:** Turborepo
+- **Containerization:** Docker & Docker Compose
+
+## 🚀 Quick Start with Docker
+
+The easiest way to get started is using Docker Compose:
+
+### Prerequisites
+- Docker and Docker Compose installed
+- Git
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd remote-dev-kit
+   ```
+
+2. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+3. **Start the services**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Access the applications**
+   - API: http://localhost:4000
+   - Web App: http://localhost:3000 (after starting separately)
+   - PostgreSQL: localhost:5432
+
+### Docker Commands
+
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs api
+docker-compose logs postgres
+
+# Stop services
+docker-compose down
+
+# Rebuild and start
+docker-compose up --build -d
 ```
 
-## What's inside?
+## 🔧 Local Development Setup
 
-This Turborepo includes the following packages/apps:
+### Prerequisites
+- Node.js 18+ or Bun 1.2+
+- PostgreSQL database
+- Git
 
-### Apps and Packages
+### Installation
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+1. **Install dependencies**
+   ```bash
+   bun install
+   ```
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+2. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Configure your database and other settings
+   ```
 
-### Utilities
+3. **Set up the database**
+   ```bash
+   # Generate Prisma client
+   cd packages/db && bunx prisma generate
+   
+   # Run migrations
+   bunx prisma migrate dev
+   
+   # Seed the database
+   bun db:seed
+   ```
 
-This Turborepo has some additional tools already setup for you:
+4. **Start development servers**
+   ```bash
+   # Start all apps in development mode
+   bun dev
+   
+   # Or start individual services
+   cd apps/api && bun start        # API server
+   cd apps/web && bun dev          # Frontend app
+   cd apps/super-admin && bun dev  # Admin dashboard
+   ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## 📝 Environment Configuration
 
-### Build
+Key environment variables to configure:
 
-To build all apps and packages, run the following command:
+```env
+# Database
+DATABASE_URL=postgresql://username:password@localhost:5432/remote_dev_kit
 
+# JWT
+JWT_SECRET=your-super-secret-key
+JWT_EXPIRES_IN=7d
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+
+# Email Service
+EMAIL_HOST=smtp.gmail.com
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
 ```
-cd my-turborepo
-pnpm build
+
+## 🧪 Development Commands
+
+```bash
+# Build all packages
+bun build
+
+# Lint all packages
+bun lint
+
+# Type check all packages
+bun check-types
+
+# Format code
+bun format
+
+# Database operations
+bun db:seed              # Seed database
+cd packages/db && bunx prisma studio  # Open Prisma Studio
 ```
 
-### Develop
+## 📊 Database Schema
 
-To develop all apps and packages, run the following command:
+Key models:
+- **User** - User accounts with GitHub integration
+- **Organization** - Top-level organizations
+- **Team** - Teams within organizations
+- **Standup** - Daily standup entries
+- **PairSession** - Pair programming sessions
+- **PullRequest** - PR tracking and feedback
 
-```
-cd my-turborepo
-pnpm dev
-```
+## 🔐 Authentication
 
-### Remote Caching
+- JWT-based authentication
+- GitHub OAuth integration
+- Email verification workflow
+- Role-based access control (User, Admin, Super Admin)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## 🚀 Deployment
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Using Docker (Recommended)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+1. Update environment variables in `docker-compose.yml`
+2. Run `docker-compose up -d`
+3. Set up reverse proxy (nginx, Traefik) if needed
 
-```
-cd my-turborepo
-npx turbo login
-```
+### Manual Deployment
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+1. Build the applications: `bun build`
+2. Set up PostgreSQL database
+3. Run database migrations: `bunx prisma migrate deploy`
+4. Start the API server: `cd apps/api && bun start`
+5. Deploy Next.js apps to your preferred platform
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## 🤝 Contributing
 
-```
-npx turbo link
-```
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-## Useful Links
+## 📄 License
 
-Learn more about the power of Turborepo:
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+## 🔗 Useful Links
+
+- [Turborepo Documentation](https://turbo.build/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Bun Documentation](https://bun.sh/docs)
